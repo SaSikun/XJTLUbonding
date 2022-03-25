@@ -26,7 +26,7 @@ Mock.mock('/getImage','get',() =>{
 // })
 
 Mock.mock('/login','post',() =>{
-    Result1.status=408
+    Result1.status=200
     Result1.mcsg = '看看自己那里输错了'
     return Result1
 })

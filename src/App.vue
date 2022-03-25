@@ -13,6 +13,7 @@ export default {
 </script>
 
 <style scoped>
+html,body,#app{height: 100%}
 body {
   margin: 30px;
 }

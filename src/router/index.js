@@ -6,6 +6,7 @@ import welcome from '../components/welcome'
 import register from '../components/register'
 import notfound from '../components/notFoundPage'
 import store from '../store/index'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -16,7 +17,6 @@ const routes = [
     {
       path: '/home',
       component: home,
-      redirect: '/welcome',
       children: [
         { path: '/welcome', component: welcome }
       ]
@@ -34,6 +34,7 @@ router.beforeEach((to, from, next) => {
   // 如果用户访问的登录页, 直接放行
   console.log(localStorage.getItem('idToken'))
   console.log(to.path)
+  if(to.path ==='/404') return next();
   if (to.path === '/Login'||to.path==='/register') return next();
 
 
@@ -46,7 +47,7 @@ router.beforeEach((to, from, next) => {
 
 
 
-  if((nowTime-lastTime)>60000){
+  if((nowTime-lastTime)>3600000){
     console.log(nowTime)
     store.commit('CLEAR_Login')
     return next('/Login')
