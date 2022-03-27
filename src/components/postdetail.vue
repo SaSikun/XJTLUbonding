@@ -12,8 +12,6 @@
         </el-dropdown>
         <span>Post</span>
       </el-header>
-
-
       <el-main>
         <div class = "post"> <!--post info-->
           <el-table :data="postData">
@@ -34,11 +32,19 @@
               </el-table-column>
             </el-table>
           </div>
-          <el-table empty-text = "No pictures!" :data="picture">
-            <el-table-column prop="post_pic" label="Pic">
-            </el-table-column>
-
-          </el-table>
+          <div class = "pic">
+            <el-table empty-text = "No pictures!" :data="picture">
+              <el-table-column prop="post_pic" label="Pic">
+                <div class="demo-image__preview">
+                  <el-image
+                          style="width: 200px; height: 200px"
+                          :src="picture"
+                          :preview-src-list="picture">
+                  </el-image>
+                </div>
+              </el-table-column>
+            </el-table>
+          </div>
         </div>
 
         <div class = "comment_button"><!--comment button-->
@@ -46,7 +52,7 @@
         </div>
 
         <div class = "comment">
-          <el-table :data="commentData"><!--Comments-->
+          <el-table :data="commentData" stripe><!--Comments-->
             <el-table-column prop="user" label="User" width="140">
             </el-table-column>
             <el-table-column prop="comment" label="comment">
@@ -61,12 +67,19 @@
 
 <style scoped>
 
-
   .el-header {
-    background-color: #B3C0D1;
-    color: #333;
+    background-color: #6253FF;
+    color: white;
+    text-align: center;
+    justify-content: center;
+    font-size: large;
+    font-style: italic;
+    font-family: "UD Digi Kyokasho N-B";
+    font-weight: bold;
+    fill-opacity: 80%;
     line-height: 60px;
-    height: 10%
+    border-radius: 7px;
+    position: page;
   }
   .el-aside {
     color: #333;
@@ -81,15 +94,26 @@
     height: 80%;
   }
   ::v-deep .el-table .cell {
+    font-size: medium;
     white-space: pre-line;
   }
-  ::v-deep .content{
-    line-height: 30px;
-    font-size: 30px;
+  ::v-deep .content .el-table .cell{
+    line-height: 35px;
+    padding: 10px;
+    font-size: 20px;
     font-style: italic;
   }
   .comment_button{
-    padding: 100px;
+    padding: 50px;
+  }
+
+  ::v-deep .comment .el-table .cell{
+    line-height: 20px;
+    padding: 20px;
+  }
+  ::v-deep .pic .el-table .cell{
+    text-align: center;
+    padding: 20px;
   }
 
 </style>
@@ -100,7 +124,7 @@
 
       const comments = {
         user: 'Default',
-        comment: 'Put your comments here.'
+        comment: 'Put your comments here.\n MahoramaniMahoramaniMahoramani\n'
       };
       const post = {
         author: 'Default',
@@ -112,8 +136,10 @@
       return {
         //假数据，暂时这样写死
         postData: Array(1).fill(post),
+        //图片链接，多张图片有bug
+        picture: Array(1).fill('https://pic.imgdb.cn/item/623d6cdd27f86abb2ab9e2b4.jpg'),
         contentData: Array(1).fill(content),
-        commentData: Array(100).fill(comments)
+        commentData: Array(10).fill(comments)
       }
     }
   };
