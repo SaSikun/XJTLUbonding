@@ -1,11 +1,11 @@
-<template>
+<template xmlns:el-col="http://www.w3.org/1999/html">
   <el-container>
     <el-header>
       <el-row>
         <el-col :span="5" class="header-row">
 
           <div style="float: left; margin-top: 18px" >
-            <router-link to="/404">
+            <router-link to="/postList">
               <i class="el-icon-s-home" ></i>
 <!--     这里用来跳转首页, 颜色可以调整 在下面的a里面是静态颜色, active是点进去, css你自己设计吧 符合咱们的风格 图标大小也可以调整-->
             </router-link>
@@ -42,7 +42,7 @@
             <el-dropdown>
               <span class="el-dropdown-link" >
                 <el-avatar shape="square" :size="50" :src="userInfo.avatar" style="margin-right: 5px"></el-avatar>
-                <h4 style="display: inline; margin-left: 2px">{{userInfo.id}}</h4>
+                <h4 style="display: inline; margin-left: 2px">{{ userInfo.nickName }}</h4>
                 <i class="el-icon-arrow-down el-icon--right" style="margin-top: 19px"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
@@ -58,8 +58,11 @@
       </el-row>
     </el-header>
 
-    <el-main>
+    <!-- 这个10就是让行距变小大概, 默认160   -->
+    <el-main class="postListMain" >
+
       <router-view></router-view>
+
     </el-main>
   </el-container>
 </template>
@@ -71,11 +74,26 @@ export default {
       input2:'',
       disabled:false,
       userInfo:{
-        id:'DefaultAdmin',
+        nickName:'DefaultAdmin',
         avatar:'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
       },
+
     }
+  },
+  methods:{
+    getUserInfo:function (){
+        const token = localStorage.getItem('idToken')
+        this.$axios.get('/getUserInfo',{headers:{'token':token}}).then(res=>{
+          this.userInfo.nickName=res.data.data.nickName
+          this.userInfo.avatar = res.data.data.avatar
+        })
+    },
+  },
+  created() {
+    this.getUserInfo()
+
   }
+
 }
 </script>
 
@@ -85,6 +103,7 @@ export default {
   display: flex;
   justify-content: space-around;
 }
+
 a {
   text-decoration: none;
   color: #d3dce6;

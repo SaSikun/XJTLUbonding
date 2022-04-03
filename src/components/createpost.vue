@@ -1,0 +1,176 @@
+<template>
+    <div class="common-layout">
+        <el-dialog
+                title="Duplicate UserName!"
+                :visible.sync="DialogVisible"
+                width="20%"
+                height ="20%"
+        >
+            <div style = "text-align:center">
+              <span slot="footer" class="dialog-footer">
+              <el-button type="primary" @click="DialogVisible = false">close</el-button>
+              </span>
+            </div>
+        </el-dialog>
+        <el-container>
+            <el-header>Create Post</el-header>
+            <el-main><div style = "transform:rotate(6deg)">Post!</div></el-main>
+        </el-container>
+        <div class="login_container">
+            <div class="login_box">
+                <div>
+                    <el-form ref="postForm" :model="postForm" :rules="postFormRules" label-width="0px" class="login_form">
+                        <!--用户名-->
+                        <el-form-item prop="title">
+                            <el-input placeholder="Post title here" v-model="postForm.title" prefix-icon="el-icon-chat-round"></el-input>
+                        </el-form-item>
+                        <el-form-item prop="content">
+                            <el-input :rows = 12 placeholder="Post content here..." type="textarea" v-model="postForm.content"></el-input>
+                        </el-form-item>
+                        <!--按钮-->
+                        <el-form-item class="btns">
+                            <el-button type="primary" @click="submit()" :loading="isLoading">Submit</el-button>
+                            <el-button type="info" round @click = "cancel()" :loading="isLoading">Cancel</el-button>
+                        </el-form-item>
+                    </el-form>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+
+    export default {
+        data () {
+            return {
+                DialogVisible: false,
+                isLoading:false,
+                captureImage:'',
+                realValid: '',
+                // 这是登陆表单的数据绑定对象
+                postForm: {
+                    title: '',
+                    content: '',
+                },
+                // 表单验证规则
+                postFormRules: {
+                    title: [
+                        { required: true, message: 'Title', trigger: 'blur' },
+                        { min: 3, max: 12, message: 'length: 3-12', trigger: 'blur' }
+                    ],
+                    content: [
+                        { required: true, message: 'Content', trigger: 'blur' },
+                    ],
+                }
+            }
+        },
+
+        methods: {
+            submit () {
+                const token = localStorage.getItem('idTolen')
+                this.$axios.post('/addPost',this.postForm,{headers:{'token':token}})
+                this.$router.push('/home')
+            },
+            cancel () {
+                this.$router.push('/home')
+            }
+        }
+    }
+</script>
+
+<style lang="less" scoped>
+    .login_container{
+        height: 100%;
+    }
+
+    .login_box{
+        width:600px;
+        height:450px;
+        background-color: #E0E0DF;
+        border-radius:3px;
+        position: absolute;
+        left:50%;
+        top:50%;
+        opacity: 80%;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        border-radius: 20px;
+        box-shadow:2px 2px 8px #aaaaaa;
+        transform: translate(-50%,-50%);
+    }
+    .btns{
+        display: flex;
+        justify-content: flex-end;
+        padding-left: 40%;
+
+    }
+    .register{
+        display: flex;
+        position: relative;
+        top:80%;
+        left:5%;
+    }
+    .login_form{
+        position: absolute;
+        top: 5%;
+        width: 100%;
+        padding: 20px ;
+        box-sizing: border-box;
+    }
+    .el-header,
+    .el-footer {
+        background-color: #6253FF;
+        color: white;
+        text-align: center;
+        justify-content: center;
+        font-size: large;
+        font-style: italic;
+        font-family: "UD Digi Kyokasho N-B";
+        font-weight: bold;
+        fill-opacity: 80%;
+        line-height: 60px;
+        border-radius: 7px;
+    }
+
+    .el-aside {
+        background-color: #d3dce6;
+        color: var(--el-text-color-primary);
+        text-align: center;
+        line-height: 200px;
+    }
+
+    .el-main {
+        background-color: #e9eef3;
+        line-height: 1000px;
+        color: #6253FF;
+        text-align: center;
+        font-family: "BIZ UDGothic";
+        font-size: 300px;
+        opacity: 70%;
+        font-weight: bold;
+        overflow-y:hidden;
+        overflow-x:hidden;
+        filter: blur(20px);
+        transition: all 1s;
+    }
+
+    .el-main:hover {
+        filter: blur(0px);
+        opacity: 100%;
+    }
+
+    body > .el-container {
+        margin-bottom: 40px;
+    }
+
+    .el-container:nth-child(5) .el-aside,
+    .el-container:nth-child(6) .el-aside {
+        line-height: 260px;
+    }
+
+    .el-container:nth-child(7) .el-aside {
+        line-height: 320px;
+    }
+</style>
