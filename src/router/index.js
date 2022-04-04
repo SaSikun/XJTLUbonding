@@ -9,6 +9,7 @@ import store from '../store/index'
 import detail from '../components/postdetail'
 import test from '../components/test'
 import postList from'../components/postList'
+import createPost from "@/components/createpost";
 
 Vue.use(VueRouter)
 
@@ -16,7 +17,7 @@ const routes = [
     { path: '/', redirect: '/login' },
     { path: '/login', component: login },
     { path: '/register', component: register },
-    { path: '/404', component: detail },
+    { path: '/404', component: notfound },
     {
         path: '/postDetail/:postId',
         name:'postDetail',
@@ -28,7 +29,8 @@ const routes = [
       component: home,
       children: [
         { path: '/welcome', component: welcome },
-        { path: '/postList', component: postList},
+        { path: '/', component: postList},
+        { path: '/createPost', component: createPost},
       ]
     },
     { path: '*', redirect: '/404' }

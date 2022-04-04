@@ -1,40 +1,56 @@
 <template>
-  <el-row class="card2" style="line-height: 10px">
-
-    <el-col :span="18" :offset="3">
+  <div style="margin-top: 60px">
+  <el-row class="card2">
+    <el-col :span="18" :offset="3" style="line-height: 10px">
       <!--下面就是v-for  便利取出并将post的信息赋予每个小card2   有几个post对象, 生成几个card2-->
-      <div class="grid-content bg-purple" v-for="post in postList" >
+      <div class="grid-content bg-purple" v-for="post in postList.slice((currentPage-1)*pagesize, currentPage * pagesize)" style="margin-bottom: 30px" >
         <!-- 第一个div, 将一个card分为上下两部分, 这里是头像加名字-->
         <div>
           <!--row内居中-->
           <el-row class="card22" style="margin-bottom: 0;" type="flex" align="middle" justify="start">
 
             <!--头像-->
-            <el-col :span="2" class="pic-name" style="text-align: right" >
+            <el-col :span="5" class="pic-name" style="text-align: right" >
               <!--                 上方设置右对齐 -->
               <el-avatar icon="el-icon-user-solid" src=post.avatar  ></el-avatar>
             </el-col>
             <!-- 名字-->
-            <el-col :span="1" style="margin-left: 2px">
-              <h4>{{post.userName}}</h4>
+            <el-col :span="2" style="margin-left: 2px">
+              <div class = "username">
+                <h4>
+                  {{post.userName}}
+                </h4>
+              </div>
             </el-col>
           </el-row>
 
         </div>
-        <div class="card">
-          <el-row>
+        <div class="card" >
+          <el-row type="flex" align="middle">
             <el-col :span="18" style="text-align: left">
-              <pre>  Title:  {{post.title}}</pre>
+              <div class = "title" style="font-size: 20px;font-family: Microsoft YaHei;"> <strong>Title:</strong>  {{post.title}}</div>
             </el-col>
-            <el-col :span='6'>
-                <el-button type="success" size="mini" round @click="SendToDetail(post.id)">See Detail</el-button>
+            <el-col :span='5'>
+              <!--                    这里就是最方便的地方了， 直接绑定postid，  可以通过router to 直接传参post,id到detail 虽然还没实现  作为实验， 点击即可在控制台打印id-->
+              <div class="detailbtn">
+                <el-button type="success" size="medium" round @click="SendToDetail(post.id)">See Detail</el-button>
+              </div>
             </el-col>
           </el-row>
         </div>
       </div>
     </el-col>
-
   </el-row>
+
+  <el-pagination
+      background
+      @current-change="handleCurrentChange"
+      :current-page="currentPage"
+      :page-size= "pagesize"
+      layout="prev, pager, next"
+      :total="postList.length">
+  </el-pagination>
+  </div>
 </template>
 
 <script>
@@ -42,6 +58,10 @@ export default {
   name: "postList",
   data(){
     return{
+      currentPage: 1, //初始页
+      pagesize: 4,    // 每页的数据
+      input2:'',
+      disabled:false,
       postList:[{
         userName: "dandan1",
         title: "i am post title1",
@@ -70,6 +90,10 @@ export default {
       console.log(id)
       this.$router.push({name:'postDetail',params:{postId:id}})
     },
+    handleCurrentChange: function(currentPage){
+      this.currentPage = currentPage;
+      console.log(this.currentPage)  //点击第几页
+    },
     getPostList:function (){
       this.$axios.get('/getPostList').then(res=>{
         if(typeof(obj) == "object" && Object.prototype.toString.call(obj).toLowerCase() == "[object object]" && !obj.length){
@@ -87,21 +111,65 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+.userpanel{
+  text-align: center;
+  color: white;
+  font-size: medium;
+  padding-top: 5%;
+  padding-left: 2%;
+}
+.username{
+  padding-left: 5px;
+}
+.detailbtn{
+  position: relative;
+  right:0px;
+  bottom:-50px;
+  color: #A7BFE8;
+}
+.card{
+  width:900px;
+  height:90px;
+  border: 1px solid #999;
+  margin: 5px auto;
+  box-shadow: 10px 10px 5px gray;
+  border-radius: 30px;
+  background-color: #f9fafc;
+}
+.el-pagination{
+  position: absolute;
+  bottom: 30px;margin: auto;left: 0;right: 0;
+}
 .el-dropdown-link{
   cursor: pointer;
   display: flex;
   justify-content: space-around;
 }
+.pic-name{
+  line-height: 0;
+
+}
 
 a {
   text-decoration: none;
-  color: #d3dce6;
+  color: blue;
+  font-size: 25px;
 }
-
+.text{
+  background: linear-gradient(90deg, #9F02FF 0%, #00DBDE 33.3%, rgba(131,58,180,1) 66.6%, #9F02FF 100%);
+  -webkit-background-clip: text; /*截取背景区域为文字*/
+  color: transparent;
+  background-size: 300% 100%; /*扩大背景区域*/
+  animation: text 4s infinite linear;
+}
+@keyframes text{
+  0%  { background-position: 0 0;}
+  100% { background-position: -150% 0;}
+}
 .router-link-active {
   text-decoration: none;
-  color: #42b983;
+  color: #A7BFE8;
 }
 
 .el-container{
@@ -112,10 +180,11 @@ a {
 .el-header {
   padding-top: 0;
   padding-bottom: 0;
-  background-color: #B3C0D1;
+  background-image: linear-gradient(to right, #A7BFE8, #6190E8, #6253FF, #6190E8, #A7BFE8);
   color: #333;
-
+  border-radius: 3px;
 }
+
 .el-col{
   height: 100%;
   margin-top: 0;
@@ -144,27 +213,38 @@ body > .el-container {
 .el-container:nth-child(7) .el-aside {
   line-height: 320px;
 }
+.title {
+  padding-left: 10%;
+  padding-top: 5px;
+  font-family: "Segoe UI";
 
 
-.el-col {
-  border-radius: 4px;
+  .el-col {
+    border-radius: 4px;
+  }
+
+  .bg-purple-dark {
+    background: #99a9bf;
+  }
+
+  .bg-purple {
+    background: #d3dce6;
+  }
+
+  .bg-purple-light {
+    background: #e5e9f2;
+  }
+
+  .grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+  }
+
+  .row-bg {
+    padding: 0px;
+    background-color: #f9fafc;
+  }
 }
-.bg-purple-dark {
-  background: #99a9bf;
-}
-.bg-purple {
-  background: #d3dce6;
-}
-.bg-purple-light {
-  background: #e5e9f2;
-}
-.grid-content {
-  border-radius: 4px;
-  min-height: 36px;
-}
-.row-bg {
-  padding: 0px;
-  background-color: #f9fafc;
-}
+
 
 </style>

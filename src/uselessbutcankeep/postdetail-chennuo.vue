@@ -3,16 +3,14 @@
   <el-container style="height: 100%; border: 1px solid #eee">
     <el-container>
       <el-header style="text-align: center; font-size: 18px">
-        <el-row :gutter="24" style="margin: 0;padding: 0">
-          <el-col :span="6"  style="text-align: left">
-            <span style="alignment: left">
-              <el-button @click="toHome()"><i class="el-icon-s-home" ></i><strong>BackHome!!!</strong>></el-button>
-            </span>
-          </el-col>
-          <el-col :span="12" style="text-align: center">
-            <strong><em>Welcome to see detail!</em></strong>
-          </el-col>
-        </el-row>
+        <el-dropdown>
+          <i class="el-icon-setting" style="margin-right: 15px"></i>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>Add</el-dropdown-item>
+            <el-dropdown-item>Delete</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+        <span>Post</span>
       </el-header>
       <el-main>
         <div class = "post"> <!--post info-->
@@ -29,7 +27,7 @@
             </el-table-column>
           </el-table>
           <div class = "content">
-            <el-table :data="postData"><!--post content-->
+            <el-table :data="contentData"><!--post content-->
               <el-table-column prop="post_content" label="Content">
               </el-table-column>
             </el-table>
@@ -69,100 +67,80 @@
 
 <style scoped>
 
-.el-header {
-  background-color: #6253FF;
-  color: white;
-  text-align: center;
-  justify-content: center;
-  font-size: large;
-  font-style: italic;
-  font-family: "UD Digi Kyokasho N-B";
-  font-weight: bold;
-  fill-opacity: 80%;
-  line-height: 60px;
-  border-radius: 7px;
-  position: page;
-}
-.el-aside {
-  color: #333;
-}
-.el-main{
-  height: 100%;
-}
-.post{
-  height: 80%;
-}
-.comment{
-  height: 80%;
-}
-::v-deep .el-table .cell {
-  font-size: medium;
-  white-space: pre-line;
-}
-::v-deep .content .el-table .cell{
-  line-height: 35px;
-  padding: 10px;
-  font-size: 20px;
-  font-style: italic;
-}
-.comment_button{
-  padding: 50px;
-}
+  .el-header {
+    background-color: #6253FF;
+    color: white;
+    text-align: center;
+    justify-content: center;
+    font-size: large;
+    font-style: italic;
+    font-family: "UD Digi Kyokasho N-B";
+    font-weight: bold;
+    fill-opacity: 80%;
+    line-height: 60px;
+    border-radius: 7px;
+    position: page;
+  }
+  .el-aside {
+    color: #333;
+  }
+  .el-main{
+    height: 100%;
+  }
+  .post{
+    height: 80%;
+  }
+  .comment{
+    height: 80%;
+  }
+  ::v-deep .el-table .cell {
+    font-size: medium;
+    white-space: pre-line;
+  }
+  ::v-deep .content .el-table .cell{
+    line-height: 35px;
+    padding: 10px;
+    font-size: 20px;
+    font-style: italic;
+  }
+  .comment_button{
+    padding: 50px;
+  }
 
-::v-deep .comment .el-table .cell{
-  line-height: 20px;
-  padding: 20px;
-}
-::v-deep .pic .el-table .cell{
-  text-align: center;
-  padding: 20px;
-}
+  ::v-deep .comment .el-table .cell{
+    line-height: 20px;
+    padding: 20px;
+  }
+  ::v-deep .pic .el-table .cell{
+    text-align: center;
+    padding: 20px;
+  }
 
 </style>
 
 <script>
   export default {
-    name:'postDetail',
-    props:['postId'],
     data() {
 
-      const comments = [];
-
+      const comments = {
+        user: 'Default',
+        comment: 'Put your comments here.\n MahoramaniMahoramaniMahoramani\n'
+      };
       const post = {
         author: 'Default',
-        post_title: 'I fucked up today',
+        post_title: 'I fucked up today'
+      };
+      const content = {
         post_content: "Sing praises of her heavenly descent!\nSpread the word of her heavenly descent!\nSing praises of her heavenly descent!\nAll be in awe of her heavenly descent!"
       };
       return {
         //假数据，暂时这样写死
-        commentNum:0,
-        avatar:'',
         postData: Array(1).fill(post),
         //图片链接，多张图片有bug
         picture: Array(1).fill('https://pic.imgdb.cn/item/623d6cdd27f86abb2ab9e2b4.jpg'),
-        commentData: Array(this.commentNum).fill(comments)
+        contentData: Array(1).fill(content),
+        commentData: Array(10).fill(comments)
       }
-    },
-    methods:{
-      getPostDetail:function (id){
-        this.$axios.get('/getPostDetail',{params:{'postId':id}}).then(res=>{
-          this.post.author = res.data.data.nickName
-          this.post.post_title = res.data.data.title
-          this.post.post_content = res.data.data.content
-          this.avatar =  res.data.data.avatar
-          this.commentNum = res.data.data.commentAmount
-          this.comments = res.data.data.comment
-
-        })
-      },
-      toHome:function (){
-        this.$router.push('/home')
-      }
-    },
-
-    created() {
-      this.getPostDetail(this.postId)
     }
-
   };
 </script>

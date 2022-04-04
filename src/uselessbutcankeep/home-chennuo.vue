@@ -1,11 +1,11 @@
-<template xmlns:el-col="http://www.w3.org/1999/html">
+<template>
   <el-container>
     <el-header>
       <el-row>
         <el-col :span="5" class="header-row">
 
           <div style="float: left; margin-top: 18px" >
-            <router-link to="/home/">
+            <router-link to="/404">
               <i class="el-icon-s-home" ></i>
 <!--     这里用来跳转首页, 颜色可以调整 在下面的a里面是静态颜色, active是点进去, css你自己设计吧 符合咱们的风格 图标大小也可以调整-->
             </router-link>
@@ -28,8 +28,8 @@
           <el-button icon="el-icon-search" circle></el-button>
         </el-col>
         <el-col :span="6" style="margin-top: 12px; text-align: right" >
-          <router-link to="/createPost">
-            <el-button type="primary" icon="el-icon-edit" plain :disabled="disabled">
+          <router-link to="createpost">
+            <el-button type="primary" icon="el-icon-edit" plain :disabled="disabled" @click="createpost">
 <!--              在send页面边灰 改变disabled的值-->
               Add New Post
             </el-button>
@@ -41,8 +41,8 @@
           <div style="float: right;margin-top: 6px">
             <el-dropdown>
               <span class="el-dropdown-link" >
-                <el-avatar shape="square" :size="50" :src="userInfo.avatar" style="margin-right: 5px"></el-avatar>
-                <h4 style="display: inline; margin-left: 2px">{{ userInfo.nickName }}</h4>
+                <el-avatar shape="circle" :size="50" :src="userInfo.avatar" style="margin-right: 5px"></el-avatar>
+                <h4 style="display: inline; margin-left: 2px">{{userInfo.id}}</h4>
                 <i class="el-icon-arrow-down el-icon--right" style="margin-top: 19px"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
@@ -57,11 +57,64 @@
         </el-col>
       </el-row>
     </el-header>
-    <!-- 这个10就是让行距变小大概, 默认160   -->
-    <el-main class="postListMain"  >
-      <div class="middle" :style="backgroundDiv"></div>
-      <router-view></router-view>
 
+    <!-- 这个10就是让行距变小大概, 默认160   -->
+    <el-main class="postListMain" >
+      <!--背景图
+      <div class="middle" :style="backgroundDiv">
+      <router-view></router-view>
+      -->
+
+
+      <el-row class="card2">
+        <el-col :span="18" :offset="3" style="line-height: 10px">
+          <!--下面就是v-for  便利取出并将post的信息赋予每个小card2   有几个post对象, 生成几个card2-->
+          <div class="grid-content bg-purple" v-for="post in postList.slice((currentPage-1)*pagesize, currentPage * pagesize)" >
+            <!-- 第一个div, 将一个card分为上下两部分, 这里是头像加名字-->
+            <div>
+              <!--row内居中-->
+              <el-row class="card22" style="margin-bottom: 0;" type="flex" align="middle" justify="start">
+
+                <!--头像-->
+                <el-col :span="5" class="pic-name" style="text-align: right" >
+                  <!--                 上方设置右对齐 -->
+                  <el-avatar icon="el-icon-user-solid" src=post.avatar  ></el-avatar>
+                </el-col>
+                <!-- 名字-->
+                <el-col :span="2" style="margin-left: 2px">
+                  <div class = "username">
+                    <h4>
+                      {{post.userName}}
+                    </h4>
+                  </div>
+                </el-col>
+              </el-row>
+
+            </div>
+            <div class="card">
+              <el-row>
+                <el-col :span="18" style="text-align: left">
+                  <div class = "title">  Title:  {{post.title}}</div>
+                </el-col>
+                <el-col :span='5'>
+                    <!--                    这里就是最方便的地方了， 直接绑定postid，  可以通过router to 直接传参post,id到detail 虽然还没实现  作为实验， 点击即可在控制台打印id-->
+                    <div class="detailbtn">
+                      <el-button type="success" size="medium" round @click="SendToDetail(post.id)">See Detail</el-button>
+                    </div>
+                </el-col>
+              </el-row>
+            </div>
+          </div>
+        </el-col>
+      </el-row>
+      <el-pagination
+          background
+          @current-change="handleCurrentChange"
+          :current-page="currentPage"
+          :page-size= "pagesize"
+          layout="prev, pager, next"
+          :total="postList.length">
+      </el-pagination>
     </el-main>
   </el-container>
 </template>
@@ -70,54 +123,74 @@ export default {
   name:'home',
   data(){
     return{
-      backgroundDiv: {
-        backgroundImage:"url(" + require('D:\\vue\\vue-admain\\src\\assets\\xjtluBG.jpg') + ")",
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "2500px auto",
-        marginTop: "10px",
-      },
-
+      currentPage: 1, //初始页
+      pagesize: 5,    // 每页的数据
       input2:'',
       disabled:false,
       userInfo:{
-        nickName:'DefaultAdmin',
+        id:'DefaultAdmin',
         avatar:'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
       },
-
+      postList:[{
+        userName: "dandan1",
+        title: "i am post title1",
+        avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+        id:0,
+      },
+        {
+          userName: "dandan2",
+          title: "i am post title2",
+          avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+          id:1,
+        },
+        {
+          userName: "dandan2",
+          title: "i am post title2",
+          avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+          id:1,
+        },
+        {
+          userName: "dandan2",
+          title: "i am post title2",
+          avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+          id:1,
+        },
+        {
+          userName: "dandan2",
+          title: "i am post title2",
+          avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+          id:1,
+        },
+        {
+          userName: "dandan2",
+          title: "i am post title2",
+          avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+          id:1,
+        },
+        {
+          userName: "dandan3",
+          title: "i am post title3",
+          avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+          id:2,
+        }],
     }
   },
   methods:{
-    getUserInfo:function (){
-        const token = localStorage.getItem('idToken')
-        this.$axios.get('/getUserInfo',{headers:{'token':token}}).then(res=>{
-          this.userInfo.nickName=res.data.data.nickName
-          this.userInfo.avatar = res.data.data.avatar
-        })
+    print:function (id){
+      console.log(id)
     },
-  },
-  created() {
-    this.getUserInfo()
+    handleCurrentChange: function(currentPage){
+      this.currentPage = currentPage;
+      console.log(this.currentPage)  //点击第几页
+    },
+    createpost(){
+      this.$router.push('/createpost');
+    },
   }
-
 }
 </script>
 
 <style lang="less" scoped>
-
-.middle {
-  width:100%;
-  height:100%;
-  position:absolute;
-  background-size:cover;
-  object-fit: cover;
-  -webkit-filter: blur(10px);
-}
-.card2{
-  z-index: 2;
-
-}
-
-
 .userpanel{
   text-align: center;
   color: white;
@@ -160,11 +233,6 @@ export default {
 a {
   text-decoration: none;
   color: blue;
-  font-size: 25px;
-}
-a:visited{
-  text-decoration: none;
-  color: yellow;
   font-size: 25px;
 }
 .text{
@@ -254,18 +322,6 @@ body > .el-container {
   .row-bg {
     padding: 0px;
     background-color: #f9fafc;
-  }
-  .middle {
-    width:100%;
-    height:100%;
-    position:absolute;
-    background-size:cover;
-    object-fit: cover;
-    -webkit-filter: blur(10px);
-  }
-  .card2{
-    z-index: 2;
-
   }
 }
 

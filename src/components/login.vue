@@ -101,7 +101,7 @@ export default {
   },
   methods: {
     reset: function (){
-      this.$router.push('/home')
+      this.$router.push('/reset')
     },
 
     login(formName) {

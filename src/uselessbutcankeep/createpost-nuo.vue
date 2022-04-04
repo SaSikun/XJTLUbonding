@@ -13,9 +13,37 @@
             </div>
         </el-dialog>
         <el-container>
-            <el-header>Create Post</el-header>
-            <el-main><div style = "transform:rotate(6deg)">Post!</div></el-main>
+            <el-header>
+              <el-col :span="5" class="header-row">
+
+                <div style="float: left; margin-top: 18px" >
+                    <i class="el-icon-s-home" ></i>
+              <h1 class="text"style="display: inline"><strong>XJTLU</strong><em>Bonding</em></h1>
+
+                </div>
+              </el-col>
+              <el-col  :span="24">
+                <!--          头像加id-->
+                <div style="float: right;margin-top: 6px">
+                  <el-dropdown>
+              <span class="el-dropdown-link" >
+                <el-avatar shape="circle" :size="50" :src="userInfo.avatar" style="margin-right: 5px"></el-avatar>
+                <h4 style="display: inline; margin-left: 2px">{{userInfo.id}}</h4>
+                <i class="el-icon-arrow-down el-icon--right" style="margin-top: 19px"></i>
+              </span>
+                    <el-dropdown-menu slot="dropdown">
+                      <el-dropdown-item>Log out</el-dropdown-item>
+                      <el-dropdown-item divided>Reset Password</el-dropdown-item>
+                      <el-dropdown-item divided>My Info</el-dropdown-item>
+                      <el-dropdown-item divided>My Post</el-dropdown-item>
+                      <el-dropdown-item divided>My Like</el-dropdown-item>
+                    </el-dropdown-menu>
+                  </el-dropdown>
+                </div>
+              </el-col>
+            </el-header>
         </el-container>
+      <div class="middle" :style="backgroundDiv"></div><!--背景部分-->
         <div class="login_container">
             <div class="login_box">
                 <div>
@@ -29,8 +57,8 @@
                         </el-form-item>
                         <!--按钮-->
                         <el-form-item class="btns">
-                            <el-button type="primary" @click="submit('postForm')" :loading="isLoading">Submit</el-button>
-                            <el-button type="info" round @click = "cancel()" :loading="isLoading">Cancel</el-button>
+                            <el-button class = "submit"type="primary" @click="submit()" :loading="isLoading">Submit</el-button>
+                            <el-button class = "cancel"type="info" round @click = "cancel()" :loading="isLoading">Cancel</el-button>
                         </el-form-item>
                     </el-form>
                 </div>
@@ -42,13 +70,23 @@
 <script>
 
     export default {
-        name:'createPost',
         data () {
             return {
+              //这里不知道为什么我电脑只能识别绝对路径，还得辛苦你改一下了
+              backgroundDiv: {
+                backgroundImage: "url(" + require("D:\\CPT202\\XJTLUbonding-master\\XJTLUbonding-master\\src\\assets\\xjtlu.jpg") + ")",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "2500px auto",
+                marginTop: "10px",
+              },
                 DialogVisible: false,
                 isLoading:false,
                 captureImage:'',
                 realValid: '',
+              userInfo:{
+                id:'DefaultAdmin',
+                avatar:'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
+              },
                 // 这是登陆表单的数据绑定对象
                 postForm: {
                     title: '',
@@ -68,18 +106,13 @@
         },
 
         methods: {
-            submit (formName) {
-              this.$refs[formName].validate((valid)=>{
-                if(valid){
-                  const token = localStorage.getItem('idTolen')
-                  this.$axios.post('/addPost',this.postForm,{headers:{'token':token}})
-                  this.$router.push('/home/')
-                }
-              })
-
+            submit () {
+                const token = localStorage.getItem('idTolen')
+                this.$axios.post('/addPost',this.postForm,{headers:{'token':token}})
+                this.$router.push('/home')
             },
             cancel () {
-                this.$router.push('/home/')
+                this.$router.push('/home')
             }
         }
     }
@@ -88,6 +121,15 @@
 <style lang="less" scoped>
     .login_container{
         height: 100%;
+    }
+    //背景部分的css
+    .middle {
+      width:100%;
+      height:100%;
+      position:absolute;
+      background-size:cover;
+      object-fit: cover;
+      -webkit-filter: blur(10px);
     }
 
     .login_box{
@@ -110,8 +152,18 @@
         display: flex;
         justify-content: flex-end;
         padding-left: 40%;
-
+        position: relative;
+        top:80%;
+        right:30%;
     }
+    //顺便加了两个按钮的鼠标动效，后续可以再添加其他效果
+    .submit:hover {
+      border-radius: 50px 10px 50px 10px;
+    }
+    .cancel:hover{
+      border-radius: 10px 50px 10px 50px;
+    }
+
     .register{
         display: flex;
         position: relative;
@@ -125,7 +177,35 @@
         padding: 20px ;
         box-sizing: border-box;
     }
-    .el-header,
+    .header-row{
+      text-decoration: none;
+      color: blue;
+      font-size: 18px;
+    }
+      .el-header {
+        padding-top: 0;
+        padding-bottom: 0;
+        background-image: linear-gradient(to right, #A7BFE8, #6190E8, #6253FF, #6190E8, #A7BFE8);
+        color: #333;
+        border-radius: 3px;
+      }
+      .el-dropdown-link{
+        position: relative;
+        top: -45px;
+      }
+    .text{
+      position: relative;
+      background: linear-gradient(90deg, #9F02FF 0%, #00DBDE 33.3%, rgba(131,58,180,1) 66.6%, #9F02FF 100%);
+      -webkit-background-clip: text; /*截取背景区域为文字*/
+      color: transparent;
+      background-size: 300% 100%; /*扩大背景区域*/
+      animation: text 4s infinite linear;
+      padding-top: 10px;
+    }
+    @keyframes text{
+      0%  { background-position: 0 0;}
+      100% { background-position: -150% 0;}
+    }
     .el-footer {
         background-color: #6253FF;
         color: white;
