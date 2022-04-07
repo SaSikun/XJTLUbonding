@@ -106,14 +106,15 @@ export default {
       DialogVisible: false,
       isLoading:false,
       captureImage:'',
-      realValid: '',
+      realValid: '1234',
       // 这是登陆表单的数据绑定对象
       regForm: {
         username: '',
         password: '',
         confirmPassword: '',
+
         answer: '',
-        validation:'',
+        validation:'1234',
       },
       // 表单验证规则
       registerFormRules: {
@@ -149,7 +150,7 @@ export default {
     },
     getImage:function (){
 
-      this.$axios.get('/getImage').then(res=>{
+      this.$http.get('/getImage').then(res=>{
         this.captureImage = res.data.data.captureImage;
         this.realValid = res.data.data.realValid;
         console.log(this.realValid)
@@ -158,23 +159,25 @@ export default {
     },
     submit (formName) {
       this.isLoading=true
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate( async (valid) => {
         if (valid) {
-          this.$axios.post('/register' , this.regForm).then(res=>{
-            console.log(res.data)
-            if (res.data.status===200){
+          const { data: res } = await this.$http.get('/user/register', { params: this.regForm })
+          console.log(res)
+          if (res.status===200){
 
-              const jwt = res.data.data.id
-              console.log('this is data', res.data.data)
+              const jwt = res.data.id
+              console.log('this is data', res.data)
               console.log('jwt:',jwt)
               this.$store.commit('SET_LOGSTATUS',{name:'loginObj',idToken:jwt,lastTime:Date.now()})
-              this.$router.push('/home')
+
+              await this.$router.push('/home')
             }
-            else if(res.data.status===0){
+          if(res.status===0){
               // alert('username has been used, pls change to another one')
+
               this.DialogVisible=true
             }
-          })
+
 
         } else {
           alert('fail submit!');
