@@ -25,19 +25,19 @@ Mock.mock('/getImage','get',() =>{
 //     return Result1
 // })
 
-Mock.mock('/login','post',(config) =>{
-    console.log(config)
-    Result1.status=200
-    Result1.mcsg = '看看自己那里输错了'
-    return Result1
-})
-
-Mock.mock('/register','post',(config) =>{
-    console.log(config)
-    Result1.status=408
-    Result1.mcsg = '看看自己那里输错了'
-    return Result1
-})
+// Mock.mock('/login','post',(config) =>{
+//     console.log(config)
+//     Result1.status=200
+//     Result1.mcsg = '看看自己那里输错了'
+//     return Result1
+// })
+//
+// Mock.mock('/register','post',(config) =>{
+//     console.log(config)
+//     Result1.status=408
+//     Result1.mcsg = '看看自己那里输错了'
+//     return Result1
+// })
 
 Mock.mock('/homepage',
     'get',
