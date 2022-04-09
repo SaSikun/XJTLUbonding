@@ -50,7 +50,7 @@
         </div>
 
         <div class = "comment_button"><!--comment button-->
-          <el-button type="success" plain>Comment!</el-button>
+          <el-button type="success" @click="dialog = true">Comment!</el-button>
         </div>
 
         <div class = "comment">
@@ -62,6 +62,28 @@
           </el-table>
         </div>
       </el-main>
+      <el-drawer
+              title="Create Comment!"
+              :before-close="handleClose"
+              :visible.sync="dialog"
+              direction="btt"
+              custom-class="demo-drawer"
+              ref="drawer"
+      >
+        <div class="demo-drawer__content">
+          <el-form :model="form">
+            <el-form-item label="Comment Content" :label-width="formLabelWidth">
+              <el-input v-model="form.content" autocomplete="off"></el-input>
+            </el-form-item>
+          </el-form>
+          <div class="demo-drawer__footer">
+            <el-button @click="cancelForm">Cancel</el-button>
+            <el-button type="primary" @click="$refs.drawer.closeDrawer()" :loading="loading">{{ loading ? 'Submitting...' : 'Submit!' }}</el-button>
+          </div>
+        </div>
+      </el-drawer>
+
+
     </el-container>
   </el-container>
 
@@ -123,6 +145,7 @@
 <script>
   export default {
     name:'postDetail',
+
     props:['postId'],
     data() {
 
@@ -134,14 +157,8 @@
       //   post_content: "Sing praises of her heavenly descent!\nSpread the word of her heavenly descent!\nSing praises of her heavenly descent!\nAll be in awe of her heavenly descent!"
       // };
       return {
-        // //假数据，暂时这样写死
-        // commentNum:0,
-        // avatar:'',
-        // postData: Array(1).fill(post),
-        // //图片链接，多张图片有bug
-        // picture: Array(1).fill('https://pic.imgdb.cn/item/623d6cdd27f86abb2ab9e2b4.jpg'),
-        // commentData: Array(this.commentNum).fill(comments)
-        post: {
+
+post: {
           id:0,
           author: '',
           post_title: '',
@@ -151,6 +168,19 @@
           comments:''
         },
         postData:[],
+        dialog: false,
+        form: {
+         content: ''
+        },
+        formLabelWidth: '80px',
+        timer: null,
+        //假数据，暂时这样写死
+        commentNum:0,
+        avatar:'',
+        postData: Array(1).fill(post),
+        //图片链接，多张图片有bug
+        picture: Array(1).fill('https://pic.imgdb.cn/item/623d6cdd27f86abb2ab9e2b4.jpg'),
+        commentData: Array(this.commentNum).fill(comments)
 
       }
     },
@@ -175,9 +205,31 @@
     },
 
     created() {
-      this.post.id = parseInt(this.$route.query.id)
-      this.getPostDetail(this.post.id)
-    }
 
-  };
+       this.post.id = parseInt(this.$route.query.id)
+      this.getPostDetail(this.postId)
+    },
+    handleClose(done) {
+      if (this.loading) {
+        return;
+      }
+      this.$confirm('Commit comment?')
+              .then(_ => {
+                this.loading = true;
+                this.timer = setTimeout(() => {
+                  done();
+                  // 动画关闭需要一定的时间
+                  setTimeout(() => {
+                    this.loading = false;
+                  }, 400);
+                }, 2000);
+              })
+              .catch(_ => {});
+    },
+    cancelForm() {
+      this.loading = false;
+      this.dialog = false;
+      clearTimeout(this.timer);
+    }
+  }
 </script>
