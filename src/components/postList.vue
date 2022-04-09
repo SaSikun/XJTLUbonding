@@ -100,7 +100,7 @@ export default {
     },
     SendToDetail:function (id){
       console.log(id)
-      this.$router.push({name:'postDetail',params:{postId:id}})
+      this.$router.push({name:'postDetail',query: { id } || this.redirect})
     },
     handleCurrentChange: function(newPage){
       this.queryInfo.pageNumber = newPage
@@ -273,6 +273,7 @@ body > .el-container {
     padding: 0px;
     background-color: #f9fafc;
   }
+
 }
 
 

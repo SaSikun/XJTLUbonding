@@ -128,30 +128,44 @@
 
       const comments = [];
 
-      const post = {
-        author: 'Default',
-        post_title: 'I fucked up today',
-        post_content: "Sing praises of her heavenly descent!\nSpread the word of her heavenly descent!\nSing praises of her heavenly descent!\nAll be in awe of her heavenly descent!"
-      };
+      // const post = {
+      //   author: 'Default',
+      //   post_title: 'I fucked up today',
+      //   post_content: "Sing praises of her heavenly descent!\nSpread the word of her heavenly descent!\nSing praises of her heavenly descent!\nAll be in awe of her heavenly descent!"
+      // };
       return {
-        //假数据，暂时这样写死
-        commentNum:0,
-        avatar:'',
-        postData: Array(1).fill(post),
-        //图片链接，多张图片有bug
-        picture: Array(1).fill('https://pic.imgdb.cn/item/623d6cdd27f86abb2ab9e2b4.jpg'),
-        commentData: Array(this.commentNum).fill(comments)
+        // //假数据，暂时这样写死
+        // commentNum:0,
+        // avatar:'',
+        // postData: Array(1).fill(post),
+        // //图片链接，多张图片有bug
+        // picture: Array(1).fill('https://pic.imgdb.cn/item/623d6cdd27f86abb2ab9e2b4.jpg'),
+        // commentData: Array(this.commentNum).fill(comments)
+        post: {
+          id:0,
+          author: '',
+          post_title: '',
+          post_content: '',
+          commentNum:0,
+          avatar:'',
+          comments:''
+        },
+        postData:[],
+
       }
     },
     methods:{
       getPostDetail:function (id){
-        this.$axios.get('/getPostDetail',{params:{'postId':id}}).then(res=>{
-          this.post.author = res.data.data.nickName
-          this.post.post_title = res.data.data.title
-          this.post.post_content = res.data.data.content
-          this.avatar =  res.data.data.avatar
-          this.commentNum = res.data.data.commentAmount
-          this.comments = res.data.data.comment
+        this.$http.get('/post/getPostDetail',{params:{'id':id}}).then(res=>{
+          this.post.author = res.data.writer
+          this.post.post_title = res.data.title
+          this.post.post_content = res.data.content
+          console.log(res.data.content)
+          this.post.avatar =  res.data.data.avatar
+          console.log(this.post)
+          this.postData.push(this.post)
+          // this.post.commentNum = res.data.data.commentAmount
+          // this.post.comments = res.data.data.comment
 
         })
       },
@@ -161,7 +175,8 @@
     },
 
     created() {
-      this.getPostDetail(this.postId)
+      this.post.id = parseInt(this.$route.query.id)
+      this.getPostDetail(this.post.id)
     }
 
   };
