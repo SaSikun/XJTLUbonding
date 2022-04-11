@@ -72,7 +72,7 @@
               this.$refs[formName].validate((valid)=>{
                 if(valid){
                   const token = localStorage.getItem('idTolen')
-                  this.$axios.post('/addPost',this.postForm,{headers:{'token':token}})
+                  this.$http.post('/addPost',this.postForm,{headers:{'token':token}})
                   this.$router.push('/home/')
                 }
               })

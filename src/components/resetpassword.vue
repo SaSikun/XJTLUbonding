@@ -147,7 +147,7 @@
             },
             getImage:function (){
 
-                this.$axios.get('/getImage').then(res=>{
+                this.$http.get('/getImage').then(res=>{
                     this.captureImage = res.data.data.captureImage;
                     this.realValid = res.data.data.realValid;
                     console.log(this.realValid)
@@ -163,7 +163,7 @@
                 this.isLoading=true
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.$axios.post('/register' , this.regForm).then(res=>{
+                        this.$http.post('/register' , this.regForm).then(res=>{
                             console.log(res.data)
                             if (res.data.status===200){
 
