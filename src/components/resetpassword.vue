@@ -1,7 +1,22 @@
 <template>
     <div class="common-layout">
+        <!--第一次提交校验用户名与问题答案返回的对话框-->
         <el-dialog
-                title="Duplicate UserName!"
+                title="Wrong User or Answer"
+                :visible.sync="phase1DialogVisible"
+                width="20%"
+                height ="20%"
+        >
+            <div style = "text-align:center">
+              <span slot="footer" class="dialog-footer">
+              <el-button type="primary" @click="phase1DialogVisible = false">close</el-button>
+              </span>
+            </div>
+        </el-dialog>
+
+        <!--最后提交返回的对话框-->
+        <el-dialog
+                title="Reset Failure"
                 :visible.sync="DialogVisible"
                 width="20%"
                 height ="20%"
@@ -45,7 +60,9 @@
                         </div>
                         <!--按钮-->
                         <el-form-item style="width: 450px">
+                            <!--最终提交按钮-->
                             <el-button v-show = "ifphase2" type="Next" round @click = "submit(resForm)" :loading="isLoading">Submit!</el-button>
+                            <!--第一次提交按钮-->
                             <el-button v-show = "!ifphase2" type="Next" round @click = "next()" :loading="isLoading">Next!</el-button>
                         </el-form-item>
                     </el-form>
@@ -101,9 +118,14 @@
                 }
             };
             return {
+                //控制对话框
+                phase1DialogVisible: false,
                 DialogVisible: false,
+                //控制下一步
                 ResetVisible: false,
+                //控制进度条
                 active: 0,
+                //控制显示新密码输入表单
                 ifphase2: false,
                 isLoading:false,
                 captureImage:'',
@@ -154,40 +176,26 @@
                     console.log(res)
                 })
             },
+            //第一次提交成功后，操作进度条，同时调整phase
             next() {
+                // this.phase1DialogVisible = true;
+                // 给上面加上if条件把下面用else包裹住即可以实现条件拦截第一次提交
+                // 返回对话框
                 if (this.active++ > 2) this.active = 0;
                 if (this.active === 1) this.ifphase2 = true;
             },
+            //假设第二次提交失败
             submit (formName) {
+                //进度++
                 this.active++
+                //加载启动
                 this.isLoading=true
-                this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        this.$http.post('/register' , this.regForm).then(res=>{
-                            console.log(res.data)
-                            if (res.data.status===200){
 
-                                const jwt = res.data.data.id
-                                console.log('this is data', res.data.data)
-                                console.log('jwt:',jwt)
-                                this.$store.commit('SET_LOGSTATUS',{name:'loginObj',idToken:jwt,lastTime:Date.now()})
-                                this.$router.push('/home')
-                            }
-                            else if(res.data.status===0){
-                                // alert('username has been used, pls change to another one')
-                                this.DialogVisible=true
-                            }
-                        })
-
-                    } else {
-                        alert('fail submit!');
-                        console.log('error submit!!');
-                        this.isLoading = false
-                        return false;
-                    }
-                    this.isLoading = false
-                    this.DialogVisible = true
-                });
+                //判断函数写在这里可以
+                //加载结束
+                this.isLoading = false
+                //显示错误
+                this.DialogVisible = true
             },
         },
         created() {
