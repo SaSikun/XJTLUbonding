@@ -76,8 +76,8 @@ export default {
     return {
       // 这是登陆表单的数据绑定对象
       loginForm: {
-        username: '',
-        password: ''
+        username: 'admin',
+        password: '123asd123'
       },
       isLoading:false,
       DialogVisible: false,
@@ -109,15 +109,13 @@ export default {
         this.$store.commit('INIT_PASS_W')
       }
       this.isLoading=true
-      this.$refs[formName].validate((valid) => {
+      this.$refs[formName].validate( async (valid) => {
         if (valid) {
-          this.$axios.post('/login' ,this.loginForm).then(res=>{
-            console.log(res.data)
+           await this.$http.post('/user/login' ,this.loginForm).then(res=>{
+            console.log(this.loginForm)
             if (res.data.status===200){
               this.$store.commit('INIT_PASS_W')
               const jwt = res.data.data.id
-              console.log('this is data', res.data.data)
-              console.log('jwt:',jwt)
               this.$store.commit('SET_LOGSTATUS',{name:'loginObj',idToken:jwt,lastTime:Date.now()})
               this.$router.push('/home')
             }

@@ -8,10 +8,13 @@ import './assets/css/global.css'
 
 import axios from './axios'
 
-Vue.prototype.$axios = axios
+
+
+Vue.prototype.$http = axios
 Vue.config.productionTip = false
 Vue.use(Element)
-require('./mock')
+//require('./mock')
+
 
 new Vue({
   router,

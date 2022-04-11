@@ -3,7 +3,7 @@
   <el-row class="card2">
     <el-col :span="18" :offset="3" style="line-height: 10px">
       <!--下面就是v-for  便利取出并将post的信息赋予每个小card2   有几个post对象, 生成几个card2-->
-      <div class="grid-content bg-purple" v-for="post in postList.slice((currentPage-1)*pagesize, currentPage * pagesize)" style="margin-bottom: 30px" >
+      <div class="grid-content bg-purple" v-for="post in postList.slice((pageNumber-1)*pageSize, pageNumber * pageSize)" style="margin-bottom: 30px" >
         <!-- 第一个div, 将一个card分为上下两部分, 这里是头像加名字-->
         <div>
           <!--row内居中-->
@@ -45,24 +45,36 @@
   <el-pagination
       background
       @current-change="handleCurrentChange"
-      :current-page="currentPage"
-      :page-size= "pagesize"
-      layout="prev, pager, next"
-      :total="postList.length">
+      @size-change="handleSizeChange"
+      :current-page="queryInfo.pageNumber"
+      :page-size= "queryInfo.pagesize"
+      :page-sizes="[1, 2, 4]"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total">
   </el-pagination>
   </div>
 </template>
 
 <script>
 export default {
-  name: "postList",
+
   data(){
     return{
-      currentPage: 1, //初始页
-      pagesize: 4,    // 每页的数据
+      // 获取用户列表的参数对象
+      queryInfo: {
+        query: '',
+        pageNumber: 1,
+        pageSize: 5,
+        typeList: [],
+        typeListString: ''
+      },
+      total:0,
+      pageNumber: 1, //初始页
+      pageSize: 4,    // 每页的数据
       input2:'',
       disabled:false,
-      postList:[{
+      postList:[],
+      postList2:[{
         userName: "dandan1",
         title: "i am post title1",
         avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
@@ -88,26 +100,43 @@ export default {
     },
     SendToDetail:function (id){
       console.log(id)
-      this.$router.push({name:'postDetail',params:{postId:id}})
+      this.$router.push({name:'postDetail',query: { id } || this.redirect})
     },
-    handleCurrentChange: function(currentPage){
-      this.currentPage = currentPage;
-      console.log(this.currentPage)  //点击第几页
+    handleCurrentChange: function(newPage){
+      this.queryInfo.pageNumber = newPage
+      this.getPostList()
     },
-    getPostList:function (){
-      this.$axios.get('/getPostList').then(res=>{
-        if(typeof(obj) == "object" && Object.prototype.toString.call(obj).toLowerCase() == "[object object]" && !obj.length){
-          this.postList = JSON.parse(res.data.data)
-        }else {
-          this.postList = res.data.data
+    handleSizeChange: function(newSize){
+      this.queryInfo.pageSize = newSize
+      this.getPostList()
+    },
+    getPostList: async function (){
+      this.queryInfo.typeListString = JSON.stringify(this.queryInfo.typeList)
+      const { data: res } = await this.$http.get('/post/queryPost',{ params: this.queryInfo })
+        if (res.meta.status !== 200) {
+          return this.$message.error('数据获取失败')
         }
 
-      })
+        this.postList = res.data.postList
+        this.total = res.data.totalpage
+
+
+
     }
   },
   created() {
     this.getPostList()
-  }
+  },
+
+  handleSizeChange(newSize) {
+    this.queryInfo.pageSize = newSize
+    this.getPostList()
+  },
+
+  handleCurrentChange(newPage) {
+    this.queryInfo.pageNumber = newPage
+    this.getPostList()
+  },
 }
 </script>
 
@@ -244,6 +273,7 @@ body > .el-container {
     padding: 0px;
     background-color: #f9fafc;
   }
+
 }
 
 

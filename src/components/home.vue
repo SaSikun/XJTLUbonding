@@ -71,7 +71,7 @@ export default {
   data(){
     return{
       backgroundDiv: {
-        backgroundImage:"url(" + require('D:\\vue\\vue-admain\\src\\assets\\xjtluBG.jpg') + ")",
+        backgroundImage:"url(" + require('D:\\Desktop\\XJTLUbonding\\src\\assets\\xjtluBG.jpg') + ")",
         backgroundRepeat: "no-repeat",
         backgroundSize: "2500px auto",
         marginTop: "10px",
@@ -89,7 +89,7 @@ export default {
   methods:{
     getUserInfo:function (){
         const token = localStorage.getItem('idToken')
-        this.$axios.get('/getUserInfo',{headers:{'token':token}}).then(res=>{
+        this.$http.get('/getUserInfo',{headers:{'token':token}}).then(res=>{
           this.userInfo.nickName=res.data.data.nickName
           this.userInfo.avatar = res.data.data.avatar
         })
