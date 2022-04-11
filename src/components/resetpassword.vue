@@ -66,8 +66,8 @@
                             <el-button v-show = "!ifphase2" type="Next" round @click = "next()" :loading="isLoading">Next!</el-button>
                         </el-form-item>
                     </el-form>
-                    <div class = "progress">
-                        <el-steps :active="active" finish-status="success">
+                    <div class = "progress" >
+                        <el-steps  align-center="true" :active="active"  finish-status="success">
                             <el-step title="Step 1"></el-step>
                             <el-step title="Step 2"></el-step>
                         </el-steps>
@@ -81,6 +81,7 @@
 <script>
 
     export default {
+        name:'resetPassword',
         data () {
             let isPassword = (rule,value,callback) => {
                 // let phoneReg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
@@ -204,7 +205,11 @@
     }
 </script>
 
+
+
 <style lang="less" scoped>
+
+
     .login_container{
         background-color: #00428f;
         height: 100%;
