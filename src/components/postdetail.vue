@@ -151,23 +151,23 @@
 
       const comments = [];
 
-      // const post = {
-      //   author: 'Default',
-      //   post_title: 'I fucked up today',
-      //   post_content: "Sing praises of her heavenly descent!\nSpread the word of her heavenly descent!\nSing praises of her heavenly descent!\nAll be in awe of her heavenly descent!"
-      // };
+      const post = {
+        author: 'Default',
+        post_title: 'I fucked up today',
+        post_content: "Sing praises of her heavenly descent!\nSpread the word of her heavenly descent!\nSing praises of her heavenly descent!\nAll be in awe of her heavenly descent!"
+      };
       return {
-
-post: {
-          id:0,
-          author: '',
-          post_title: '',
-          post_content: '',
-          commentNum:0,
-          avatar:'',
-          comments:''
-        },
-        postData:[],
+        //
+        // post: {
+        //   id:0,
+        //   author: '',
+        //   post_title: '',
+        //   post_content: '',
+        //   commentNum:0,
+        //   avatar:'',
+        //   comments:''
+        // },
+        // postData:[],
         dialog: false,
         form: {
          content: ''
