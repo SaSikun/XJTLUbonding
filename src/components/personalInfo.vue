@@ -167,7 +167,7 @@
                     width="35%"
                     style="line-height: 30px;">
                   <h3>!!Modify Your Information!!</h3>
-                  <el-form hide-required-asterisk="true" :label-position="labelPosition" label-width="100px" :model="InfoModificationForm" :rules="InfoModificationFormRules">
+                  <el-form ref="InfoModificationForm" hide-required-asterisk="true" :label-position="labelPosition" label-width="100px" :model="InfoModificationForm" :rules="InfoModificationFormRules">
                     <el-form-item label="nickName" prop="nickName">
                       <el-input v-model="InfoModificationForm.nickName" placeholder="Let's get a cool name"></el-input>
                     </el-form-item>
@@ -189,7 +189,7 @@
                   </el-form>
                   <span slot="footer" class="dialog-footer">
                       <el-button @click="dialogVisible = false">Cancel</el-button>
-                     <el-button type="primary" @click="dialogVisible = false">Submit</el-button>
+                     <el-button type="primary" @click="submit(InfoModificationForm)">Submit</el-button>
                   </span>
                 </el-dialog>
               </div>
@@ -284,6 +284,34 @@ export default {
         }
       })
     },
+
+    ////20:34 改动, 还改动了上面subimit
+    submit(formName){
+      const token = localStorage.getItem('idToken')
+      this.$refs[formName].validate(async (valid)=>{
+        if(valid){
+          //!!!!!! 这里我直接传表单了!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1111
+          await this.$http.get('/user/modifyInfo', {params:{token:token,form:this.InfoModificationForm}}).then(res=>{
+            //修改成功
+            if(res.data.status===200){
+              //消失弹框
+              this.dialogVisible= false
+              //弹出祝贺1.5秒
+              setTimeout("alert('success modified LOL!!')",1500)
+              //还不存在, 后续改router
+              this.$router.push('/home/mePage')
+            }else{
+              alert('userName has been used, sorry~')
+            }
+          })
+        }else {
+          alert('Could you pls check again T-T')
+        }
+      })
+    }
   },
   created() {
     //header栏的,后面整合删掉
@@ -295,6 +323,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+el-divider{
+  height: 10em;
+}
 .personalInfo{
   height: 600px;
   width: 500px;
