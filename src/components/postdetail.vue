@@ -57,17 +57,22 @@
               direction="btt"
               custom-class="demo-drawer"
               ref="drawer"
-      >
+      ><!--抽屉-->
         <div class="demo-drawer__content">
           <el-form :model="form">
-            <el-form-item label="Comment Content" :label-width="formLabelWidth">
-              <el-input v-model="form.content" autocomplete="off"></el-input>
-            </el-form-item>
+            <el-col :span="16">
+              <el-form-item label="Comment" :label-width="formLabelWidth">
+                <el-input :rows="4" type="textarea" v-model="form.content" style="height: 90%" autocomplete="off"></el-input>
+              </el-form-item>
+            </el-col>
           </el-form>
-          <div class="demo-drawer__footer">
-            <el-button @click="cancelForm">Cancel</el-button>
-            <el-button type="primary" @click="$refs.drawer.closeDrawer()" :loading="loading">{{ loading ? 'Submitting...' : 'Submit!' }}</el-button>
-          </div>
+          <el-footer>
+            <div class="demo-drawer__footer">
+              <el-button @click="$refs.drawer.closeDrawer()">Cancel</el-button>
+              <!--提交按钮-->
+              <el-button type="primary" @click="$refs.drawer.closeDrawer()" :loading="loading">{{ loading ? 'Submitting...' : 'Submit!' }}</el-button>
+            </div>
+          </el-footer>
         </div>
       </el-drawer>
 
@@ -78,67 +83,59 @@
 </template>
 
 <style scoped>
-
-.el-header {
-  background-color: #6253FF;
-  color: white;
-  text-align: center;
-  justify-content: center;
-  font-size: large;
-  font-style: italic;
-  font-family: "UD Digi Kyokasho N-B";
-  font-weight: bold;
-  fill-opacity: 80%;
-  line-height: 60px;
-  border-radius: 7px;
-  position: page;
-}
-.el-aside {
-  color: #333;
-}
-.el-main{
-  height: 100%;
-}
-.post{
-  height: 80%;
-}
-.comment{
-  height: 80%;
-}
-::v-deep .el-table .cell {
-  font-size: medium;
-  white-space: pre-line;
-}
-::v-deep .content .el-table .cell{
-  line-height: 35px;
-  padding: 10px;
-  font-size: 20px;
-  font-style: italic;
-}
-.comment_button{
-  padding: 50px;
-}
-
-::v-deep .comment .el-table .cell{
-  line-height: 20px;
-  padding: 20px;
-}
-::v-deep .pic .el-table .cell{
-  text-align: center;
-  padding: 20px;
-}
-
+  .el-header {
+    background-color: #6253FF;
+    color: white;
+    text-align: center;
+    justify-content: center;
+    font-size: large;
+    font-style: italic;
+    font-family: "UD Digi Kyokasho N-B";
+    font-weight: bold;
+    fill-opacity: 80%;
+    line-height: 60px;
+    border-radius: 7px;
+    position: page;
+  }
+  .el-aside {
+    color: #333;
+  }
+  .el-main{
+    height: 100%;
+  }
+  .post{
+    height: 80%;
+  }
+  .comment{
+    height: 80%;
+  }
+  ::v-deep .el-table .cell {
+    font-size: medium;
+    white-space: pre-line;
+  }
+  ::v-deep .content .el-table .cell{
+    line-height: 35px;
+    padding: 10px;
+    font-size: 20px;
+    font-style: italic;
+  }
+  .comment_button{
+    padding: 0px;
+    position: relative;
+    bottom: 20%;
+  }
+  ::v-deep .comment .el-table .cell{
+    line-height: 20px;
+    padding: 20px;
+  }
 </style>
 
 <script>
   export default {
     name:'postDetail',
-
     props:['postId'],
     data() {
-
       const comments = [];
-
       const post = {
         author: 'Default',
         post_title: 'I fucked up today',
@@ -158,17 +155,15 @@
         // postData:[],
         dialog: false,
         form: {
-         content: ''
+          content: ''
         },
-        formLabelWidth: '80px',
+        formLabelWidth: '160px',
         timer: null,
         //假数据，暂时这样写死
         commentNum:0,
         avatar:'',
         postData: Array(1).fill(post),
-
         commentData: Array(this.commentNum).fill(comments)
-
       }
     },
     methods:{
@@ -183,17 +178,14 @@
           this.postData.push(this.post)
           // this.post.commentNum = res.data.data.commentAmount
           // this.post.comments = res.data.data.comment
-
         })
       },
       toHome:function (){
         this.$router.push('/home')
       }
     },
-
     created() {
-
-       this.post.id = parseInt(this.$route.query.id)
+      this.post.id = parseInt(this.$route.query.id)
       this.getPostDetail(this.postId)
     },
     handleClose(done) {
@@ -212,6 +204,11 @@
                 }, 2000);
               })
               .catch(_ => {});
+    },
+    submitForm() {
+      this.loading = false;
+      this.dialog = false;
+      clearTimeout(this.timer);
     },
     cancelForm() {
       this.loading = false;
