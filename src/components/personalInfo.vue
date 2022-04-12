@@ -4,9 +4,9 @@
       <el-row>
         <el-col :span="5" class="header-row">
 
-          <div style="float: left; margin-top: 18px" >
+          <div style="float: left; margin-top: 18px">
             <router-link to="/home/">
-              <i class="el-icon-s-home" ></i>
+              <i class="el-icon-s-home"></i>
               <!--     这里用来跳转首页, 颜色可以调整 在下面的a里面是静态颜色, active是点进去, css你自己设计吧 符合咱们的风格 图标大小也可以调整-->
             </router-link>
             <h1 class="text" style="display: inline"><strong>XJTLU</strong><em>Bonding</em></h1>
@@ -24,10 +24,10 @@
             </el-input>
           </div>
         </el-col>
-        <el-col :span="1" style="margin-top: 12px" >
+        <el-col :span="1" style="margin-top: 12px">
           <el-button icon="el-icon-search" circle></el-button>
         </el-col>
-        <el-col :span="6" style="margin-top: 12px; text-align: right" >
+        <el-col :span="6" style="margin-top: 12px; text-align: right">
           <router-link to="/createPost">
             <el-button type="primary" icon="el-icon-edit" plain :disabled="disabled">
               <!--              在send页面边灰 改变disabled的值-->
@@ -35,15 +35,25 @@
             </el-button>
           </router-link>
         </el-col>
-        <el-col  :span="6">
+        <el-col :span="6">
 
           <!--          头像加id-->
           <div style="float: right;margin-top: 6px">
             <el-dropdown>
-              <span class="el-dropdown-link" >
+              <span class="el-dropdown-link">
                 <el-avatar shape="square" :size="50" :src="userInfo.avatar" style="margin-right: 5px"></el-avatar>
                 <h4 style="display: inline; margin-left: 2px">{{ userInfo.nickName }}</h4>
                 <i class="el-icon-arrow-down el-icon--right" style="margin-top: 19px"></i>
+
+
+
+
+
+
+
+
+    @@ -60,113 +60,207 @@
+
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>Log out</el-dropdown-item>
@@ -59,75 +69,136 @@
     </el-header>
     <!-- 这个10就是让行距变小大概, 默认160   -->
     <el-main>
-      <div class="middle" :style="backgroundDiv"></div>
       <el-row class="me-row" :gutter="20" type="flex" align="middle" style="margin-top: 100px">
-          <!--          这里我加了hover,  颜色选的丑的一批, 后面诺, 交给你了, 加油奥里给
-                        对了click也可以加, 然后效果什么的都可以调 什么鼠标变手 阴影之类的
-          -->
-          <ul class="left-nav-list">
-            <li><div class="nav-button">
-              <div class="text text2" style="margin-top: 25px">
-                <p style="margin: 8px auto">Personal</p>
-                <p style="margin: 8px auto">Information</p>
-              </div>
-            </div></li>
+        <el-col :span="5" :offset="0">
+          <div class="left-nav" style="border: 10px solid red">
+            <!--          这里我加了hover,  颜色选的丑的一批, 后面诺, 交给你了, 加油奥里给
+                          对了click也可以加, 然后效果什么的都可以调 什么鼠标变手 阴影之类的
+            -->
+            <ul class="left-nav-list">
+              <li>
+                <div class="nav-button">
+                  <div class="text text2" style="margin-top: 25px">
+                    <p style="margin: 8px auto">Personal</p>
+                    <p style="margin: 8px auto">Information</p>
+                  </div>
+                </div>
+              </li>
 
-            <li><div class="nav-button" style="line-height: 100px">
-              <!--                line height = height 居中-->
-              <div class="text text2" >
-                <p style="margin: 0 auto">My Post list</p>
-              </div>
-            </div></li>
+              <li>
+                <div class="nav-button" style="line-height: 100px">
+                  <!--                line height = height 居中-->
+                  <div class="text text2">
+                    <p style="margin: 0 auto">My Post list</p>
+                  </div>
+                </div>
+              </li>
 
-            <li><div class="nav-button" style="line-height: 100px">
-              <div class="text text2" >
-                <p style="margin: 0 auto">Liked History</p>
-              </div>
-            </div></li>
+              <li>
+                <div class="nav-button" style="line-height: 100px">
+                  <div class="text text2">
+                    <p style="margin: 0 auto">Liked History</p>
+                  </div>
+                </div>
+              </li>
 
-            <li><div class="nav-button" >
-              <div class="text text2" style="margin-top: 25px">
-                <p style="margin: 8px auto">Commented</p>
-                <p style="margin: 8px auto">History</p>
-              </div>
-            </div></li>
+              <li>
+                <div class="nav-button">
+                  <div class="text text2" style="margin-top: 25px">
+                    <p style="margin: 8px auto">Commented</p>
+                    <p style="margin: 8px auto">History</p>
+                  </div>
+                </div>
+              </li>
 
-            <li><div class="nav-button" style="line-height: 100px">
-              <div class="text text2" >
-                <p style="margin: 0 auto">My Post list</p>
-              </div>
-            </div></li>
+              <li>
+                <div class="nav-button" style="line-height: 100px">
+                  <div class="text text2">
+                    <p style="margin: 0 auto">My Post list</p>
+                  </div>
+                </div>
+              </li>
 
-          </ul>
-
-        <el-col :span="1" :offset="1"><el-divider direction="vertical" style="height:10em"></el-divider></el-col>
-          <div class="middle-avatar" style="margin-top: -50px">
-            <el-avatar :size="180" :src="AvatarUrl" ></el-avatar>
-            <br><br><br>
-            <el-button type="primary" icon="el-icon-edit">Change</el-button>
+            </ul>
           </div>
-        <el-col :span="1" ><el-divider direction="vertical" style="height:10em"></el-divider></el-col>
-
-
-          <div class="personalInfo" style="margin: 0 auto; border: 2px solid blueviolet">
-              <div style="text-align: left"> <ul>
-                <!--                 这里字体字号也交给你了诺-->
-                <li style="list-style: none;"><p>nickName: {{personalInfo.nickName}}</p></li>
-                <li style="list-style: none;"><p>gender:   {{personalInfo.gender}}</p></li>
-                <li style="list-style: none;"><p>grade:    {{personalInfo.grade}}</p></li>
-                <li style="list-style: none;"><p>major:    {{personalInfo.major}}</p></li>
-                <li style="list-style: none;"><p style="padding: 0;margin:0">Personal</p><p style="padding: 0;margin:0">Description: </p><p style="padding: 0;margin-top:5px">{{personalInfo.PersonalizedInfo}}</p></li>
-              </ul></div>
-
-            <div class="bottom-lever" style="height: 25%; line-height: 150px" >
-              <el-button style="margin: 0 auto;"  type="primary" icon="el-icon-edit" size="medium" plain>Modify personalInfo</el-button>
+        </el-col>
+        <el-col :span="1" :offset="1">
+          <el-divider direction="vertical" style="height:10em"></el-divider>
+        </el-col>
+        <el-col :span="4">
+          <div style="border: 10px solid black">
+            <div class="middle-avatar" style="margin-top: -50px">
+              <el-avatar :size="180" :src="AvatarB64"></el-avatar>
+              <br><br><br>
+              <el-button type="primary" icon="el-icon-edit">Change</el-button>
             </div>
           </div>
+        </el-col>
+        <el-col :span="1">
+          <el-divider direction="vertical" style="height:10em"></el-divider>
+        </el-col>
 
+        <el-col :span="12">
+          <div style="border:3px solid blue">
+            <div class="personalInfo" style="margin: 0 auto; border: 2px solid blueviolet">
+              <div class="upper-lever"
+                   style="height: 75%; box-sizing: border-box; border: #00DBDE 1px solid;padding: 40px 20px">
+                <div style="text-align: left">
+                  <ul>
+                    <!--                 这里字体字号也交给你了诺-->
+                    <li style="list-style: none;"><p>nickName: {{ personalInfo.nickName }}</p></li>
+                    <li style="list-style: none;"><p>gender: {{ personalInfo.gender }}</p></li>
+                    <li style="list-style: none;"><p>grade: {{ personalInfo.grade }}</p></li>
+                    <li style="list-style: none;"><p>major: {{ personalInfo.major }}</p></li>
+                    <li style="list-style: none;"><p style="padding: 0;margin:0">Personal</p>
+                      <p style="padding: 0;margin:0">Description: </p>
+                      <p style="padding: 0;margin-top:5px">{{ personalInfo.PersonalizedInfo }}</p></li>
+                  </ul>
+                </div>
+
+              </div>
+              <div class="bottom-lever" style="height: 25%; line-height: 150px">
+                <el-button style="margin: 0 auto;" type="primary" icon="el-icon-edit" size="medium" plain
+                           @click="dialogVisible = true">Modify personalInfo
+                </el-button>
+                <!--                    title="Modify your Information"-->
+                <el-dialog
+                    :visible.sync="dialogVisible"
+                    width="35%"
+                    style="line-height: 30px;">
+                  <h3>!!Modify Your Information!!</h3>
+                  <el-form hide-required-asterisk="true" :label-position="labelPosition" label-width="100px" :model="InfoModificationForm" :rules="InfoModificationFormRules">
+                    <el-form-item label="nickName" prop="nickName">
+                      <el-input v-model="InfoModificationForm.nickName" placeholder="Let's get a cool name"></el-input>
+                    </el-form-item>
+                    <el-form-item label="gender" prop="gender" >
+                      <el-input v-model="InfoModificationForm.gender" placeholder="Are you male or female? Or middle"></el-input>
+                    </el-form-item>
+                    <el-form-item label="grade" prop="grade" >
+                      <el-input v-model="InfoModificationForm.grade" placeholder="Tell us your grade?"></el-input>
+                    </el-form-item>
+                    <el-form-item label="major" prop="major">
+                      <el-input v-model="InfoModificationForm.major" placeholder="Find people in same major!"></el-input>
+                    </el-form-item>
+                    <el-form-item label="Description" prop="personalDes" >
+                      <el-input type="textarea"
+                                v-model="InfoModificationForm.personalDes"
+                                :autosize="{ minRows: 3, maxRows: 5}"
+                                placeholder="Introduce yourself to other one"></el-input>
+                    </el-form-item>
+                  </el-form>
+                  <span slot="footer" class="dialog-footer">
+                      <el-button @click="dialogVisible = false">Cancel</el-button>
+                     <el-button type="primary" @click="dialogVisible = false">Submit</el-button>
+                  </span>
+                </el-dialog>
+              </div>
+            </div>
+          </div>
+        </el-col>
 
       </el-row>
     </el-main>
-
 
 
   </el-container>
@@ -139,11 +210,20 @@ export default {
     return{
         //这里不知道为什么我电脑只能识别绝对路径，还得辛苦你改一下了
         backgroundDiv: {
-          backgroundImage: "url(" + require("D:\\CPT202\\XJTLUbonding-master\\XJTLUbonding-master\\src\\assets\\xjtlu.jpg") + ")",
+          backgroundImage: "url(" + require("D:\\vue\\vue-admain\\src\\assets\\xjtluBG.jpg") + ")",
           backgroundRepeat: "no-repeat",
           backgroundSize: "2500px auto",
           marginTop: "10px",
         },
+      labelPosition:'left',
+      dialogVisible: false,
+      InfoModificationForm:{
+        nickName:'',
+        gender:'',
+        grade:'',
+        major:'',
+        personalDes:''
+      },
       personalInfo:{
         nickName:'',
         gender:'',
@@ -151,14 +231,37 @@ export default {
         major:'',
         PersonalizedInfo:'',
       },
-      AvatarUrl:"https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+      AvatarB64:"https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
       userInfo:{
         nickName:'DefaultAdmin',
         avatar:'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
       },
+      InfoModificationFormRules:{
+        nickName: [
+          { required: true, message: 'please input your username', trigger: 'blur' },
+          { min: 3, max: 12, message: 'length should >= 3 and < 12', trigger: 'blur' }
+        ],
+        gender: [
+          { required: false, trigger: 'blur' },
+          { min: 0, max: 10, message: 'length should not over than 10', trigger: 'blur' }
+        ],
+        grade: [
+          { required: false, trigger: 'blur' },
+          { min: 0, max: 10, message: 'length should not over than 10', trigger: 'blur' }
+        ],
+        major: [
+          { required: false,  trigger: 'blur' },
+          { min: 0, max: 10, message: 'length should not over than 10', trigger: 'blur' }
+        ],
+        personalDes: [
+          { required: false, trigger: 'blur' },
+          { min: 0, max: 100, message: 'length should not over than 100', trigger: 'blur' }
+        ],
+      }
     }
   },
   methods:{
+    //header的
     getUserInfo:function (){
       const token = localStorage.getItem('idToken')
       this.$http.get('/getUserInfo',{headers:{'token':token}}).then(res=>{
@@ -166,9 +269,27 @@ export default {
         this.userInfo.avatar = res.data.data.avatar
       })
     },
+    getPersonalInfo:function (){
+      const token = localStorage.getItem('idToken')
+      this.$http.get('/user/getPersonalInfo',{params:{'token':token}}).then(res=>{
+        if(res.data.status===200){
+          this.AvatarB64= res.data.data.avatar
+          this.personalInfo.nickName=res.data.data.nickName
+          this.personalInfo.gender=res.data.data.gender
+          this.personalInfo.grade=res.data.data.grade
+          this.personalInfo.major=res.data.data.major
+          this.personalInfo.PersonalizedInfo=res.data.data.PersonalizedInfo
+        }else {
+          alert('unknown error of system')
+        }
+      })
+    },
   },
   created() {
+    //header栏的,后面整合删掉
     this.getUserInfo()
+
+    this.getPersonalInfo()
   }
 }
 </script>
