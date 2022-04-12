@@ -130,7 +130,7 @@
                 ifphase2: false,
                 isLoading:false,
                 captureImage:'',
-                realValid: '',
+
                 // 这是登陆表单的数据绑定对象
                 resForm: {
                     username: '',
@@ -168,39 +168,64 @@
             login () {
                 this.$router.push('/home')
             },
-            getImage:function (){
 
-                this.$http.get('/getImage').then(res=>{
-                    this.captureImage = res.data.data.captureImage;
-                    this.realValid = res.data.data.realValid;
-                    console.log(this.realValid)
-                    console.log(res)
-                })
-            },
             //第一次提交成功后，操作进度条，同时调整phase
             next() {
-                // this.phase1DialogVisible = true;
-                // 给上面加上if条件把下面用else包裹住即可以实现条件拦截第一次提交
-                // 返回对话框
-                if (this.active++ > 2) this.active = 0;
-                if (this.active === 1) this.ifphase2 = true;
+                // // this.phase1DialogVisible = true;
+                // // 给上面加上if条件把下面用else包裹住即可以实现条件拦截第一次提交
+                // // 返回对话框
+                // if (this.active++ > 2) this.active = 0;
+                // if (this.active === 1) this.ifphase2 = true;
+
+                this.$http.get('/user/answerCheck',{params:{nickName:this.resForm.username,answer:this.resForm.answer}}).then(res=>{
+                  if(res.data.status===200){
+                    if (this.active++ > 2) this.active = 0;
+                    if (this.active === 1) this.ifphase2 = true;
+                  }else if(res.data.status===2){
+                    this.phase1DialogVisible = true;
+                  }
+                })
             },
             //假设第二次提交失败
             submit (formName) {
-                //进度++
-                this.active++
-                //加载启动
+                // 先让按钮变加载
                 this.isLoading=true
+              //再去验证表单规则
+                this.$refs[formName].validate(async (valid)=>{
 
-                //判断函数写在这里可以
-                //加载结束
-                this.isLoading = false
-                //显示错误
-                this.DialogVisible = true
+                  if(valid){
+                    //过了之后发送
+                    await this.$http.get('/user/reset',
+                        {params:{
+                            nickName: this.resForm.username,
+                            answer:this.resForm.answer,
+                            password:this.resForm.password
+                        }}).then(res=>{
+                      //返回的成功就进一步条, 然后跳回登录
+                      if(res.data.status===200){
+                        this.active++
+                        setTimeout("alert('successfully reser!!')",1500)
+                        this.$router.push('/login')
+                      }
+                      //失败了就弹出
+                      else if(res.data.status===3){
+                        //显示错误
+                        this.DialogVisible = true
+                      }
+                    })
+                  }
+                  // 连表单规则都没过就直接弹出错误框
+                  else {
+                    this.DialogVisible = true
+                  }
+                  //加载结束
+                  this.isLoading = false
+                })
+
             },
         },
         created() {
-            this.getImage()
+
         }
     }
 </script>
