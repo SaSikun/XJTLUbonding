@@ -34,19 +34,7 @@
               </el-table-column>
             </el-table>
           </div>
-          <div class = "pic">
-            <el-table empty-text = "No pictures!" :data="picture">
-              <el-table-column prop="post_pic" label="Pic">
-                <div class="demo-image__preview">
-                  <el-image
-                          style="width: 200px; height: 200px"
-                          :src="picture"
-                          :preview-src-list="picture">
-                  </el-image>
-                </div>
-              </el-table-column>
-            </el-table>
-          </div>
+
         </div>
 
         <div class = "comment_button"><!--comment button-->
@@ -178,8 +166,7 @@
         commentNum:0,
         avatar:'',
         postData: Array(1).fill(post),
-        //图片链接，多张图片有bug
-        picture: Array(1).fill('https://pic.imgdb.cn/item/623d6cdd27f86abb2ab9e2b4.jpg'),
+
         commentData: Array(this.commentNum).fill(comments)
 
       }
