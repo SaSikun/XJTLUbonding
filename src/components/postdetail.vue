@@ -70,7 +70,7 @@
             <div class="demo-drawer__footer">
               <el-button @click="$refs.drawer.closeDrawer()">Cancel</el-button>
               <!--提交按钮-->
-              <el-button type="primary" @click="$refs.drawer.closeDrawer()" :loading="loading">{{ loading ? 'Submitting...' : 'Submit!' }}</el-button>
+              <el-button type="primary" @click="submitComment(form,this.postId)" :loading="loading">{{ loading ? 'Submitting...' : 'Submit!' }}</el-button>
             </div>
           </el-footer>
         </div>
@@ -167,6 +167,38 @@
       }
     },
     methods:{
+      submitComment(form,id) {
+        if(this.form.content===''){
+          alert("pls do not input empty content")
+        }else{
+          const token = localStorage.getItem('idToken')
+          this.$http.get('/post/addComment', {params:{token:token,content: this.form.content}}).then(res=>{
+            if(res.data.status===200){
+              setTimeout("alert('success!! congratulations')",1500)
+              //这下面真不确定能不能跑, 不行就push到home,反正目的就是重定位到这个
+              //!!!!!!!!!!!!!!!!!!!!!!!
+              //!!!!!!!!!!!!!!!!!!!!!!!
+              //!!!!!!!!!!!!!!!!!!!!!!!
+              //!!!!!!!!!!!!!!!!!!!!!!!
+              //!!!!!!!!!!!!!!!!!!!!!!!
+              //!!!!!!!!!!!!!!!!!!!!!!!
+              //!!!!!!!!!!!!!!!!!!!!!!!
+              //!!!!!!!!!!!!!!!!!!!!!!!
+              //!!!!!!!!!!!!!!!!!!!!!!!
+              //!!!!!!!!!!!!!!!!!!!!!!!
+              //!!!!!!!!!!!!!!!!!!!!!!!
+              //!!!!!!!!!!!!!!!!!!!!!!!
+              //!!!!!!!!!!!!!!!!!!!!!!!
+              //!!!!!!!!!!!!!!!!!!!!!!!
+              //!!!!!!!!!!!!!!!!!!!!!!!
+              //!!!!!!!!!!!!!!!!!!!!!!!
+              //!!!!!!!!!!!!!!!!!!!!!!!
+              //!!!!!!!!!!!!!!!!!!!!!!!
+              this.$router.push({name:'postDetail',query: {id} || this.redirect})
+            }
+          })
+        }
+      },
       getPostDetail:function (id){
         this.$http.get('/post/getPostDetail',{params:{'id':id}}).then(res=>{
           this.post.author = res.data.writer
