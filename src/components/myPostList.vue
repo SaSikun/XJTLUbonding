@@ -1,64 +1,7 @@
 <template xmlns:el-col="http://www.w3.org/1999/html">
-    <el-container>
-        <el-header>
-            <el-row>
-                <el-col :span="5" class="header-row">
 
-                    <div style="float: left; margin-top: 18px">
-                        <router-link to="/home/">
-                            <i class="el-icon-s-home"></i>
-                            <!--     这里用来跳转首页, 颜色可以调整 在下面的a里面是静态颜色, active是点进去, css你自己设计吧 符合咱们的风格 图标大小也可以调整-->
-                        </router-link>
-                        <h1 class="text" style="display: inline"><strong>XJTLU</strong><em>Bonding</em></h1>
-
-                    </div>
-                </el-col>
-                <el-col :span="6">
-                    <div style="margin-top: 12px">
-                        <el-input
-                                placeholder="请输入内容"
-                                prefix-icon="el-icon-search"
-                                @keyup.enter.native=""
-                                v-model="input2">
-
-                        </el-input>
-                    </div>
-                </el-col>
-                <el-col :span="1" style="margin-top: 12px">
-                    <el-button icon="el-icon-search" circle></el-button>
-                </el-col>
-                <el-col :span="6" style="margin-top: 12px; text-align: right">
-                    <router-link to="/createPost">
-                        <el-button type="primary" icon="el-icon-edit" plain :disabled="disabled">
-                            <!--              在send页面边灰 改变disabled的值-->
-                            Add New Post
-                        </el-button>
-                    </router-link>
-                </el-col>
-                <el-col :span="6">
-
-                    <!--          头像加id-->
-                    <div style="float: right;margin-top: 6px">
-                        <el-dropdown>
-              <span class="el-dropdown-link">
-                <el-avatar shape="square" :size="50" :src="userInfo.avatar" style="margin-right: 5px"></el-avatar>
-                <h4 style="display: inline; margin-left: 2px">{{ userInfo.nickName }}</h4>
-                <i class="el-icon-arrow-down el-icon--right" style="margin-top: 19px"></i>
-              </span>
-                            <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item>Log out</el-dropdown-item>
-                                <el-dropdown-item divided>Reset Password</el-dropdown-item>
-                                <el-dropdown-item divided>My Info</el-dropdown-item>
-                                <el-dropdown-item divided>My Post</el-dropdown-item>
-                                <el-dropdown-item divided>My Like</el-dropdown-item>
-                            </el-dropdown-menu>
-                        </el-dropdown>
-                    </div>
-                </el-col>
-            </el-row>
-        </el-header>
         <!-- 这个10就是让行距变小大概, 默认160   -->
-        <el-main>
+        <div>
             <el-row class="me-row" :gutter="20" type="flex" align="middle" style="margin-top: 100px">
                 <el-col :span="5" :offset="0">
                     <div class="left-nav">
@@ -68,10 +11,10 @@
                         -->
                         <ul class="left-nav-list">
                             <li>
-                                <div class="nav-button">
-                                    <div class="text text2" style="margin-top: 25px">
-                                        <p style="margin: 8px auto">Personal</p>
-                                        <p style="margin: 8px auto">Information</p>
+                                <div class="nav-button" @click="toMePage()">
+                                    <div class="text text2" style="margin-top: 25px" @click="toMePage()">
+                                        <p style="margin: 8px auto" @click="toMePage()">Personal</p>
+                                        <p style="margin: 8px auto" @click="toMePage()">Information</p>
                                     </div>
                                 </div>
                             </li>
@@ -116,7 +59,7 @@
 
 
 
-                <el-col>
+                <el-col :span="17" offset="2">
 
                     <el-table  :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)">
                         <el-table-column prop="PostTitle" label="Post Title" width="900">
@@ -143,10 +86,8 @@
 
 
             </el-row>
-        </el-main>
+        </div>
 
-
-    </el-container>
 </template>
 <script>
     export default {
@@ -197,6 +138,9 @@
         },
 
         methods: {
+          toMePage:function (){
+            this.$router.push('/home/myInfo')
+          },
           getMyPostList: async function (){
             this.queryInfo.typeListString = JSON.stringify(this.queryInfo.typeList)
             const { data: res } = await this.$http.get('/post/queryMyPost',{ params: this.queryInfo })

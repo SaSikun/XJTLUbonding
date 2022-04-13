@@ -3,7 +3,7 @@ import router from './router';
 import Element from "element-ui";
 
 //定义url前半部分
-axios.defaults.baseURL = 'http://localhost:8080'
+// axios.defaults.baseURL = 'http://localhost:8080'
 
 
 //创建对象统一设置超时时间等等

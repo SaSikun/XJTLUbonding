@@ -25,10 +25,10 @@
           </div>
         </el-col>
         <el-col :span="1" style="margin-top: 12px" >
-          <el-button icon="el-icon-search" circle></el-button>
+          <el-button  icon="el-icon-search" circle></el-button>
         </el-col>
         <el-col :span="6" style="margin-top: 12px; text-align: right" >
-          <router-link to="/createPost">
+          <router-link to="/home/createPost">
             <el-button type="primary" icon="el-icon-edit" plain :disabled="disabled">
 <!--              在send页面边灰 改变disabled的值-->
               Add New Post
@@ -47,9 +47,14 @@
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>Log out</el-dropdown-item>
-                <el-dropdown-item divided>Reset Password</el-dropdown-item>
-                <el-dropdown-item divided>My Info</el-dropdown-item>
-                <el-dropdown-item divided>My Post</el-dropdown-item>
+                <el-dropdown-item  divided ><div style="height: 100%;width:100%" @click="toReset()">Reset Password</div></el-dropdown-item>
+                <router-link to="/home/myInfo">
+                  <el-dropdown-item divided>My Info</el-dropdown-item>
+                </router-link>
+
+                <router-link to="/home/myPost">
+                    <el-dropdown-item divided>My Post</el-dropdown-item>
+                </router-link>
                 <el-dropdown-item divided>My Like</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -67,7 +72,7 @@
 </template>
 <script>
 export default {
-  name:'home',
+  name:'resetPassword',
   data(){
     return{
       backgroundDiv: {
@@ -87,6 +92,10 @@ export default {
     }
   },
   methods:{
+    toReset:function (){
+      console.log(1)
+      this.$router.push('/reset')
+    },
     getUserInfo:function (){
         const token = localStorage.getItem('idToken')
         this.$http.get('/getUserInfo',{headers:{'token':token}}).then(res=>{

@@ -10,6 +10,10 @@ import detail from '../components/postdetail'
 import test from '../components/test'
 import postList from'../components/postList'
 import createPost from "@/components/createpost";
+import mePage from '../components/personalInfo'
+import resetPassword from "@/components/resetpassword";
+import postDetail from "@/components/postdetail";
+import myPostList from "@/components/myPostList";
 
 Vue.use(VueRouter)
 
@@ -18,8 +22,9 @@ const routes = [
     { path: '/login', component: login },
     { path: '/register', component: register },
     { path: '/404', component: notfound },
+    { path: '/reset', component: resetPassword },
     {
-        path: '/postDetail/:postId',
+        path: '/postDetail/',
         name:'postDetail',
         component: detail,
         props:true,
@@ -29,8 +34,10 @@ const routes = [
       component: home,
       children: [
         { path: '/welcome', component: welcome },
-        { path: '/', component: postList},
-        { path: '/createPost', component: createPost},
+        { path: '/home/', component: postList},
+        { path: '/home/createPost', component: createPost},
+        { path: '/home/myInfo', component: mePage},
+        { path: '/home/myPost', component: myPostList},
       ]
     },
     { path: '*', redirect: '/404' }
@@ -50,23 +57,23 @@ router.beforeEach((to, from, next) => {
   if (to.path === '/Login'||to.path==='/register') return next();
 
 
-  // 从 lOCALStorage 中获取到保存的 token 值
-  const tokenstr = localStorage.getItem('idToken')
-  const lastTime = localStorage.getItem('lastTime')
-  console.log(typeof (tokenstr)=='undefined')
-  const nowTime = Date.now()
-  if(lastTime===0||!lastTime) return next('/Login')
-
-
-
-  if((nowTime-lastTime)>3600000){
-    console.log(nowTime)
-    store.commit('CLEAR_Login')
-    return next('/Login')
-  }
-  //需要加入一个时间判断机制
-  // 没有 token，强制跳转到登录页
-  if (tokenstr===0||!tokenstr) return next('/Login')
+  // // 从 lOCALStorage 中获取到保存的 token 值
+  // const tokenstr = localStorage.getItem('idToken')
+  // const lastTime = localStorage.getItem('lastTime')
+  // console.log(typeof (tokenstr)=='undefined')
+  // const nowTime = Date.now()
+  // if(lastTime===0||!lastTime) return next('/Login')
+  //
+  //
+  //
+  // if((nowTime-lastTime)>3600000){
+  //   console.log(nowTime)
+  //   store.commit('CLEAR_Login')
+  //   return next('/Login')
+  // }
+  // //需要加入一个时间判断机制
+  // // 没有 token，强制跳转到登录页
+  // if (tokenstr===0||!tokenstr) return next('/Login')
   next()
 })
 

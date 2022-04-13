@@ -50,7 +50,8 @@
       :page-size= "queryInfo.pagesize"
       :page-sizes="[3,4]"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="total">
+      :total="total"
+  >
   </el-pagination>
   </div>
 </template>
@@ -100,7 +101,7 @@ export default {
     },
     SendToDetail:function (id){
       console.log(id)
-      this.$router.push({name:'postDetail',query: { id } || this.redirect})
+      this.$router.push({name:'postDetail',query:{id}  || this.redirect})
     },
     handleCurrentChange: function(newPage){
       this.queryInfo.pageNumber = newPage

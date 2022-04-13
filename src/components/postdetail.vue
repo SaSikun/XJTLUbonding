@@ -194,7 +194,7 @@
               //!!!!!!!!!!!!!!!!!!!!!!!
               //!!!!!!!!!!!!!!!!!!!!!!!
               //!!!!!!!!!!!!!!!!!!!!!!!
-              this.$router.push({name:'postDetail',query: {id} || this.redirect})
+              this.$router.go(0)
             }
           })
         }
