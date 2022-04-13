@@ -197,6 +197,7 @@
                     //过了之后发送
                     await this.$http.get('/user/reset',
                         {params:{
+                          //
                             nickName: this.resForm.username,
                             answer:this.resForm.answer,
                             password:this.resForm.password

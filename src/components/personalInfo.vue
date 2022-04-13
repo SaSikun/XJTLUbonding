@@ -185,13 +185,7 @@ export default {
     toMyPost:function (){
       this.$router.push('/home/myPost')
     },
-    getUserInfo:function (){
-      const token = localStorage.getItem('idToken')
-      this.$http.get('/getUserInfo',{headers:{'token':token}}).then(res=>{
-        this.userInfo.nickName=res.data.data.nickName
-        this.userInfo.avatar = res.data.data.avatar
-      })
-    },
+
     getPersonalInfo:function (){
       const token = localStorage.getItem('idToken')
       this.$http.get('/user/getPersonalInfo',{params:{'token':token}}).then(res=>{
