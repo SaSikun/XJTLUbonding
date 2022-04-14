@@ -109,9 +109,9 @@ export default {
         this.$store.commit('INIT_PASS_W')
       }
       this.isLoading=true
-      this.$refs[formName].validate( async (valid) => {
+      this.$refs[formName].validate((valid) => {
         if (valid) {
-           await this.$http.post('/user/login' ,this.loginForm).then(res=>{
+           this.$http.post('/user/login' ,this.loginForm).then(res=>{
             console.log(this.loginForm)
             if (res.data.status===200){
               this.$store.commit('INIT_PASS_W')
