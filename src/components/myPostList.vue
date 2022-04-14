@@ -59,32 +59,56 @@
 
 
 
-                <el-col :span="17" offset="2">
+                <el-col :span="18" :offset="3" style="line-height: 10px">
+                    <!--下面就是v-for  便利取出并将post的信息赋予每个小card2   有几个post对象, 生成几个card2-->
+                    <div class="grid-content bg-purple" v-for="post in tableData.slice((pageNumber-1)*pageSize, pageNumber * pageSize)" style="margin-bottom: 30px" >
+                        <!-- 第一个div, 将一个card分为上下两部分, 这里是头像加名字-->
+                        <div>
+                            <!--row内居中-->
+                            <el-row class="card22" style="margin-bottom: 0;" type="flex" align="middle" justify="start">
 
-                    <el-table  :data="tableData.slice((currentPage-1)*pageSize,currentPage*pageSize)">
-                        <el-table-column prop="PostTitle" label="Post Title" width="900">
-                        </el-table-column>
-                        <el-table-column prop="Time" label="Time" width="200">
-                        </el-table-column>
-                        <el-table-column prop = "id" label="Detail">
-                            <template slot-scope="scope">
-                                <el-button type="success" size="medium" round @click="SendToDetail(scope.row.id)">See Detail</el-button>
-                            </template>
-                        </el-table-column>
-                    </el-table>
+                                <!--头像-->
+                                <el-col :span="5" class="pic-name" style="text-align: right" >
+                                    <!--                 上方设置右对齐 -->
+                                    <el-avatar icon="el-icon-watch" src=post.avatar  ></el-avatar>
+                                </el-col>
+                                <!-- 名字-->
+                                <el-col :span="2" style="margin-left: 2px">
+                                    <div class = "username">
+                                        <h4>
+                                            {{post.Time}}
+                                        </h4>
+                                    </div>
+                                </el-col>
+                            </el-row>
 
-                    <div class="block" style="margin-top:15px;">
-                        <el-pagination align='center' @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                                       :current-page="queryInfo.pageNumber"
-                                       :page-size= "queryInfo.pagesize"
-                                       layout="prev, pager, next, jumper"
-                                       :total="total">
-                        </el-pagination>
+                        </div>
+                        <div class="card" >
+                            <el-row type="flex" align="middle">
+                                <el-col :span="18" style="text-align: left">
+                                    <div class = "title" style="font-size: 20px;font-family: Microsoft YaHei;"> <strong>Title:</strong>  {{post.PostTitle}}</div>
+                                </el-col>
+                                <el-col :span='5'>
+                                    <!--                    这里就是最方便的地方了， 直接绑定postid，  可以通过router to 直接传参post,id到detail 虽然还没实现  作为实验， 点击即可在控制台打印id-->
+                                    <div class="detailbtn">
+                                        <el-button type="success" size="medium" round @click="SendToDetail(post.id)">See Detail</el-button>
+                                    </div>
+                                </el-col>
+                            </el-row>
+                        </div>
                     </div>
-
                 </el-col>
-
-
+                <el-pagination
+                        background
+                        @current-change="handleCurrentChange"
+                        @size-change="handleSizeChange"
+                        :current-page="queryInfo.pageNumber"
+                        :page-size= "queryInfo.pagesize"
+                        :page-sizes="[3,4]"
+                        layout="total, sizes, prev, pager, next, jumper"
+                        :total="total"
+                >
+                </el-pagination>
             </el-row>
         </div>
 
@@ -116,9 +140,11 @@
                 typeList: [],
                 typeListString: ''
               },
-              total:0,
-                currentPage: 1, // 当前页码
-                pageSize: 7, // 每页的数据条数
+                total:0,
+                pageNumber: 1, //初始页
+                pageSize: 4,    // 每页的数据
+                input2:'',
+                disabled:false,
 
 
 
@@ -147,14 +173,13 @@
             if (res.meta.status !== 200) {
               return this.$message.error('数据获取失败')
             }
-
             this.tableData = res.data.postList
             this.total = res.data.totalpage
           },
-            handleSizeChange(val) {
-                console.log(`每页 ${val} 条`);
-                this.currentPage = 1;
-                this.pageSize = val;
+
+            handleSizeChange(newSize) {
+                this.queryInfo.pageSize = newSize
+                this.getPostList()
             },
 
           //上面的表格dongheng说能够实现跳转了能实现传参了, 但我不确定, 就是
@@ -162,10 +187,11 @@
                 this.$router.push({name:'postDetail',query: { id } || this.redirect})
             },
             //当前页改变时触发 跳转其他页
-            handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
-                this.currentPage = val;
+            handleCurrentChange(newPage) {
+                this.queryInfo.pageNumber = newPage
+                this.getPostList()
             },
+
             getUserInfo: function () {
                 const token = localStorage.getItem('idToken')
                 this.$http.get('/getUserInfo', {headers: {'token': token}}).then(res => {
@@ -183,130 +209,107 @@
 </script>
 
 <style lang="less" scoped>
-
-
-    .personalInfo {
+    el-divider{
+        height: 10em;
+    }
+    .personalInfo{
         height: 600px;
         width: 500px;
+        background-color: white;
+        font-family: "Comic Sans MS";
+        font-size: large;
+    }
+    .middle {
+        width:100%;
+        height:100%;
+        position:absolute;
+        background-size:cover;
+        object-fit: cover;
+        -webkit-filter: blur(10px);
+    }
+    .left-nav-list .nav-button{
+        margin-top: 20px;
+        margin-left: 100px;
+        box-shadow: 10px 10px 5px #3d3c3c;
+        border-radius: 50px 10px 50px 10px;
+        background-color: #f9fafc;
     }
 
-    .left-nav-list .nav-button:hover {
+    .left-nav-list .nav-button:hover{
+        animation: animated-border 1.5s infinite;
+        @keyframes animated-border {
+            0% {
+                box-shadow: 0 0 0 0 rgba(253, 252, 252, 0.37);
+            }
+            100% {
+                box-shadow: 0 0 0 20px rgba(255,255,255,0);
+            }
+        }
         //挑radius要连着下面的navbutton一起调
-        background-color: #99a9bf;
     }
-
-    .nav-button {
-        height: 120px;
-        width: 130px;
-        border: 1px black solid;
-        margin: 10%;
-        border-radius: 130px;
+    .nav-button{
+        height: 100px;
+        width: 200px;
+        border:2px black solid;
+        margin: 2px auto;
+        border-radius: 20px;
     }
-
-    li {
+    li{
         list-style: none;
     }
-
-    .me-row {
+    .me-row{
         margin: 0;
         padding: 0;
-        line-height: 18px !important;
+        line-height: 20px !important;
     }
-
     .el-row {
         margin-bottom: 20px;
-
         &:last-child {
             margin-bottom: 0;
         }
     }
-
     .el-col {
-        //border-radius: 4px;
+        border-radius: 4px;
     }
 
-    .bg-purple-dark {
-        background: #99a9bf;
-    }
-
-    .bg-purple {
-        background: #d3dce6;
-    }
-
-    .bg-purple-light {
-        background: #e5e9f2;
-    }
-
-    .grid-content {
-        //border-radius: 4px;
-        min-height: 36px;
-    }
-
-    .row-bg {
-        padding: 10px 0;
-        background-color: #f9fafc;
-    }
-
-    .middle {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        background-size: cover;
-        object-fit: cover;
-        -webkit-filter: blur(10px);
-    }
-
-    .card2 {
-        z-index: 2;
-
-    }
-
-
-    .userpanel {
+    .userpanel{
         text-align: center;
         color: white;
         font-size: medium;
         padding-top: 5%;
         padding-left: 2%;
     }
-
-    .username {
+    .username{
         padding-left: 5px;
     }
-
-    .detailbtn {
+    .detailbtn{
         position: relative;
-        right: 0px;
-        bottom: -50px;
+        right:0px;
+        bottom:-50px;
         color: #A7BFE8;
     }
-
-    .card {
-        width: 900px;
-        height: 90px;
+    .card{
+        width:900px;
+        height:90px;
         border: 1px solid #999;
         margin: 5px auto;
         box-shadow: 10px 10px 5px gray;
         border-radius: 30px;
         background-color: #f9fafc;
     }
-
-    .el-pagination {
+    .el-pagination{
         position: absolute;
-        bottom: 30px;
-        margin: auto;
-        left: 0;
-        right: 0;
-    }
 
-    .el-dropdown-link {
+        bottom: -35%;margin: auto;left: 0;right: 0;
+    }
+    .el-dropdown-link{
         cursor: pointer;
         display: flex;
         justify-content: space-around;
     }
-
-    .pic-name {
+    .pic-name{
         line-height: 0;
+
     }
 
     a {
@@ -314,60 +317,44 @@
         color: blue;
         font-size: 25px;
     }
-
-    a:visited {
-        text-decoration: none;
-        color: yellow;
-        font-size: 25px;
-    }
-
-    .text {
-        background: linear-gradient(90deg, #9F02FF 0%, #00DBDE 33.3%, rgba(131, 58, 180, 1) 66.6%, #9F02FF 100%);
+    .text{
+        background: linear-gradient(90deg, #9F02FF 0%, #00DBDE 33.3%, rgba(131,58,180,1) 66.6%, #9F02FF 100%);
         -webkit-background-clip: text; /*截取背景区域为文字*/
         color: transparent;
         background-size: 300% 100%; /*扩大背景区域*/
         animation: text 4s infinite linear;
     }
-
-    @keyframes text {
-        0% {
-            background-position: 0 0;
-        }
-        100% {
-            background-position: -150% 0;
-        }
+    @keyframes text{
+        0%  { background-position: 0 0;}
+        100% { background-position: -150% 0;}
     }
-
     .router-link-active {
         text-decoration: none;
         color: #A7BFE8;
     }
 
-    .el-container {
+    .el-container{
         padding: 0;
         margin: 0;
         height: 100%;
     }
-
     .el-header {
         padding-top: 0;
         padding-bottom: 0;
         background-image: linear-gradient(to right, #A7BFE8, #6190E8, #6253FF, #6190E8, #A7BFE8);
         color: #333;
-        //border-radius: 3px;
+        border-radius: 3px;
     }
 
-    .el-col {
+    .el-col{
         height: 100%;
         margin-top: 0;
         padding-top: 0;
     }
-
-    .el-row {
+    .el-row{
         padding-top: 0;
         margin-top: 0;
     }
-
     .el-main {
         background-color: #E9EEF3;
         color: #333;
@@ -387,36 +374,39 @@
     .el-container:nth-child(7) .el-aside {
         line-height: 320px;
     }
-
-    .box-card {
-        width: 480px;
-    }
-
-    .card-item {
-        margin-bottom: 0%;
-        margin-top: 0%;
-    }
-
     .title {
         padding-left: 10%;
         padding-top: 5px;
         font-family: "Segoe UI";
 
-        .middle {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            background-size: cover;
-            object-fit: cover;
-            -webkit-filter: blur(10px);
+
+        .el-col {
+            border-radius: 4px;
         }
 
-        .card2 {
-            z-index: 2;
-
+        .bg-purple-dark {
+            background: #99a9bf;
         }
 
+        .bg-purple {
+            background: #d3dce6;
+        }
+
+        .bg-purple-light {
+            background: #e5e9f2;
+        }
+
+        .grid-content {
+            border-radius: 4px;
+            min-height: 36px;
+        }
+
+        .row-bg {
+            padding: 0px;
+            background-color: #f9fafc;
+        }
 
     }
+
 
 </style>
