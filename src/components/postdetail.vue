@@ -147,11 +147,11 @@
 
     data() {
       const comments = [];
-      const post = {
-        author: 'Default',
-        post_title: 'I fucked up today',
-        post_content: "Sing praises of her heavenly descent!\nSpread the word of her heavenly descent!\nSing praises of her heavenly descent!\nAll be in awe of her heavenly descent!"
-      };
+      // const post = {
+      //   author: 'Default',
+      //   post_title: 'I fucked up today',
+      //   post_content: "Sing praises of her heavenly descent!\nSpread the word of her heavenly descent!\nSing praises of her heavenly descent!\nAll be in awe of her heavenly descent!"
+      // };
       return {
         queryInfo: {
           postId:0,
