@@ -106,12 +106,24 @@
         box-shadow:2px 2px 8px #aaaaaa;
         transform: translate(-50%,-50%);
     }
+    //顺便加了两个按钮的鼠标动效，后续可以再添加其他效果
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
     .btns{
-        display: flex;
-        justify-content: flex-end;
-        padding-left: 40%;
-
+      display: flex;
+      justify-content: flex-end;
+      padding-left: 30%;
+      position: relative;
+      top:80%;
+      right: 33.3%;
     }
+    .submit:hover {
+      border-radius: 50px 10px 50px 10px;
+    }
+    .cancel:hover{
+      border-radius: 10px 50px 10px 50px;
+    }
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     .register{
         display: flex;
         position: relative;

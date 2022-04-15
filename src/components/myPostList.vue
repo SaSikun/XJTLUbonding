@@ -45,13 +45,22 @@
                                 </div>
                             </li>
 
-                            <li>
-                                <div class="nav-button" style="line-height: 100px">
-                                    <div class="text text2">
-                                        <p style="margin: 0 auto">My Post list</p>
-                                    </div>
-                                </div>
-                            </li>
+                          <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+                          <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+                          <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+                          <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+                          <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xia-->
+                          <li><div class="nav-button" style="line-height: 100px">
+                            <div class="text2" >
+                              <p @click="toReset()" style="margin: 0 auto">Reset</p>
+                            </div>
+                          </div>
+                          </li>
+                          <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+                          <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+                          <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+                          <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+                          <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!shang-->
 
                         </ul>
                     </div>
@@ -159,6 +168,18 @@
         },
 
         methods: {
+          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xia
+          toReset:function (){
+            console.log(1)
+            this.$router.push('/reset')
+          },
+          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!shang
           toMePage:function (){
             this.$router.push('/home/myInfo')
           },
@@ -223,39 +244,48 @@
     el-divider{
         height: 10em;
     }
-    .personalInfo{
-        height: 600px;
-        width: 500px;
-        background-color: white;
-        font-family: "Comic Sans MS";
-        font-size: large;
-    }
-    .middle {
-        width:100%;
-        height:100%;
-        position:absolute;
-        background-size:cover;
-        object-fit: cover;
-        -webkit-filter: blur(10px);
-    }
-    .left-nav-list .nav-button{
-        margin-top: 20px;
-        margin-left: 100px;
-        box-shadow: 10px 10px 5px #3d3c3c;
-        border-radius: 50px 10px 50px 10px;
-        background-color: #f9fafc;
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xia
+    //左边波纹效果*//
+
+
+    .left-nav-list .nav-button1{
+      margin-top: 20px;
+      margin-left: 100px;
+      border-radius: 50px 10px 50px 10px;
+      background-color: #f9fafc;
     }
 
+    .left-nav-list .nav-button{
+      margin-top: 20px;
+      margin-left: 100px;
+      box-shadow: 10px 10px 5px #3d3c3c;
+      border-radius: 50px 10px 50px 10px;
+      background-color: #f9fafc;
+    }
+    .nav-button1{
+      height: 100px;
+      width: 200px;
+      border:2px black solid;
+      margin: 2px auto;
+      border-radius: 20px;
+    }
     .left-nav-list .nav-button:hover{
-        animation: animated-border 1.5s infinite;
-        @keyframes animated-border {
-            0% {
-                box-shadow: 0 0 0 0 rgba(253, 252, 252, 0.37);
-            }
-            100% {
-                box-shadow: 0 0 0 20px rgba(255,255,255,0);
-            }
+      animation: animated-border 1.5s infinite;
+      @keyframes animated-border {
+        0% {
+          box-shadow: 0 0 0 0 rgba(253, 252, 252, 0.37);
         }
+        100% {
+          box-shadow: 0 0 0 20px rgba(255,255,255,0);
+        }
+      }
+      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!shang
         //挑radius要连着下面的navbutton一起调
     }
     .nav-button{
@@ -265,6 +295,43 @@
         margin: 2px auto;
         border-radius: 20px;
     }
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xia
+    //see detail按钮效果*//
+
+
+    .seedetail{
+      background-color: #7DC4CC;
+    }
+    .seedetail:hover {
+      background: linear-gradient(90deg, #BC95C6 0%, #7DC4CC 50%, #BC95C6 100%);
+      background-size: 300% 100%; /*扩大背景区域*/
+      animation: text 4s infinite linear both, animated-border 1.5s infinite;
+      text-shadow: #676769 4px 4px 5px;
+      @keyframes logout {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: -150% 0;
+        }
+      }
+      @keyframes animated-border {
+        0% {
+          box-shadow: 0 0 0 0 #A7BFE8;
+        }
+        100% {
+          box-shadow: 0 0 0 20px rgba(255,255,255,0);
+        }
+      }
+    }
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!shang
+
     li{
         list-style: none;
     }
@@ -339,6 +406,39 @@
         0%  { background-position: 0 0;}
         100% { background-position: -150% 0;}
     }
+    //左侧几个按钮的字体渐变色动画*//
+
+
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xia
+    .text2{
+      background: linear-gradient(90deg, #9F02FF 0%, #00DBDE 33.3%, rgba(131,58,180,1) 66.6%, #9F02FF 100%);
+      -webkit-background-clip: text; /*截取背景区域为文字*/
+      color: transparent;
+      background-size: 300% 100%; /*扩大背景区域*/
+      font-family: "Comic Sans MS";
+      font-weight: bold;
+    }
+    .text2:hover{
+      animation: text 4s infinite linear;
+      text-shadow: #676769 4px 4px 5px;
+      @keyframes text2 {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: -150% 0;
+        }
+      }
+
+    }
+
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!shang
     .router-link-active {
         text-decoration: none;
         color: #A7BFE8;

@@ -38,13 +38,22 @@
               </div>
             </div>
             </li>
-
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xia-->
             <li><div class="nav-button" style="line-height: 100px">
               <div class="text2" >
-                <p style="margin: 0 auto">My Post list</p>
+                <p @click="toReset()" style="margin: 0 auto">Reset</p>
               </div>
             </div>
             </li>
+            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!shang-->
           </ul>
         </div>
 
@@ -131,7 +140,7 @@ export default {
     return{
         //这里不知道为什么我电脑只能识别绝对路径，还得辛苦你改一下了
         backgroundDiv: {
-          backgroundImage: "url(" + require("D:\\Desktop\\XJTLUbonding\\src\\assets\\xjtluBG.jpg") + ")",
+          backgroundImage: "url(" + require("D:\\vue\\vue-admain\\src\\assets\\xjtluBG.jpg") + ")",
           backgroundRepeat: "no-repeat",
           backgroundSize: "2500px auto",
           marginTop: "10px",
@@ -185,6 +194,18 @@ export default {
     }
   },
   methods:{
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xia
+    toReset:function (){
+      console.log(1)
+      this.$router.push('/reset')
+    },
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!shang
     toMyPost:function (){
       this.$router.push('/home/myPost')
     },
@@ -246,6 +267,7 @@ export default {
 el-divider{
   height: 10em;
 }
+
 .personalInfo{
   height: 600px;
   width: 500px;
@@ -253,14 +275,14 @@ el-divider{
   font-family: "Comic Sans MS";
   font-size: large;
 }
-.middle {
-  width:100%;
-  height:100%;
-  position:absolute;
-  background-size:cover;
-  object-fit: cover;
-  -webkit-filter: blur(10px);
+
+.left-nav-list .nav-button1{
+  margin-top: 20px;
+  margin-left: 100px;
+  border-radius: 50px 10px 50px 10px;
+  background-color: #f9fafc;
 }
+
 .left-nav-list .nav-button{
   margin-top: 20px;
   margin-left: 100px;
@@ -268,6 +290,17 @@ el-divider{
   border-radius: 50px 10px 50px 10px;
   background-color: #f9fafc;
 }
+.nav-button1{
+  height: 100px;
+  width: 200px;
+  border:2px black solid;
+  margin: 2px auto;
+  border-radius: 20px;
+}
+
+
+//左边波纹效果*//
+
 
 .left-nav-list .nav-button:hover{
   animation: animated-border 1.5s infinite;
@@ -290,6 +323,27 @@ el-divider{
 }
 li{
   list-style: none;
+}
+
+//姑且先加了logout按钮*//
+
+
+.logout{
+  font-style: italic;
+}
+.logout:hover {
+  background: linear-gradient(90deg, rgb(240, 25, 72) 0%, rgba(255, 120, 71) 50%, rgb(240, 25, 72) 100%);
+  background-size: 300% 100%; /*扩大背景区域*/
+  animation: text 4s infinite linear;
+  text-shadow: #676769 4px 4px 5px;
+  @keyframes logout {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: -150% 0;
+    }
+  }
 }
 .me-row{
   margin: 0;

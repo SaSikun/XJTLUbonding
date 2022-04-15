@@ -76,7 +76,7 @@ export default {
   data(){
     return{
       backgroundDiv: {
-        backgroundImage:"url(" + require('D:\\Desktop\\XJTLUbonding\\src\\assets\\xjtluBG.jpg') + ")",
+        backgroundImage:"url(" + require('D:\\vue\\vue-admain\\src\\assets\\xjtluBG.jpg') + ")",
         backgroundRepeat: "no-repeat",
         backgroundSize: "2500px auto",
         marginTop: "10px",
@@ -176,6 +176,21 @@ a:visited{
   color: yellow;
   font-size: 25px;
 }
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+.el-icon-s-home{
+  text-decoration: none;
+  color: blue;
+  font-size: 25px;
+}
+.el-icon-s-home:hover{
+  text-decoration: none;
+  color: white;
+  font-size: 25px;
+}
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 .text{
   background: linear-gradient(90deg, #9F02FF 0%, #00DBDE 33.3%, rgba(131,58,180,1) 66.6%, #9F02FF 100%);
   -webkit-background-clip: text; /*截取背景区域为文字*/
