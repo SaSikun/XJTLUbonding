@@ -42,12 +42,23 @@
         </div>
 
         <div class = "comment">
-          <el-table :data="commentData" stripe><!--Comments-->
-            <el-table-column prop="user" label="User" width="140">
+          <el-table :data="commentList" stripe><!--Comments-->
+            <el-table-column prop="writername" label="User" width="140">
             </el-table-column>
-            <el-table-column prop="comment" label="comment">
+            <el-table-column prop="content" label="comment">
             </el-table-column>
           </el-table>
+          <el-pagination
+              background
+              @current-change="handleCurrentChange"
+              @size-change="handleSizeChange"
+              :current-page="queryInfo.pageNumber"
+              :page-size= "queryInfo.pagesize"
+              :page-sizes="[1, 2, 5]"
+              layout="total, sizes, prev, pager, next, jumper"
+              :total="total"
+          >
+          </el-pagination>
         </div>
       </el-main>
       <el-drawer
@@ -70,7 +81,7 @@
             <div class="demo-drawer__footer">
               <el-button @click="$refs.drawer.closeDrawer()">Cancel</el-button>
               <!--提交按钮-->
-              <el-button type="primary" @click="submitComment(form,this.postId)" :loading="loading">{{ loading ? 'Submitting...' : 'Submit!' }}</el-button>
+              <el-button type="primary" @click="submitComment(form)" :loading="loading">{{ loading ? 'Submitting...' : 'Submit!' }}</el-button>
             </div>
           </el-footer>
         </div>
@@ -133,37 +144,51 @@
 <script>
   export default {
     name:'postDetail',
-    props:['postId'],
+
     data() {
       const comments = [];
-      const post = {
-        author: 'Default',
-        post_title: 'I fucked up today',
-        post_content: "Sing praises of her heavenly descent!\nSpread the word of her heavenly descent!\nSing praises of her heavenly descent!\nAll be in awe of her heavenly descent!"
-      };
+      // const post = {
+      //   author: 'Default',
+      //   post_title: 'I fucked up today',
+      //   post_content: "Sing praises of her heavenly descent!\nSpread the word of her heavenly descent!\nSing praises of her heavenly descent!\nAll be in awe of her heavenly descent!"
+      // };
       return {
-        //
-        // post: {
-        //   id:0,
-        //   author: '',
-        //   post_title: '',
-        //   post_content: '',
-        //   commentNum:0,
-        //   avatar:'',
-        //   comments:''
-        // },
-        // postData:[],
+        queryInfo: {
+          postId:0,
+          pageNumber: 1,
+          pageSize: 5,
+        },
+        total:0,
+        pageNumber: 1, //初始页
+        pageSize: 4,
+        post: {
+          id:0,
+          author: '',
+          post_title: '',
+          post_content: '',
+          commentNum:0,
+          avatar:'',
+          comments:''
+        },
+        postData:[],
         dialog: false,
         form: {
           content: ''
+        },
+        postAddForm:{
+          posterId:0,
+          postId:0,
+          content:''
+
         },
         formLabelWidth: '160px',
         timer: null,
         //假数据，暂时这样写死
         commentNum:0,
         avatar:'',
-        postData: Array(1).fill(post),
-        commentData: Array(this.commentNum).fill(comments)
+        //postData: Array(1).fill(post),
+        commentData: Array(this.commentNum).fill(comments),
+        commentList:[]
       }
     },
     methods:{
@@ -172,16 +197,43 @@
           alert("pls do not input empty content")
         }else{
           const token = localStorage.getItem('idToken')
-          this.$http.get('/post/addComment', {params:{token:token,content: this.form.content}}).then(res=>{
+          this.postAddForm.posterId=token
+          this.postAddForm.postId=this.post.id
+          this.postAddForm.content = this.form.content
+          this.$http.get('/post/replyWrite', {params:this.postAddForm}).then(res=>{
+            console.log(res)
             if(res.data.status===200){
-              setTimeout("alert('success!! congratulations')",1500)
+              this.$message({message:'success!! congratulations',type: 'success'});
               this.$router.go(0)
+              setTimeout("alert('success!! congratulations')",1000)
+
             }
           })
         }
       },
+      getCommentList: async function (){
+        this.queryInfo.postId=this.post.id
+        const { data: res } = await this.$http.get('/comment/getPostComment',{ params: this.queryInfo })
+        if (res.status !== 200) {
+          return this.$message.error('数据获取失败')
+        }
+
+        this.commentList = res.data.commentInfo.list
+        console.log(this.commentList)
+        console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        this.total = res.data.totalpage
+      },
+      handleCurrentChange:function (newPage) {
+        this.queryInfo.pageNumber = newPage
+        this.getCommentList()
+      },
+      handleSizeChange:function (newPage){
+        this.queryInfo.pageSize = newSize
+        this.getCommentList()
+      },
       getPostDetail:function (id){
-        this.$http.get('/post/getPostDetail',{params:{'id':id}}).then(res=>{
+        console.log(this.post.id)
+        this.$http.get('/post/getPostDetail',{params:{'id':this.post.id}}).then(res=>{
           this.post.author = res.data.writer
           this.post.post_title = res.data.title
           this.post.post_content = res.data.content
@@ -199,7 +251,9 @@
     },
     created() {
       this.post.id = parseInt(this.$route.query.id)
-      this.getPostDetail(this.postId)
+
+      this.getPostDetail(this.post.id)
+      this.getCommentList()
     },
     handleClose(done) {
       if (this.loading) {
@@ -227,6 +281,8 @@
       this.loading = false;
       this.dialog = false;
       clearTimeout(this.timer);
-    }
+    },
+
+
   }
 </script>

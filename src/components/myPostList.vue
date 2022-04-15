@@ -76,7 +76,7 @@
                                 <el-col :span="2" style="margin-left: 2px">
                                     <div class = "username">
                                         <h4>
-                                            {{post.Time}}
+                                            {{post.writerName}}
                                         </h4>
                                     </div>
                                 </el-col>
@@ -86,7 +86,7 @@
                         <div class="card" >
                             <el-row type="flex" align="middle">
                                 <el-col :span="18" style="text-align: left">
-                                    <div class = "title" style="font-size: 20px;font-family: Microsoft YaHei;"> <strong>Title:</strong>  {{post.PostTitle}}</div>
+                                    <div class = "title" style="font-size: 20px;font-family: Microsoft YaHei;"> <strong>Title:</strong>  {{post.title}}</div>
                                 </el-col>
                                 <el-col :span='5'>
                                     <!--                    这里就是最方便的地方了， 直接绑定postid，  可以通过router to 直接传参post,id到detail 虽然还没实现  作为实验， 点击即可在控制台打印id-->
@@ -119,26 +119,21 @@
         data() {
 
             return {
-
-                tableData: [
-                    {
-                        PostTitle: "Post Content1",
-                        Time: "Time1",
-                        id: "/register"
-                    },
-                    {
-                        PostTitle: "Post Content2",
-                        Time: "Time2",
-                        id: "200"
-                    },
-
-                ],
+              PersonId: {
+                id:0
+              },
+              personalInfo:{
+                nickName:'',
+                gender:'',
+                grade:'',
+                major:'',
+                PersonalizedInfo:'',
+              },
+              tableData: [],
               queryInfo: {
-                query: '',
+                id:0,
                 pageNumber: 1,
                 pageSize: 5,
-                typeList: [],
-                typeListString: ''
               },
                 total:0,
                 pageNumber: 1, //初始页
@@ -168,9 +163,9 @@
             this.$router.push('/home/myInfo')
           },
           getMyPostList: async function (){
-            this.queryInfo.typeListString = JSON.stringify(this.queryInfo.typeList)
-            const { data: res } = await this.$http.get('/post/queryMyPost',{ params: this.queryInfo })
-            if (res.meta.status !== 200) {
+            this.queryInfo.id = localStorage.getItem('idToken')
+            const { data: res } = await this.$http.get('/user/getPersonalPost',{ params: this.queryInfo })
+            if (res.status !== 200) {
               return this.$message.error('数据获取失败')
             }
             this.tableData = res.data.postList
@@ -192,16 +187,32 @@
                 this.getPostList()
             },
 
-            getUserInfo: function () {
-                const token = localStorage.getItem('idToken')
-                this.$http.get('/getUserInfo', {headers: {'token': token}}).then(res => {
-                    this.userInfo.nickName = res.data.data.nickName
-                    this.userInfo.avatar = res.data.data.avatar
-                })
-            },
+            // getUserInfo: function () {
+            //     const token = localStorage.getItem('idToken')
+            //     this.$http.get('/getUserInfo', {headers: {'token': token}}).then(res => {
+            //         this.userInfo.nickName = res.data.data.nickName
+            //         this.userInfo.avatar = res.data.data.avatar
+            //     })
+            // },
+          getPersonalInfo:function (){
+            this.PersonId.id = localStorage.getItem('idToken')
+            this.$http.get('/user/getPersonalInfo', {params:this.PersonId}).then(res=>{
+              if(res.status===200){
+
+                this.personalInfo.nickName=res.data.data.username
+                this.personalInfo.gender=res.data.data.gender
+                this.personalInfo.grade=res.data.data.grade
+                this.personalInfo.major=res.data.data.major
+                this.personalInfo.PersonalizedInfo=res.data.data.personalInfo
+
+              }else {
+                alert('unknown error of system')
+              }
+            })
+          },
         },
         created() {
-            this.getUserInfo()
+            //this.getUserInfo()
           this.getMyPostList()
         }
 

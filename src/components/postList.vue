@@ -3,7 +3,7 @@
     <el-row class="card2">
       <el-col :span="18" :offset="3" style="line-height: 10px">
         <!--下面就是v-for  便利取出并将post的信息赋予每个小card2   有几个post对象, 生成几个card2-->
-        <div class="grid-content bg-purple" v-for="post in postList2.slice((pageNumber-1)*pageSize, pageNumber * pageSize)" style="margin-bottom: 30px" >
+        <div class="grid-content bg-purple" v-for="post in postList.slice((pageNumber-1)*pageSize, pageNumber * pageSize)" style="margin-bottom: 30px" >
           <!-- 第一个div, 将一个card分为上下两部分, 这里是头像加名字-->
           <div>
             <!--row内居中-->

@@ -131,7 +131,7 @@ export default {
     return{
         //这里不知道为什么我电脑只能识别绝对路径，还得辛苦你改一下了
         backgroundDiv: {
-          backgroundImage: "url(" + require("D:\\vue\\vue-admain\\src\\assets\\xjtluBG.jpg") + ")",
+          backgroundImage: "url(" + require("D:\\Desktop\\XJTLUbonding\\src\\assets\\xjtluBG.jpg") + ")",
           backgroundRepeat: "no-repeat",
           backgroundSize: "2500px auto",
           marginTop: "10px",
@@ -151,6 +151,9 @@ export default {
         grade:'',
         major:'',
         PersonalizedInfo:'',
+      },
+      PersonId: {
+          id:0
       },
       AvatarB64:"https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
       userInfo:{
@@ -187,15 +190,16 @@ export default {
     },
 
     getPersonalInfo:function (){
-      const token = localStorage.getItem('idToken')
-      this.$http.get('/user/getPersonalInfo',{params:{'token':token}}).then(res=>{
-        if(res.data.status===200){
-          this.AvatarB64= res.data.data.avatar
-          this.personalInfo.nickName=res.data.data.nickName
+      this.PersonId.id = localStorage.getItem('idToken')
+      this.$http.get('/user/getPersonalInfo', {params:this.PersonId}).then(res=>{
+        if(res.status===200){
+
+          this.personalInfo.nickName=res.data.data.username
           this.personalInfo.gender=res.data.data.gender
           this.personalInfo.grade=res.data.data.grade
           this.personalInfo.major=res.data.data.major
-          this.personalInfo.PersonalizedInfo=res.data.data.PersonalizedInfo
+          this.personalInfo.PersonalizedInfo=res.data.data.personalInfo
+
         }else {
           alert('unknown error of system')
         }
@@ -231,7 +235,7 @@ export default {
   },
   created() {
     //header栏的,后面整合删掉
-    this.getUserInfo()
+
     this.getPersonalInfo()
   }
 }
