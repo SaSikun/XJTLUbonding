@@ -58,8 +58,11 @@
 </template>
 
 <script>
+  import home from '../components/home'
   export default {
-
+    comments:{
+      'home':home,
+    },
     data(){
       return{
         // 获取用户列表的参数对象
@@ -113,6 +116,7 @@
         this.getPostList()
       },
       getPostList: async function (){
+        //this.$refs.
         this.queryInfo.typeListString = JSON.stringify(this.queryInfo.typeList)
         const { data: res } = await this.$http.get('/post/queryPost',{ params: this.queryInfo })
         if (res.meta.status !== 200) {

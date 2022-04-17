@@ -25,7 +25,8 @@
           </div>
         </el-col>
         <el-col :span="1" style="margin-top: 12px" >
-          <el-button  icon="el-icon-search" circle></el-button>
+          <el-button  icon="el-icon-search" circle >
+          </el-button>
         </el-col>
         <el-col :span="6" style="margin-top: 12px; text-align: right" >
           <router-link to="/home/createPost">
@@ -71,7 +72,10 @@
   </el-container>
 </template>
 <script>
+//import { EventBus } from "../EventBus.js"
+
 export default {
+
   name:'resetPassword',
   data(){
     return{
@@ -104,9 +108,16 @@ export default {
         })
     },
   },
+  passquery(){
+    console.log(1)
+    this.$router.push('/reset')
+  },
   created() {
     this.getUserInfo()
   }
+
+
+
 
 }
 </script>

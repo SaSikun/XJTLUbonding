@@ -89,7 +89,7 @@
 
             <div class="bottom-lever" style="height: 25%; line-height: 150px" >
               <el-button style="margin: 10px auto;" type="primary" icon="el-icon-edit" size="medium" plain
-                         @click="dialogVisible = true">Modify personalInfo
+                         @click="showEditWindow">Modify personalInfo
               </el-button>
               <!--                    title="Modify your Information"-->
               <el-dialog
@@ -110,9 +110,9 @@
                   <el-form-item label="major" prop="major">
                     <el-input v-model="InfoModificationForm.major" placeholder="Find people in same major!"></el-input>
                   </el-form-item>
-                  <el-form-item label="Description" prop="personalDes" >
+                  <el-form-item label="Description" prop="PersonalizedInfo" >
                     <el-input type="textarea"
-                              v-model="InfoModificationForm.personalDes"
+                              v-model="InfoModificationForm.PersonalizedInfo"
                               :autosize="{ minRows: 3, maxRows: 5}"
                               placeholder="Introduce yourself to other one"></el-input>
                   </el-form-item>
@@ -148,11 +148,12 @@ export default {
       labelPosition:'left',
       dialogVisible: false,
       InfoModificationForm:{
+        id:0,
         nickName:'',
         gender:'',
         grade:'',
         major:'',
-        personalDes:''
+        PersonalizedInfo:''
       },
       personalInfo:{
         nickName:'',
@@ -186,7 +187,7 @@ export default {
           { required: false,  trigger: 'blur' },
           { min: 0, max: 10, message: 'length should not over than 10', trigger: 'blur' }
         ],
-        personalDes: [
+        PersonalizedInfo: [
           { required: false, trigger: 'blur' },
           { min: 0, max: 100, message: 'length should not over than 100', trigger: 'blur' }
         ],
@@ -209,6 +210,21 @@ export default {
     toMyPost:function (){
       this.$router.push('/home/myPost')
     },
+    showEditWindow:function(){
+      this.PersonId.id = localStorage.getItem('idToken')
+      this.$http.get('/user/getPersonalInfo', {params:this.PersonId}).then(res=>{
+        if(res.status===200){
+          this.InfoModificationForm.id=this.PersonId.id
+          this.InfoModificationForm.nickName=res.data.data.username
+          this.InfoModificationForm.gender=res.data.data.gender
+          this.InfoModificationForm.grade=res.data.data.grade
+          this.InfoModificationForm.major=res.data.data.major
+          this.InfoModificationForm.PersonalizedInfo=res.data.data.personalInfo
+        }
+      })
+      console.log(this.InfoModificationForm,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+      this.dialogVisible=true
+    },
 
     getPersonalInfo:function (){
       this.PersonId.id = localStorage.getItem('idToken')
@@ -227,14 +243,11 @@ export default {
       })
   },
     submit(formName){
-      const token = localStorage.getItem('idToken')
-      this.$refs[formName].validate(async (valid)=>{
-        if(valid){
-          //!!!!!! 这里我直接传表单了!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1111
-          await this.$http.get('/user/modifyInfo', {params:{token:token,form:this.InfoModificationForm}}).then(res=>{
+    const token = localStorage.getItem('idToken')
+      //this.$refs[formName].validate(async (valid)=>{
+        //if(valid){
+          //await
+          this.$http.get('/user/updateInfo', {params:this.InfoModificationForm}).then(res=>{
             //修改成功
             if(res.data.status===200){
               //消失弹框
@@ -248,10 +261,10 @@ export default {
               alert('userName has been used, sorry~')
             }
           })
-        }else {
-          alert('Could you pls check again T-T')
-        }
-      })
+        //}else {
+          //alert('Could you pls check again T-T')
+        //}
+      //})
     }
   },
   created() {
