@@ -140,7 +140,7 @@ export default {
     return{
         //这里不知道为什么我电脑只能识别绝对路径，还得辛苦你改一下了
         backgroundDiv: {
-          backgroundImage: "url(" + require("D:\\vue\\vue-admain\\src\\assets\\xjtluBG.jpg") + ")",
+          backgroundImage: "url(" + require("D:\\Desktop\\XJTLUbonding\\src\\assets\\xjtluBG.jpg") + ")",
           backgroundRepeat: "no-repeat",
           backgroundSize: "2500px auto",
           marginTop: "10px",
