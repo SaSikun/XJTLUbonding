@@ -18,6 +18,7 @@ import myPostList from "@/components/myPostList";
 Vue.use(VueRouter)
 
 const routes = [
+
     { path: '/', redirect: '/login' },
     { path: '/login', component: login },
     { path: '/register', component: register },
@@ -39,12 +40,12 @@ const routes = [
         { path: '/home/myInfo', component: mePage},
         { path: '/home/myPost', component: myPostList},
       ]
-    },
-    { path: '*', redirect: '/404' }
+    }
+    //{ path: '*', redirect: '/404' }
   ]
 
 const router = new VueRouter({
-  mode: 'history',
+
   base: process.env.BASE_URL,
   routes
 })
@@ -57,23 +58,23 @@ router.beforeEach((to, from, next) => {
   if (to.path === '/Login'||to.path==='/register') return next();
 
 
-  // // 从 lOCALStorage 中获取到保存的 token 值
-  // const tokenstr = localStorage.getItem('idToken')
-  // const lastTime = localStorage.getItem('lastTime')
-  // console.log(typeof (tokenstr)=='undefined')
-  // const nowTime = Date.now()
-  // if(lastTime===0||!lastTime) return next('/Login')
-  //
-  //
-  //
-  // if((nowTime-lastTime)>3600000){
-  //   console.log(nowTime)
-  //   store.commit('CLEAR_Login')
-  //   return next('/Login')
-  // }
-  // //需要加入一个时间判断机制
-  // // 没有 token，强制跳转到登录页
-  // if (tokenstr===0||!tokenstr) return next('/Login')
+  // 从 lOCALStorage 中获取到保存的 token 值
+  const tokenstr = localStorage.getItem('idToken')
+  const lastTime = localStorage.getItem('lastTime')
+  console.log(typeof (tokenstr)=='undefined')
+  const nowTime = Date.now()
+  if(lastTime===0||!lastTime) return next('/Login')
+
+
+
+  if((nowTime-lastTime)>3600000){
+    console.log(nowTime)
+    store.commit('CLEAR_Login')
+    return next('/Login')
+  }
+  //需要加入一个时间判断机制
+  // 没有 token，强制跳转到登录页
+  if (tokenstr===0||!tokenstr) return next('/Login')
   next()
 })
 

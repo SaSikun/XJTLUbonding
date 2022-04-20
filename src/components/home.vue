@@ -80,7 +80,7 @@ export default {
   data(){
     return{
       backgroundDiv: {
-        backgroundImage:"url(" + require('D:\\Desktop\\XJTLUbonding\\src\\assets\\xjtluBG.jpg') + ")",
+        backgroundImage:"url(" + require('../assets/xjtluBG.jpg') + ")",
         backgroundRepeat: "no-repeat",
         backgroundSize: "2500px auto",
         marginTop: "10px",
