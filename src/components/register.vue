@@ -44,7 +44,7 @@
                         <!--按钮-->
                       <el-form-item  prop="validation" style="width: 450px">
                         <el-input v-model="regForm.validation" style="width: 200px; float: left" ></el-input>
-                        <el-image @click="getImage()" :src="captureImage" class="validationImage" fit="scale-down" ></el-image>
+                        <el-image @click="getImage()" :src="'data:image/png;base64,'+ this.captureImage" alt="" class="validationImage" fit="scale-down" ></el-image>
                           <el-button type="primary" round @click = "submit('regForm')" :loading="isLoading">Submit!</el-button>
                       </el-form-item>
                     </el-form>
@@ -55,6 +55,8 @@
 </template>
 
 <script>
+
+import {Base64} from "js-base64";
 
 export default {
   data () {
@@ -116,6 +118,9 @@ export default {
         answer: '',
         validation:'1234',
       },
+      fake:{
+        id :1,
+      },
       // 表单验证规则
       registerFormRules: {
         username: [
@@ -150,9 +155,9 @@ export default {
     },
     getImage:function (){
 
-      this.$http.get('/getImage').then(res=>{
-        this.captureImage = res.data.data.captureImage;
-        this.realValid = res.data.data.realValid;
+      this.$http.get('/VerificationCode/get', {  params: this.fake }).then(res=>{
+        this.captureImage = res.data.data.base64;
+        this.realValid = res.data.data.ansewr;
         console.log(this.realValid)
         console.log(res)
       })

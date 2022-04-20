@@ -222,6 +222,7 @@ export default {
           this.InfoModificationForm.PersonalizedInfo=res.data.data.personalInfo
         }
       })
+
       console.log(this.InfoModificationForm,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
       this.dialogVisible=true
     },
