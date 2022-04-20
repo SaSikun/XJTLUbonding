@@ -105,6 +105,7 @@
                 } else {
                     if (this.resForm.confirmPassword !== '') {
                         this.$refs.regForm.validateField('confirmPassword');
+
                     }
                     callback();
                 }
@@ -133,6 +134,7 @@
 
                 // 这是登陆表单的数据绑定对象
                 resForm: {
+                  id:0,
                     username: '',
                     password: '',
                     confirmPassword: '',
@@ -176,9 +178,10 @@
                 // // 返回对话框
                 // if (this.active++ > 2) this.active = 0;
                 // if (this.active === 1) this.ifphase2 = true;
+                this.resForm.id = localStorage.getItem('idToken')
+                this.$http.get('/user/answerCheck',{params:this.resForm}).then(res=>{
 
-                this.$http.get('/user/answerCheck',{params:{nickName:this.resForm.username,answer:this.resForm.answer}}).then(res=>{
-                  if(res.data.status===200){
+                  if(res.status===200){
                     if (this.active++ > 2) this.active = 0;
                     if (this.active === 1) this.ifphase2 = true;
                   }else if(res.data.status===2){
@@ -192,16 +195,11 @@
                 this.isLoading=true
               //再去验证表单规则
                 this.$refs[formName].validate(async (valid)=>{
-
                   if(valid){
+                    console.log("通过了")
                     //过了之后发送
-                    await this.$http.get('/user/reset',
-                        {params:{
-                          //
-                            nickName: this.resForm.username,
-                            answer:this.resForm.answer,
-                            password:this.resForm.password
-                        }}).then(res=>{
+                    await this.$http.get('/user/updatePassword',
+                        {params:this.resForm}).then(res=>{
                       //返回的成功就进一步条, 然后跳回登录
                       if(res.data.status===200){
                         this.active++

@@ -8,7 +8,9 @@ import './assets/css/global.css'
 
 import axios from './axios'
 
+import Base64 from 'js-base64'
 
+Vue.use('Base64')
 
 Vue.prototype.$http = axios
 Vue.config.productionTip = false

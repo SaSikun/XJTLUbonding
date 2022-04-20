@@ -53,6 +53,7 @@
                 postForm: {
                     title: '',
                     content: '',
+                    id:0,
                 },
                 // 表单验证规则
                 postFormRules: {
@@ -71,8 +72,16 @@
             submit (formName) {
               this.$refs[formName].validate((valid)=>{
                 if(valid){
-                  const token = localStorage.getItem('idTolen')
-                  this.$http.post('/addPost',this.postForm,{headers:{'token':token}})
+                  const token = localStorage.getItem('idToken')
+                  this.postForm.id=token
+                  this.$http.get('/post/write', {params:this.postForm}).then(res=>{
+                    if(res.data.status===200){
+                      this.$message({message:'add post success!! congratulations',type: 'success'});
+                      this.$router.go(0)
+                      setTimeout("alert('success!! congratulations')",1000)
+
+                    }
+                  })
                   this.$router.push('/home/')
                 }
               })
