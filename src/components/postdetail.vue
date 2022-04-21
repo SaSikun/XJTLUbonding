@@ -54,8 +54,8 @@
               @size-change="handleSizeChange"
               :current-page="queryInfo.pageNumber"
               :page-size= "queryInfo.pagesize"
-              :page-sizes="[1, 2, 5]"
-              layout="total, sizes, prev, pager, next, jumper"
+              :page-sizes="[4]"
+              layout="total, sizes, prev, pager, next"
               :total="total"
           >
           </el-pagination>
@@ -156,7 +156,7 @@
         queryInfo: {
           postId:0,
           pageNumber: 1,
-          pageSize: 5,
+          pageSize: 4,
         },
         total:0,
         pageNumber: 1, //初始页
@@ -221,7 +221,9 @@
         this.commentList = res.data.commentInfo.list
         console.log(this.commentList)
         console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+
         this.total = res.data.totalpage
+        console.log("totoalis",this.total)
       },
       handleCurrentChange:function (newPage) {
         this.queryInfo.pageNumber = newPage

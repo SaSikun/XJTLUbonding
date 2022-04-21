@@ -42,7 +42,7 @@
           <div style="float: right;margin-top: 6px">
             <el-dropdown>
               <span class="el-dropdown-link" >
-                <el-avatar shape="square" :size="50" :src="userInfo.avatar" style="margin-right: 5px"></el-avatar>
+                <el-avatar shape="square" :size="50" :src="riden" style="margin-right: 5px"></el-avatar>
                 <h4 style="display: inline; margin-left: 2px">{{ userInfo.nickName }}</h4>
                 <i class="el-icon-arrow-down el-icon--right" style="margin-top: 19px"></i>
               </span>
@@ -73,7 +73,7 @@
 </template>
 <script>
 //import { EventBus } from "../EventBus.js"
-
+import riden from '@/assets/riden.jpg'
 export default {
 
   name:'resetPassword',
@@ -85,11 +85,14 @@ export default {
         backgroundSize: "2500px auto",
         marginTop: "10px",
       },
-
+      PersonId: {
+        id:0
+      },
+      riden:riden,
       input2:'',
       disabled:false,
       userInfo:{
-        nickName:'DefaultAdmin',
+        nickName:'',
         avatar:'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
       },
 
@@ -101,10 +104,11 @@ export default {
       this.$router.push('/reset')
     },
     getUserInfo:function (){
-        const token = localStorage.getItem('idToken')
-        this.$http.get('/getUserInfo',{headers:{'token':token}}).then(res=>{
-          this.userInfo.nickName=res.data.data.nickName
-          this.userInfo.avatar = res.data.data.avatar
+      this.PersonId.id = localStorage.getItem('idToken')
+        this.$http.get('/user/getPersonalInfo',{params:this.PersonId}).then(res=>{
+
+          this.userInfo.nickName=res.data.data.username
+          console.log(this.userInfo.nickName)
         })
     },
   },

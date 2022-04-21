@@ -22,7 +22,7 @@
             <div class="login_box">
                 <!--头像区域-->
                 <div class="avatar_box">
-                    <img src="../assets/reimu.jpg" alt="">
+                    <img src="../assets/riden.jpg" alt="">
                 </div>
                 <!--登陆表单区-->
                 <div>

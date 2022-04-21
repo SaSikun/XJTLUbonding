@@ -79,7 +79,7 @@
                                 <!--头像-->
                                 <el-col :span="5" class="pic-name" style="text-align: right" >
                                     <!--                 上方设置右对齐 -->
-                                    <el-avatar icon="el-icon-watch" src=post.avatar  ></el-avatar>
+                                    <el-avatar :src="riden"  ></el-avatar>
                                 </el-col>
                                 <!-- 名字-->
                                 <el-col :span="2" style="margin-left: 2px">
@@ -112,7 +112,7 @@
                         @current-change="handleCurrentChange"
                         @size-change="handleSizeChange"
                         :current-page="queryInfo.pageNumber"
-                        :page-size= "queryInfo.pagesize"
+                        :page-size= "queryInfo.pageSize"
                         :page-sizes="[3,4]"
                         layout="total, sizes, prev, pager, next, jumper"
                         :total="total"
@@ -123,6 +123,7 @@
 
 </template>
 <script>
+import riden from '@/assets/riden.jpg'
     export default {
         name: 'myPostList',
         data() {
@@ -138,11 +139,12 @@
                 major:'',
                 PersonalizedInfo:'',
               },
+              riden:riden,
               tableData: [],
               queryInfo: {
                 id:0,
                 pageNumber: 1,
-                pageSize: 5,
+                pageSize: 4,
               },
                 total:0,
                 pageNumber: 1, //初始页
@@ -195,7 +197,7 @@
 
             handleSizeChange(newSize) {
                 this.queryInfo.pageSize = newSize
-                this.getPostList()
+                this.getMyPostList()
             },
 
           //上面的表格dongheng说能够实现跳转了能实现传参了, 但我不确定, 就是
@@ -205,7 +207,7 @@
             //当前页改变时触发 跳转其他页
             handleCurrentChange(newPage) {
                 this.queryInfo.pageNumber = newPage
-                this.getPostList()
+                this.getMyPostList()
             },
 
             // getUserInfo: function () {
@@ -378,7 +380,7 @@
     .el-pagination{
         position: absolute;
 
-        bottom: -35%;margin: auto;left: 0;right: 0;
+        bottom: -15%;margin: auto;left: 0;right: 0;
     }
     .el-dropdown-link{
         cursor: pointer;
