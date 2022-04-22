@@ -24,7 +24,7 @@
         <div class="login_box">
           <!--头像区域-->
           <div class="avatar_box">
-            <img src="../assets/reimu.jpg" alt="">
+            <img src="../assets/riden.jpg" alt="">
           </div>
           <!--登陆表单区-->
           <div>
@@ -77,7 +77,7 @@ export default {
       // 这是登陆表单的数据绑定对象
       loginForm: {
         username: 'admin',
-        password: '123asd123'
+        password: 'asd123asd'
       },
       isLoading:false,
       DialogVisible: false,

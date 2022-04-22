@@ -61,7 +61,7 @@
                         <!--按钮-->
                         <el-form-item style="width: 450px">
                             <!--最终提交按钮-->
-                            <el-button v-show = "ifphase2" type="Next" round @click = "submit(resForm)" :loading="isLoading">Submit!</el-button>
+                            <el-button v-show = "ifphase2" type="Next" round @click = "submit('resForm')" :loading="isLoading">Submit!</el-button>
                             <!--第一次提交按钮-->
                             <el-button v-show = "!ifphase2" type="Next" round @click = "next()" :loading="isLoading">Next!</el-button>
                         </el-form-item>
@@ -104,7 +104,7 @@
                     callback(new Error('请输入密码'));
                 } else {
                     if (this.resForm.confirmPassword !== '') {
-                        this.$refs.regForm.validateField('confirmPassword');
+                        this.$refs.resForm.validateField('confirmPassword');
 
                     }
                     callback();
@@ -181,10 +181,10 @@
                 this.resForm.id = localStorage.getItem('idToken')
                 this.$http.get('/user/answerCheck',{params:this.resForm}).then(res=>{
 
-                  if(res.status===200){
+                  if(res.data.status===200){
                     if (this.active++ > 2) this.active = 0;
                     if (this.active === 1) this.ifphase2 = true;
-                  }else if(res.data.status===2){
+                  }else if(res.data.status===0){
                     this.phase1DialogVisible = true;
                   }
                 })
@@ -194,6 +194,7 @@
                 // 先让按钮变加载
                 this.isLoading=true
               //再去验证表单规则
+              console.log("开始验证")
                 this.$refs[formName].validate(async (valid)=>{
                   if(valid){
                     console.log("通过了")

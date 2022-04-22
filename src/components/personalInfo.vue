@@ -60,7 +60,7 @@
         <el-col :span="15">
           <div>
             <div class="middle-avatar" style="margin-top: -50px">
-              <el-avatar :size="180" :src="AvatarB64"></el-avatar>
+              <el-avatar :size="180" :src="riden"></el-avatar>
               <br><br><br>
               <el-button type="primary" icon="el-icon-edit">Change</el-button>
             </div>
@@ -134,6 +134,7 @@
 
 </template>
 <script>
+import riden from '@/assets/riden.jpg'
 export default {
   name:'mePage',
   data(){
@@ -145,6 +146,7 @@ export default {
           backgroundSize: "2500px auto",
           marginTop: "10px",
         },
+      riden:riden,
       labelPosition:'left',
       dialogVisible: false,
       InfoModificationForm:{

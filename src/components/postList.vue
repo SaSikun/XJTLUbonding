@@ -12,13 +12,13 @@
               <!--头像-->
               <el-col :span="5" class="pic-name" style="text-align: right" >
                 <!--                 上方设置右对齐 -->
-                <el-avatar icon="el-icon-user-solid" src=post.avatar  ></el-avatar>
+                <el-avatar  :src= "riden" ></el-avatar>
               </el-col>
               <!-- 名字-->
               <el-col :span="2" style="margin-left: 2px">
                 <div class = "username">
                   <h4>
-                    {{post.userName}}
+                    {{post.writerName}}
                   </h4>
                 </div>
               </el-col>
@@ -40,18 +40,19 @@
           </div>
         </div>
       </el-col>
-      <el-pagination
-              background
-              @current-change="handleCurrentChange"
-              @size-change="handleSizeChange"
-              :current-page="queryInfo.pageNumber"
-              :page-size= "queryInfo.pagesize"
-              :page-sizes="[3,4]"
-              layout="total, sizes, prev, pager, next, jumper"
-              :total="total"
-      >
-      </el-pagination>
+
     </el-row>
+    <el-pagination
+        background
+        @current-change="handleCurrentChange"
+        @size-change="handleSizeChange"
+        :current-page="queryInfo.pageNumber"
+        :page-size= "queryInfo.pagesize"
+        :page-sizes="[4]"
+        layout="total, sizes, prev, pager, next"
+        :total="total"
+    >
+    </el-pagination>
 
 
   </div>
@@ -59,20 +60,24 @@
 
 <script>
   import home from '../components/home'
+  import riden from '@/assets/riden.jpg'
   export default {
     comments:{
       'home':home,
     },
     data(){
+
       return{
         // 获取用户列表的参数对象
         queryInfo: {
           query: '',
           pageNumber: 1,
-          pageSize: 5,
+          pageSize: 4,
           typeList: [],
           typeListString: ''
         },
+        riden:riden,
+        circleUrl: "../assets/riden.jpg",
         total:0,
         pageNumber: 1, //初始页
         pageSize: 4,    // 每页的数据
@@ -85,6 +90,7 @@
           avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
           id:0,
         },
+
           {
             userName: "dandan2",
             title: "i am post title2",
@@ -125,7 +131,8 @@
 
         this.postList = res.data.postList
         this.total = res.data.totalpage
-
+        console.log(this.total,"totalis")
+        console.log(this.postList,"aaaaaaaaaaaaaaaaa")
 
 
       }
@@ -232,7 +239,7 @@
   .el-pagination{
     position: absolute;
 
-    bottom: -35%;margin: auto;left: 0;right: 0;
+    bottom: -15%;margin: auto;left: 0;right: 0;
   }
   .el-dropdown-link{
     cursor: pointer;
