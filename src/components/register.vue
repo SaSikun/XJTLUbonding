@@ -98,7 +98,7 @@ export default {
     let validatevalidation = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('pls input the validation code'));
-      } else if (value !== this.realValid) {
+      } else if (value.toLowerCase() !== this.realValid) {
         callback(new Error('wrong validation code'));
       } else {
         callback();
@@ -108,7 +108,7 @@ export default {
       DialogVisible: false,
       isLoading:false,
       captureImage:'',
-      realValid: '1234',
+      realValid: '',
       // 这是登陆表单的数据绑定对象
       regForm: {
         username: '',
@@ -116,7 +116,7 @@ export default {
         confirmPassword: '',
 
         answer: '',
-        validation:'1234',
+        validation:'',
       },
       fake:{
         id :1,
