@@ -20,6 +20,10 @@ export default new Vuex.Store({
       localStorage.setItem("lastTime",state.lastTime)
 
 },
+    UPDATE_TIME:(state,updateTime)=>{
+      state.lastTime=updateTime
+      localStorage.setItem("lastTime",state.lastTime)
+    },
     CLEAR_Login:(state) =>{
       state.idToken = 0
       state.lastTime = 0

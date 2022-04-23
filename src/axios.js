@@ -23,6 +23,17 @@ const request = axios.create({
 //每次发送都把这个idToken给送过去
 request.interceptors.request.use(config=>{
     config.headers['idToken'] = localStorage.getItem("idToken")
+    const nowTime = Date.now()
+    const lastTime = localStorage.getItem('lastTime')
+    if((nowTime-lastTime)>3600000){
+        // console.log(nowTime)
+        store.commit('CLEAR_Login')
+        return next('/Login')
+    }else {
+        store.commit('UPDATE_TIME',nowTime)
+        // console.log(nowTime)//test
+        // console.log('localstorge', localStorage.getItem('lastTime'))
+    }
     return config
 })
 

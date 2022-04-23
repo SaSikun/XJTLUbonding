@@ -67,11 +67,15 @@ router.beforeEach((to, from, next) => {
 
 
 
-  if((nowTime-lastTime)>3600000){
-    console.log(nowTime)
-    store.commit('CLEAR_Login')
-    return next('/Login')
-  }
+    if((nowTime-lastTime)>3600000){
+        // console.log(nowTime)
+        store.commit('CLEAR_Login')
+        return next('/Login')
+    }else {
+        store.commit('UPDATE_TIME',nowTime)
+        // console.log(nowTime)
+        // console.log('localstorge', localStorage.getItem('lastTime'))
+    }
   //需要加入一个时间判断机制
   // 没有 token，强制跳转到登录页
   if (tokenstr===0||!tokenstr) return next('/Login')
