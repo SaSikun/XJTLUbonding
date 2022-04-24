@@ -69,20 +69,20 @@
         },
 
         methods: {
-            submit (formName) {
-              this.$refs[formName].validate((valid)=>{
+          delay:function(fn,time){return new Promise(resolve=>{setTimeout(()=>{resolve(fn())},time)})},
+
+          submit (formName) {
+              this.$refs[formName].validate(async (valid)=>{
                 if(valid){
                   const token = localStorage.getItem('idToken')
                   this.postForm.id=token
-                  this.$http.get('/post/write', {params:this.postForm}).then(res=>{
+                  this.$http.get('/post/write', {params:this.postForm}).then(async res=>{
                     if(res.data.status===200){
                       this.$message({message:'add post success!! congratulations',type: 'success'});
-                      this.$router.go(0)
-                      setTimeout("alert('success!! congratulations')",1000)
-
                     }
                   })
-                  this.$router.push('/home/')
+                  await this.delay(()=>console.log("waiting"),600)
+                  await this.$router.push('/home/')
                 }
               })
 

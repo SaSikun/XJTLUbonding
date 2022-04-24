@@ -47,7 +47,7 @@
                 <i class="el-icon-arrow-down el-icon--right" style="margin-top: 19px"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>Log out</el-dropdown-item>
+                <el-dropdown-item><div @click="logoutConfirm">Log out</div></el-dropdown-item>
                 <el-dropdown-item  divided ><div style="height: 100%;width:100%" @click="toReset()">Reset Password</div></el-dropdown-item>
                 <router-link to="/home/myInfo">
                   <el-dropdown-item divided>My Info</el-dropdown-item>
@@ -102,6 +102,28 @@ export default {
   },
 
   methods:{
+    delay:function(fn,time){return new Promise(resolve=>{setTimeout(()=>{resolve(fn())},time)})},
+    logoutConfirm:function() {
+      this.$confirm('Are you sure you wanna logout?', 'Confirm', {
+        confirmButtonText: 'Log out',
+        cancelButtonText: 'Play more~~',
+        type: 'info'
+      }).then( () => {
+        this.$message({
+          type: 'success',
+          message: 'Bye Bye~~~',
+        }) //test
+
+        this.$store.commit('CLEAR_Login')
+        this.$router.push('/login')
+
+      }).catch(() => {
+        this.$message({
+          type: 'success',
+          message: 'Welcome Back!!'
+        });
+      });
+    },
     toReset:function (){
       console.log(1)
       this.$router.push('/reset')

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import router from './router';
 import Element from "element-ui";
+import store from "@/store";
 
 //定义url前半部分
 //axios.defaults.baseURL = 'http://localhost:8080'
@@ -23,6 +24,17 @@ const request = axios.create({
 //每次发送都把这个idToken给送过去
 request.interceptors.request.use(config=>{
     config.headers['idToken'] = localStorage.getItem("idToken")
+    const nowTime = Date.now()
+    const lastTime = localStorage.getItem('lastTime')
+        if((nowTime-lastTime)>3600000){
+            // console.log(nowTime)
+            store.commit('CLEAR_Login')
+        }else if((nowTime-lastTime)>0) {
+            store.commit('UPDATE_TIME',nowTime)
+            // console.log(nowTime)//test
+            // console.log('localstorge', localStorage.getItem('lastTime'))
+        }
+
     return config
 })
 
