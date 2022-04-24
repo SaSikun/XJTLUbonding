@@ -167,6 +167,7 @@
         },
 
         methods: {
+          delay:function(fn,time){return new Promise(resolve=>{setTimeout(()=>{resolve(fn())},time)})},
             login () {
                 this.$router.push('/home')
             },
@@ -200,12 +201,12 @@
                     console.log("通过了")
                     //过了之后发送
                     await this.$http.get('/user/updatePassword',
-                        {params:this.resForm}).then(res=>{
+                        {params:this.resForm}).then(async res=>{
                       //返回的成功就进一步条, 然后跳回登录
                       if(res.data.status===200){
                         this.active++
-                        setTimeout("alert('successfully reser!!')",1500)
-                        this.$router.push('/login')
+                        await this.delay(()=>this.$message({message:"Successfully Reset!!",type: 'success'}),500)
+                        await this.$router.push('/login')
                       }
                       //失败了就弹出
                       else if(res.data.status===3){
