@@ -19,13 +19,13 @@
               placeholder="请输入内容"
               prefix-icon="el-icon-search"
               @keyup.enter.native=""
-              v-model="input2">
 
+              v-model="input2">
           </el-input>
           </div>
         </el-col>
         <el-col :span="1" style="margin-top: 12px" >
-          <el-button  icon="el-icon-search" circle >
+          <el-button  icon="el-icon-search" circle @click="sendquery()">
           </el-button>
         </el-col>
         <el-col :span="6" style="margin-top: 12px; text-align: right" >
@@ -74,10 +74,12 @@
 <script>
 //import { EventBus } from "../EventBus.js"
 import riden from '@/assets/riden.jpg'
+import postList from '@/components/postList'
 export default {
 
   name:'resetPassword',
   data(){
+
     return{
       backgroundDiv: {
         backgroundImage:"url(" + require('../assets/xjtluBG.jpg') + ")",
@@ -98,6 +100,7 @@ export default {
 
     }
   },
+
   methods:{
     toReset:function (){
       console.log(1)
@@ -111,7 +114,11 @@ export default {
           console.log(this.userInfo.nickName)
         })
     },
+    sendquery:function (){
+      this.queryevent.$emit('query',this.input2)
+    },
   },
+
   passquery(){
     console.log(1)
     this.$router.push('/reset')

@@ -1,4 +1,5 @@
 <template>
+
   <div style="margin-top: 60px">
     <el-row class="card2">
       <el-col :span="18" :offset="3" style="line-height: 10px">
@@ -104,6 +105,14 @@
             id:2,
           }],
       }
+    },
+    mounted() {
+      this.queryevent.$on('query',(data)=>{
+        console.log('收到了数据',data)
+        this.queryInfo.query=data
+        console.log(this.queryInfo.query,"this.queryInfo.query")
+        this.getPostList()
+      })
     },
     methods:{
       print:function (id){
