@@ -1,6 +1,7 @@
 import axios from 'axios';
 import router from './router';
 import Element from "element-ui";
+import store from "@/store";
 
 //定义url前半部分
 //axios.defaults.baseURL = 'http://localhost:8080'
@@ -25,15 +26,16 @@ request.interceptors.request.use(config=>{
     config.headers['idToken'] = localStorage.getItem("idToken")
     const nowTime = Date.now()
     const lastTime = localStorage.getItem('lastTime')
-    if((nowTime-lastTime)>3600000){
-        // console.log(nowTime)
-        store.commit('CLEAR_Login')
-        return next('/Login')
-    }else {
-        store.commit('UPDATE_TIME',nowTime)
-        // console.log(nowTime)//test
-        // console.log('localstorge', localStorage.getItem('lastTime'))
-    }
+        if((nowTime-lastTime)>3600000){
+            // console.log(nowTime)
+            store.commit('CLEAR_Login')
+            return next('/Login')
+        }else if((nowTime-lastTime)>0) {
+            store.commit('UPDATE_TIME',nowTime)
+            // console.log(nowTime)//test
+            // console.log('localstorge', localStorage.getItem('lastTime'))
+        }
+
     return config
 })
 
