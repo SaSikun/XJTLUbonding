@@ -101,18 +101,18 @@ export default {
   methods:{
     delay:function(fn,time){return new Promise(resolve=>{setTimeout(()=>{resolve(fn())},time)})},
     logoutConfirm:function() {
-      this.$confirm('Are you sure you wanna logout?', '提示', {
+      this.$confirm('Are you sure you wanna logout?', 'Confirm', {
         confirmButtonText: 'Log out',
         cancelButtonText: 'Play more~~',
         type: 'info'
-      }).then( async () => {
+      }).then( () => {
         this.$message({
           type: 'success',
           message: 'Bye Bye~~~',
         }) //test
-        await this.delay(()=>console.log("waiting"),1000)
+
         this.$store.commit('CLEAR_Login')
-        await this.$router.push('/login')
+        this.$router.push('/login')
 
       }).catch(() => {
         this.$message({
