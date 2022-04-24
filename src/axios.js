@@ -29,7 +29,6 @@ request.interceptors.request.use(config=>{
         if((nowTime-lastTime)>3600000){
             // console.log(nowTime)
             store.commit('CLEAR_Login')
-            return next('/Login')
         }else if((nowTime-lastTime)>0) {
             store.commit('UPDATE_TIME',nowTime)
             // console.log(nowTime)//test
