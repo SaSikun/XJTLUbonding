@@ -63,6 +63,7 @@
                     ],
                     content: [
                         { required: true, message: 'Content', trigger: 'blur' },
+                        { min: 1, max: 255, message: 'length: not more than 255', trigger: 'blur' }
                     ],
                 }
             }
