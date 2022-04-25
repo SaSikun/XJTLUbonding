@@ -170,12 +170,12 @@ export default {
           console.log(res)
           if (res.status===200){
 
-              const jwt = res.data.id
-              console.log('this is data', res.data)
-              console.log('jwt:',jwt)
-              this.$store.commit('SET_LOGSTATUS',{name:'loginObj',idToken:jwt,lastTime:Date.now()})
-
-              await this.$router.push('/home')
+              // const jwt = res.data.id
+              // console.log('this is data', res.data)
+              // console.log('jwt:',jwt)
+              // this.$store.commit('SET_LOGSTATUS',{name:'loginObj',idToken:jwt,lastTime:Date.now()})
+              this.$message({message:"success registration!!!",type:"success"})
+              await this.$router.push('login')
             }
           if(res.status===0){
               // alert('username has been used, pls change to another one')
