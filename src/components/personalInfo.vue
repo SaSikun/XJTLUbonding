@@ -72,7 +72,7 @@
 
         <el-col :span="10">
           <div>
-            <div class="personalInfo" style="margin: 0 auto; border: 2px solid blueviolet">
+            <div class="personalInfo">
           <div class="upper-lever"
               style="height: 75%; box-sizing: border-box; padding: 40px 20px">
               <div style="text-align: left">
@@ -81,8 +81,8 @@
                 <li style="list-style: none;"><p>Nickname: {{personalInfo.nickName}}</p></li>
                 <li style="list-style: none;"><p>Gender:   {{personalInfo.gender}}</p></li>
                 <li style="list-style: none;"><p>Grade:    {{personalInfo.grade}}</p></li>
-                <li style="list-style: none;"><p>Major:    {{personalInfo.major}}</p></li>
-                <li style="list-style: none;"><p style="padding: 0;margin:0">Personal</p><p style="padding: 0;margin:0">Description: </p><p style="padding: 0;margin-top:5px">{{personalInfo.PersonalizedInfo}}</p></li>
+                <li style="list-style: none; row-span: 3"><p>Major:    {{personalInfo.major}}</p></li>
+                <li style="list-style: none;"><h4>Personal Description: </h4><p style="padding: 0;margin-top:5px">{{personalInfo.PersonalizedInfo}}</p></li>
               </ul>
               </div>
           </div>
@@ -287,9 +287,19 @@ el-divider{
 .personalInfo{
   height: 600px;
   width: 500px;
+  position: absolute;
+  right: 15%;
+  bottom: 0%;
+
+  padding-right: -20%;
   background-color: white;
+  opacity: 80%;
+  margin: 0 auto;
+  border-radius: 20px;
+  line-height: 30px;
   font-family: "Comic Sans MS";
   font-size: large;
+  box-shadow:5px 5px 16px #aaaaaa;
 }
 
 .left-nav-list .nav-button1{
@@ -332,6 +342,7 @@ el-divider{
 }
 .nav-button{
   height: 100px;
+  opacity: 90%;
   width: 200px;
   border:2px black solid;
   margin: 2px auto;

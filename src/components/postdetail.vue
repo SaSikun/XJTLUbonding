@@ -115,10 +115,13 @@
     height: 100%;
   }
   .post{
-    height: 80%;
+    height: auto;
+    border-color: #9F02FF;
+    border-width: 3px;
+    border-bottom-style: dashed;
   }
   .comment{
-    height: 80%;
+    height: 60%;
   }
   ::v-deep .el-table .cell {
     font-size: medium;
@@ -131,9 +134,9 @@
     font-style: italic;
   }
   .comment_button{
-    padding: 0px;
+    padding: 2%;
     position: relative;
-    bottom: 20%;
+
   }
   ::v-deep .comment .el-table .cell{
     line-height: 20px;

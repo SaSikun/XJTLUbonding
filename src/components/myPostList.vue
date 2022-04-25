@@ -371,12 +371,21 @@ import riden from '@/assets/riden.jpg'
     .card{
         width:900px;
         height:90px;
-        border: 1px solid #999;
+        opacity: 80%;
+        //border: 1px solid #999;
         margin: 5px auto;
+        padding: 0;
+        transition: padding 500ms;
         box-shadow: 10px 10px 5px gray;
         border-radius: 30px;
         background-color: #f9fafc;
     }
+    .card:hover{
+        box-shadow: 20px 15px 5px gray;
+        padding-top: 1%;
+        padding-bottom: 1%;
+    }
+
     .el-pagination{
         position: absolute;
 

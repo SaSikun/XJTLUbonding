@@ -49,7 +49,7 @@
         :current-page="queryInfo.pageNumber"
         :page-size= "queryInfo.pagesize"
         :page-sizes="[4]"
-        layout="total, sizes, prev, pager, next"
+        layout="prev, pager, next"
         :total="total"
     >
     </el-pagination>
@@ -212,8 +212,11 @@
   .card{
     width:900px;
     height:90px;
-    border: 1px solid #999;
+    opacity: 80%;
+    //border: 1px solid #999;
     margin: 5px auto;
+    padding: 0;
+    transition: padding 500ms;
     box-shadow: 10px 10px 5px gray;
     border-radius: 30px;
     background-color: #f9fafc;
@@ -227,8 +230,8 @@
 
 .card:hover{
   box-shadow: 20px 15px 5px gray;
-  border-radius: 50px 10px 50px 10px;
-
+  padding-top: 1%;
+  padding-bottom: 1%;
 }
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
