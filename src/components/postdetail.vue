@@ -195,6 +195,8 @@
       submitComment(form,id) {
         if(this.form.content===''){
           alert("pls do not input empty content")
+        }else if(this.form.content.length>=255){
+          alert("Maximum is 255")
         }else{
           const token = localStorage.getItem('idToken')
           this.postAddForm.posterId=token
