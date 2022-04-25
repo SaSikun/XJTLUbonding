@@ -23,6 +23,13 @@
                   </h4>
                 </div>
               </el-col>
+<!--              <el-col :span="10" style="margin-left: 2px">-->
+<!--                <div class = "username">-->
+<!--                  <h4>-->
+<!--                    {{post.date}}-->
+<!--                  </h4>-->
+<!--                </div>-->
+<!--              </el-col>-->
             </el-row>
 
           </div>
@@ -108,9 +115,11 @@
     },
     mounted() {
       this.queryevent.$on('query',(data)=>{
-        console.log('收到了数据',data)
         this.queryInfo.query=data
-        console.log(this.queryInfo.query,"this.queryInfo.query")
+        this.getPostList()
+      })
+      this.queryevent.$on('queryType',(data)=>{
+        this.queryInfo.typeList=data
         this.getPostList()
       })
     },

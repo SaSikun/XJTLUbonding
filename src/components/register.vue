@@ -167,7 +167,7 @@ export default {
       this.$refs[formName].validate( async (valid) => {
         if (valid) {
           const { data: res } = await this.$http.get('/user/register', { params: this.regForm })
-          console.log(res)
+          console.log(res.status,'status is')
           if (res.status===200){
 
               // const jwt = res.data.id

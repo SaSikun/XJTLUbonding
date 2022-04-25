@@ -21,9 +21,20 @@
                 <div>
                     <el-form ref="postForm" :model="postForm" :rules="postFormRules" label-width="0px" class="login_form">
                         <!--用户名-->
+
                         <el-form-item prop="title">
                             <el-input placeholder="Post title here" v-model="postForm.title" prefix-icon="el-icon-chat-round"></el-input>
                         </el-form-item>
+                      <el-form-item prop="type">
+                        <el-select v-model="addInfo.valueS" @focus="getScene" @change="sendScene(addInfo.valueS)" multiple filterable remote style="margin-top: 0px;margin-right: 400px" placeholder="Select category">
+                          <el-option
+                              v-for="item in optionsS"
+                              :key="item.id"
+                              :label="item.typeName"
+                              :value="item.id">
+                          </el-option>
+                        </el-select>
+                      </el-form-item>
                         <el-form-item prop="content">
                             <el-input :rows = 12 placeholder="Post content here..." type="textarea" v-model="postForm.content"></el-input>
                         </el-form-item>
@@ -45,6 +56,10 @@
         name:'createPost',
         data () {
             return {
+              addInfo:{
+                valueS:''
+              },
+              optionsS:[],
                 DialogVisible: false,
                 isLoading:false,
                 captureImage:'',
@@ -54,6 +69,7 @@
                     title: '',
                     content: '',
                     id:0,
+                    typeString:''
                 },
                 // 表单验证规则
                 postFormRules: {
@@ -88,6 +104,16 @@
               })
 
             },
+          async getScene () {
+            const { data: res } = await this.$http.get('post/querytype')
+            if (res.status === 200) {
+              this.optionsS = res.data // 把获取到的数据赋给this.data
+            }
+          },
+          sendScene () {
+            this.postForm.typeString = JSON.stringify(this.addInfo.valueS)
+
+          },
             cancel () {
                 this.$router.push('/home/')
             }
@@ -200,5 +226,8 @@
 
     .el-container:nth-child(7) .el-aside {
         line-height: 320px;
+    }
+    .login_box{
+      height: 60%;
     }
 </style>
