@@ -12,6 +12,10 @@ import Base64 from 'js-base64'
 
 Vue.use('Base64')
 
+const query =Vue.extend({})
+const q = new query
+Vue.prototype.queryevent = q
+
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
 Vue.use(Element)

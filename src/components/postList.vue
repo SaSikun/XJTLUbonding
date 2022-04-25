@@ -1,4 +1,5 @@
 <template>
+
   <div style="margin-top: 60px">
     <el-row class="card2">
       <el-col :span="18" :offset="3" style="line-height: 10px">
@@ -22,6 +23,13 @@
                   </h4>
                 </div>
               </el-col>
+<!--              <el-col :span="10" style="margin-left: 2px">-->
+<!--                <div class = "username">-->
+<!--                  <h4>-->
+<!--                    {{post.date}}-->
+<!--                  </h4>-->
+<!--                </div>-->
+<!--              </el-col>-->
             </el-row>
 
           </div>
@@ -104,6 +112,16 @@
             id:2,
           }],
       }
+    },
+    mounted() {
+      this.queryevent.$on('query',(data)=>{
+        this.queryInfo.query=data
+        this.getPostList()
+      })
+      this.queryevent.$on('queryType',(data)=>{
+        this.queryInfo.typeList=data
+        this.getPostList()
+      })
     },
     methods:{
       print:function (id){

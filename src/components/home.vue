@@ -10,7 +10,6 @@
 <!--     这里用来跳转首页, 颜色可以调整 在下面的a里面是静态颜色, active是点进去, css你自己设计吧 符合咱们的风格 图标大小也可以调整-->
             </router-link>
               <h1 class="text" style="display: inline"><strong>XJTLU</strong><em>Bonding</em></h1>
-
           </div>
         </el-col>
         <el-col :span="6">
@@ -19,16 +18,26 @@
               placeholder="请输入内容"
               prefix-icon="el-icon-search"
               @keyup.enter.native=""
-              v-model="input2">
 
+              v-model="input2">
           </el-input>
           </div>
         </el-col>
         <el-col :span="1" style="margin-top: 12px" >
-          <el-button  icon="el-icon-search" circle >
+          <el-button  icon="el-icon-search" circle @click="sendquery()">
           </el-button>
         </el-col>
-        <el-col :span="6" style="margin-top: 12px; text-align: right" >
+        <el-col :span="3">
+          <el-select v-model="queryInfo.valueS" @focus="getScene" @change="sendScene(queryInfo.valueS)" multiple filterable remote style="margin-top: 12px;margin-left: 22px" placeholder="Select category">
+            <el-option
+                v-for="item in optionsS"
+                :key="item.id"
+                :label="item.typeName"
+                :value="item.id">
+            </el-option>
+          </el-select>
+        </el-col>
+        <el-col :span="3" style="margin-top: 12px; text-align: right" >
           <router-link to="/home/createPost">
             <el-button type="primary" icon="el-icon-edit" plain :disabled="disabled">
 <!--              在send页面边灰 改变disabled的值-->
@@ -74,11 +83,17 @@
 <script>
 //import { EventBus } from "../EventBus.js"
 import riden from '@/assets/riden.jpg'
+import postList from '@/components/postList'
 export default {
 
   name:'resetPassword',
   data(){
+
     return{
+      queryInfo:{
+        valueS:''
+      },
+      optionsS:[],
       backgroundDiv: {
         backgroundImage:"url(" + require('../assets/xjtluBG.jpg') + ")",
         backgroundRepeat: "no-repeat",
@@ -98,6 +113,7 @@ export default {
 
     }
   },
+
   methods:{
     delay:function(fn,time){return new Promise(resolve=>{setTimeout(()=>{resolve(fn())},time)})},
     logoutConfirm:function() {
@@ -121,6 +137,16 @@ export default {
         });
       });
     },
+    async getScene () {
+      const { data: res } = await this.$http.get('post/querytype')
+      if (res.status === 200) {
+        this.optionsS = res.data // 把获取到的数据赋给this.data
+      }
+    },
+    sendScene () {
+      this.queryevent.$emit('queryType',this.queryInfo.valueS)
+    },
+
     toReset:function (){
       console.log(1)
       this.$router.push('/reset')
@@ -133,7 +159,11 @@ export default {
           console.log(this.userInfo.nickName)
         })
     },
+    sendquery:function (){
+      this.queryevent.$emit('query',this.input2)
+    },
   },
+
   passquery(){
     console.log(1)
     this.$router.push('/reset')
