@@ -23,13 +23,13 @@
                   </h4>
                 </div>
               </el-col>
-<!--              <el-col :span="10" style="margin-left: 2px">-->
-<!--                <div class = "username">-->
-<!--                  <h4>-->
-<!--                    {{post.date}}-->
-<!--                  </h4>-->
-<!--                </div>-->
-<!--              </el-col>-->
+              <el-col :span="10" style="margin-left: 2px">
+                <div class = "username">
+                  <h4>
+                    {{post.date}}
+                  </h4>
+                </div>
+              </el-col>
             </el-row>
 
           </div>
@@ -57,7 +57,7 @@
         :current-page="queryInfo.pageNumber"
         :page-size= "queryInfo.pagesize"
         :page-sizes="[4]"
-        layout="prev, pager, next"
+        layout="total, sizes, prev, pager, next"
         :total="total"
     >
     </el-pagination>
