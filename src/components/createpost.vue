@@ -16,7 +16,7 @@
             <el-main><div style = "transform:rotate(6deg)">Post!</div></el-main>
         </el-container>
         <div class="login_container">
-            <div class="login_box">
+            <div class="create_box">
                 <div>
                     <el-form ref="postForm" :model="postForm" :rules="postFormRules" label-width="0px" class="login_form">
                         <!--用户名-->
@@ -125,9 +125,9 @@
         height: 100%;
     }
 
-    .login_box{
+    .create_box{
         width:600px;
-        height:450px;
+        height:500px;
         background-color: #E0E0DF;
         border-radius:3px;
         position: absolute;
