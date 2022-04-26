@@ -31,7 +31,7 @@
                             <li>
                                 <div class="nav-button" style="line-height: 100px">
                                     <div class="text text2">
-                                        <p style="margin: 0 auto">Liked History</p>
+                                        <p style="margin: 0 auto">Post Collection</p>
                                     </div>
                                 </div>
                             </li>
@@ -68,6 +68,7 @@
 
 
 
+
                 <el-col :span="18" :offset="3" style="line-height: 10px">
                     <!--下面就是v-for  便利取出并将post的信息赋予每个小card2   有几个post对象, 生成几个card2-->
                     <div class="grid-content bg-purple" v-for="post in tableData.slice((pageNumber-1)*pageSize, pageNumber * pageSize)" style="margin-bottom: 30px" >
@@ -84,8 +85,8 @@
                                 <!-- 名字-->
                                 <el-col :span="2" style="margin-left: 2px">
                                     <div class = "username">
-                                        <h4>
-                                            {{post.writerName}}
+                                        <h4><!--date ！！！！！！！暂时需要后端方法稍作调整, 目前显示不了！！！！！！-->
+                                            {{post.date}}
                                         </h4>
                                     </div>
                                 </el-col>
@@ -100,7 +101,8 @@
                                 <el-col :span='5'>
                                     <!--                    这里就是最方便的地方了， 直接绑定postid，  可以通过router to 直接传参post,id到detail 虽然还没实现  作为实验， 点击即可在控制台打印id-->
                                     <div class="detailbtn">
-                                        <el-button type="success" size="medium" round @click="SendToDetail(post.id)">See Detail</el-button>
+                                        <el-button type="primary" plain round @click="SendToDetail(post.id)">See Detail</el-button>
+                                        <el-button type="danger" icon="el-icon-delete" circle @click="toggleDeletion(post.id)"></el-button>
                                     </div>
                                 </el-col>
                             </el-row>
@@ -119,6 +121,21 @@
                 >
                 </el-pagination>
             </el-row>
+
+            <el-dialog
+                    title="Deletion"
+                    :visible.sync="dialogVisible"
+                    width="20%"
+                    height ="20%"
+            >
+                <h1>Are you sure?</h1>
+                <div style = "text-align:center">
+              <span slot="footer" class="dialog-footer">
+              <el-button @click="dialogVisible = false">Cancel</el-button>
+              <el-button type="danger" @click="deletion">Delete</el-button>
+              </span>
+                </div>
+            </el-dialog>
         </div>
 
 </template>
@@ -140,6 +157,7 @@ import riden from '@/assets/riden.jpg'
                 PersonalizedInfo:'',
               },
               riden:riden,
+                deleteTarget:'',
               tableData: [],
               queryInfo: {
                 id:0,
@@ -174,26 +192,44 @@ import riden from '@/assets/riden.jpg'
           //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xia
-          toReset:function (){
+            // 启动删除的函数，将target设置为目标id
+            toggleDeletion:function (id){
+                this.dialogVisible = true;
+                this.deleteTarget = id
+                console.log(id)
+            },
+
+            //实际删除的函数
+            deletion:function (){
+                target = this.deleteTarget
+                console.log(target)
+                //对target进行删除
+
+                //置空，防止潜在bug
+                this.deleteTarget = ''
+            },
+
+            toReset:function (){
             console.log(1)
             this.$router.push('/reset')
-          },
+            },
+
           //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!shang
-          toMePage:function (){
-            this.$router.push('/home/myInfo')
-          },
-          getMyPostList: async function (){
-            this.queryInfo.id = localStorage.getItem('idToken')
-            const { data: res } = await this.$http.get('/user/getPersonalPost',{ params: this.queryInfo })
-            if (res.status !== 200) {
-              return this.$message.error('数据获取失败')
-            }
-            this.tableData = res.data.postList
-            this.total = res.data.totalpage
-          },
+            toMePage:function (){
+                this.$router.push('/home/myInfo')
+            },
+            getMyPostList: async function (){
+                this.queryInfo.id = localStorage.getItem('idToken')
+                const { data: res } = await this.$http.get('/user/getPersonalPost',{ params: this.queryInfo })
+                if (res.status !== 200) {
+                  return this.$message.error('数据获取失败')
+                }
+                this.tableData = res.data.postList
+                this.total = res.data.totalpage
+            },
 
             handleSizeChange(newSize) {
                 this.queryInfo.pageSize = newSize
@@ -258,17 +294,20 @@ import riden from '@/assets/riden.jpg'
       margin-left: 100px;
       border-radius: 50px 10px 50px 10px;
       background-color: #f9fafc;
+      opacity: 90%;
     }
 
     .left-nav-list .nav-button{
       margin-top: 20px;
       margin-left: 100px;
+        opacity: 90%;
       box-shadow: 10px 10px 5px #3d3c3c;
       border-radius: 50px 10px 50px 10px;
       background-color: #f9fafc;
     }
     .nav-button1{
       height: 100px;
+        opacity: 90%;
       width: 200px;
       border:2px black solid;
       margin: 2px auto;
@@ -293,6 +332,7 @@ import riden from '@/assets/riden.jpg'
     .nav-button{
         height: 100px;
         width: 200px;
+        opacity: 90%;
         border:2px black solid;
         margin: 2px auto;
         border-radius: 20px;
