@@ -206,17 +206,21 @@
   .detailbtn{
     position: relative;
     right:0px;
-    bottom:-50px;
+    bottom:-20px;
     color: #A7BFE8;
   }
   .card{
-    width:900px;
-    height:90px;
+    width:65%;
     opacity: 80%;
+    line-height: 30px;
+    color: black;
     //border: 1px solid #999;
     margin: 5px auto;
     padding: 0;
-    transition: padding 500ms;
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    transition: color, padding 500ms;
     box-shadow: 10px 10px 5px gray;
     border-radius: 30px;
     background-color: #f9fafc;
@@ -229,6 +233,7 @@
 //这里是添加了浮动效果和边框形状改变的效果
 
 .card:hover{
+  color: #6253FF;
   box-shadow: 20px 15px 5px gray;
   padding-top: 1%;
   padding-bottom: 1%;
@@ -302,6 +307,9 @@
     color: #333;
     text-align: center;
     line-height: 160px;
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: hidden;
   }
 
   body > .el-container {
@@ -320,6 +328,8 @@
     padding-left: 10%;
     padding-top: 5px;
     font-family: "Segoe UI";
+
+    overflow-x: hidden;
 
 
     .el-col {
@@ -346,6 +356,8 @@
     .row-bg {
       padding: 0px;
       background-color: #f9fafc;
+
+      overflow-x: hidden;
     }
 
   }
