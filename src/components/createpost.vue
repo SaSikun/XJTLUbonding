@@ -13,7 +13,6 @@
             </div>
         </el-dialog>
         <el-container>
-            <el-header>Create Post</el-header>
             <el-main><div style = "transform:rotate(6deg)">Post!</div></el-main>
         </el-container>
         <div class="login_container">
@@ -211,7 +210,7 @@
     }
 
     .el-main:hover {
-        filter: blur(0px);
+        filter: blur(6px);
         opacity: 100%;
     }
 

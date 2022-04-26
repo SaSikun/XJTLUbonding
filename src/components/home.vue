@@ -190,6 +190,7 @@ export default {
 }
 .card2{
   z-index: 2;
+  opacity: 70%;
 
 }
 
@@ -213,9 +214,9 @@ export default {
 .card{
   width:900px;
   height:90px;
-  border: 1px solid #999;
   margin: 5px auto;
-  box-shadow: 10px 10px 5px gray;
+    opacity: 70%;
+    box-shadow: 10px 10px 5px gray;
   border-radius: 30px;
   background-color: #f9fafc;
 }
