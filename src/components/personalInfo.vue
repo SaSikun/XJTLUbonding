@@ -298,6 +298,7 @@ el-divider{
   padding-right: -20%;
   background-color: white;
   opacity: 80%;
+
   margin: 0 auto;
   border-radius: 20px;
   line-height: 30px;
@@ -309,6 +310,7 @@ el-divider{
 .left-nav-list .nav-button1{
   margin-top: 20px;
   margin-left: 100px;
+  opacity: 90%;
   border-radius: 50px 10px 50px 10px;
   background-color: #f9fafc;
 }
@@ -316,6 +318,7 @@ el-divider{
 .left-nav-list .nav-button{
   margin-top: 20px;
   margin-left: 100px;
+  opacity: 90%;
   box-shadow: 10px 10px 5px #3d3c3c;
   border-radius: 50px 10px 50px 10px;
   background-color: #f9fafc;
@@ -323,6 +326,7 @@ el-divider{
 .nav-button1{
   height: 100px;
   width: 200px;
+  opacity: 90%;
   border:2px black solid;
   margin: 2px auto;
   border-radius: 20px;

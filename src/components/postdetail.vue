@@ -39,6 +39,7 @@
 
         <div class = "comment_button"><!--comment button-->
           <el-button type="success" @click="dialog = true">Comment!</el-button>
+          <el-button type="warning" icon="el-icon-star-off" circle></el-button>
         </div>
 
         <div class = "comment">
