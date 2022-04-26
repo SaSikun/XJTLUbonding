@@ -156,6 +156,11 @@
       //   post_content: "Sing praises of her heavenly descent!\nSpread the word of her heavenly descent!\nSing praises of her heavenly descent!\nAll be in awe of her heavenly descent!"
       // };
       return {
+        isLiked:false,
+        isCollected:false,
+        likeNum:0,
+        collectNum:0,
+        //临时 上
         queryInfo: {
           postId:0,
           pageNumber: 1,
@@ -195,6 +200,32 @@
       }
     },
     methods:{
+      ///!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      ///!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      ///!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      ///!!!!!!!!!!!!!!!!!!!!!!!!!!!like
+      ifLikedAndCollected:function (){
+        const token = localStorage.getItem('idToken')
+        this.$http.get('/post/checkLikeCollect',{params:{'posterId':token,'postId':this.post.id}}).then(res=>{
+          console.log(res)
+          if(res.data.status===200){
+            this.isLiked = res.data.isLiked
+            this.isCollected = res.data.isCollected
+          }
+        }).catch(() => {
+          this.$message({
+            type: "warning",
+            message: "can not fetch data"
+          });
+        });
+      },
+      changeLike:function (){
+        const token = localStorage.getItem('idToken')
+        this.isLiked= !this.isLiked
+        this.$http.get('/post/likePost',{params:{'posterId':token,'postId':this.post.id,"isliked":this.isLiked}}).then()
+      },
+      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
       submitComment(form,id) {
         if(this.form.content===''){
           alert("pls do not input empty content")
@@ -248,6 +279,9 @@
           this.post.avatar =  res.data.data.avatar
           console.log(this.post)
           this.postData.push(this.post)
+          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!4/26 like pbi
+          this.likeNum = res.data.likeNum
+          this.collectNum=res.data.collectNum
           // this.post.commentNum = res.data.data.commentAmount
           // this.post.comments = res.data.data.comment
         })
@@ -261,6 +295,7 @@
 
       this.getPostDetail(this.post.id)
       this.getCommentList()
+      this.ifLikedAndCollected()
     },
     handleClose(done) {
       if (this.loading) {
