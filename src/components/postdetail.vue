@@ -223,7 +223,42 @@
       changeLike:function (){
         const token = localStorage.getItem('idToken')
         this.isLiked= !this.isLiked
-        this.$http.get('/post/likePost',{params:{'posterId':token,'postId':this.post.id,"isliked":this.isLiked}}).then()
+        //这里我写成这样就跟b站类似， 点赞和取消都只是加一减一
+        if(this.isLiked){
+          this.likeNum+=1
+        }else {
+          this.likeNum-=1
+        }
+        this.$http.get('/post/likePost',{params:{'posterId':token,'postId':this.post.id,"isLiked":this.isLiked}}).then(res=>{
+          if(res.data.status===200){
+            console.log("连通了")
+          }
+        }).catch(()=>{
+          this.$message({
+            type: "warning",
+            message: "can not fetch data/change like"
+          });
+        })
+      },
+      changeCollect:function (){
+        const token = localStorage.getItem('idToken')
+        this.isCollected= !this.isCollected
+        //这里我写成这样就跟b站类似， 点赞和取消都只是加一减一
+        if(this.isCollected){
+          this.collectNum+=1
+        }else {
+          this.collectNum-=1
+        }
+        this.$http.get('/post/likePost',{params:{'posterId':token,'postId':this.post.id,"isCollected":this.isCollected}}).then(res=>{
+          if(res.data.status===200){
+            console.log("连通了")
+          }
+        }).catch(()=>{
+          this.$message({
+            type: "warning",
+            message: "can not fetch data/change collect"
+          });
+        })
       },
       //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
