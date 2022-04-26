@@ -17,7 +17,7 @@
           <el-input
               placeholder="请输入内容"
               prefix-icon="el-icon-search"
-              @keyup.enter.native=""
+              @keyup.enter.native="sendquery()"
 
               v-model="input2">
           </el-input>
@@ -159,7 +159,8 @@ export default {
           console.log(this.userInfo.nickName)
         })
     },
-    sendquery:function (){
+    sendquery:async function (){
+      await this.$router.push('/home')
       this.queryevent.$emit('query',this.input2)
     },
   },
