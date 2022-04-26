@@ -78,7 +78,7 @@
                             <el-row class="card22" style="margin-bottom: 0;" type="flex" align="middle" justify="start">
 
                                 <!--头像-->
-                                <el-col :span="5" class="pic-name" style="text-align: right" >
+                                <el-col :span="5" class="pic-name" style="text-align: center" >
                                     <!--                 上方设置右对齐 -->
                                     <el-avatar :src="riden"  ></el-avatar>
                                 </el-col>
