@@ -14,4 +14,30 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+  <!--l2d-->
+  <script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script>
+  <script>
+    var jsonModel = [
+      "https://raw.githubusercontent.com/kaiyukeji/Girls-Frontline/master/carcano1938_2202/normal/model.json",
+    ];
+    L2Dwidget.init({
+      "model": {
+        "jsonPath": jsonModel[Math.floor(Math.random()*(jsonModel.length))],
+        "scale": 1
+      },
+      "display": {
+        "position": "right", // 位置left、right
+        "width": 350, // 宽度
+        "opacity": 80,
+        "height": 500, // 高度
+        "hOffset": -250, // 横向边距
+        "vOffset": -550 // 纵向边距
+      },
+      "mobile": {
+        "width": 150, // 宽度
+        "height": 180, // 高度
+        "show": false // 手机是否显示
+      },
+    });
+  </script>
 </html>
