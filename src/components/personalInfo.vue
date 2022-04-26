@@ -7,6 +7,7 @@
           <!--          这里我加了hover,  颜色选的丑的一批, 后面诺, 交给你了, 加油奥里给
                         对了click也可以加, 然后效果什么的都可以调 什么鼠标变手 阴影之类的
           -->
+        <el-col :span="6">
         <div>
           <ul class="left-nav-list">
             <li><div class="nav-button">
@@ -56,8 +57,10 @@
             <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!shang-->
           </ul>
         </div>
+        </el-col>
 
-        <el-col :span="15">
+
+        <el-col :span="7">
           <div>
             <div class="middle-avatar" style="margin-top: -50px">
               <el-avatar :size="180" :src="riden"></el-avatar>
@@ -289,7 +292,7 @@ el-divider{
   height: 650px;
   width: 500px;
   position: absolute;
-  right: 15%;
+
   bottom: -5%;
 
   padding-right: -20%;
