@@ -5,7 +5,7 @@
         <el-col :span="5" class="header-row">
 
           <div style="float: left; margin-top: 18px" >
-            <router-link to="/home/">
+            <router-link to="/home/" @click.native="refresh">
               <i class="el-icon-s-home" ></i>
 <!--     这里用来跳转首页, 颜色可以调整 在下面的a里面是静态颜色, active是点进去, css你自己设计吧 符合咱们的风格 图标大小也可以调整-->
             </router-link>
@@ -115,6 +115,9 @@ export default {
   },
 
   methods:{
+    refresh:function (){
+      this.$router.go(0)
+    },
     delay:function(fn,time){return new Promise(resolve=>{setTimeout(()=>{resolve(fn())},time)})},
     logoutConfirm:function() {
       this.$confirm('Are you sure you wanna logout?', 'Confirm', {
@@ -143,7 +146,10 @@ export default {
         this.optionsS = res.data // 把获取到的数据赋给this.data
       }
     },
-    sendScene () {
+    sendScene:async function() {
+      if (this.$route.path !=='/home'&&this.$route.path !=='/home/'){
+        await this.$router.push('/home')
+      }
       this.queryevent.$emit('queryType',this.queryInfo.valueS)
     },
 
@@ -160,7 +166,9 @@ export default {
         })
     },
     sendquery:async function (){
-      await this.$router.push('/home')
+      if (this.$route.path !=='/home'&&this.$route.path !=='/home/'){
+        await this.$router.push('/home')
+      }
       this.queryevent.$emit('query',this.input2)
     },
   },
