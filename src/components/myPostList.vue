@@ -116,7 +116,7 @@
                         :current-page="queryInfo.pageNumber"
                         :page-size= "queryInfo.pageSize"
                         :page-sizes="[4]"
-                        layout="prev, pager, next, jumper"
+                        layout="total, sizes, prev, pager, next"
                         :total="total"
                 >
                 </el-pagination>

@@ -23,13 +23,13 @@
                   </h4>
                 </div>
               </el-col>
-              <el-col :span="10" style="margin-left: 2px">
-                <div class = "username">
-                  <h4>
-                    {{post.date}}
-                  </h4>
-                </div>
-              </el-col>
+<!--              <el-col :span="10" style="margin-left: 2px">-->
+<!--                <div class = "username">-->
+<!--                  <h4>-->
+<!--                    {{post.date}}-->
+<!--                  </h4>-->
+<!--                </div>-->
+<!--              </el-col>-->
             </el-row>
 
           </div>
