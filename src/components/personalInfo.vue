@@ -99,7 +99,8 @@
               <el-dialog
                   :visible.sync="dialogVisible"
                   width="35%"
-                  style="line-height: 30px;">
+                  :modal = "false"
+                  style="line-height: 30px; opacity:inherit">
                 <h3>!!Modify Your Information!!</h3>
                 <el-form ref="InfoModificationForm" hide-required-asterisk="true" :label-position="labelPosition" label-width="100px" :model="InfoModificationForm" :rules="InfoModificationFormRules">
                   <el-form-item label="nickName" prop="nickName">
@@ -217,6 +218,7 @@ export default {
       this.$router.push('/home/myPost')
     },
     showEditWindow:function(){
+      this.dialogVisible=true
       this.PersonId.id = localStorage.getItem('idToken')
       this.$http.get('/user/getPersonalInfo', {params:this.PersonId}).then(res=>{
         if(res.status===200){
@@ -229,8 +231,6 @@ export default {
         }
       })
 
-      console.log(this.InfoModificationForm,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-      this.dialogVisible=true
     },
 
     getPersonalInfo:function (){
