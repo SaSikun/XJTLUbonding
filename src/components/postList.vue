@@ -79,6 +79,7 @@
 <script>
   import home from '../components/home'
   import riden from '@/assets/riden.jpg'
+  import kkn from '@/Lv2D/KKN/normal/model.json'
   export default {
     comments:{
       'home':home,
@@ -101,6 +102,10 @@
           typeList: [],
           typeListString: ''
         },
+
+
+
+        kkn:kkn,
 
         riden:riden,
         circleUrl: "../assets/riden.jpg",

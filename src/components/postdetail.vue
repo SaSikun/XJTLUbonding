@@ -229,10 +229,11 @@
             this.isCollected = res.data.isCollected
           }
         }).catch(() => {
-          this.$message({
-            type: "warning",
-            message: "can not fetch data"
-          });
+          console.log()
+          // this.$message({
+          //   type: "warning",
+          //   message: "can not fetch data"
+          //});
         });
       },
       changeLike:function (){
