@@ -431,7 +431,7 @@ import riden from '@/assets/riden.jpg'
     .card{
         width:70%;
         height:90px;
-        opacity: 90%;
+        opacity: 80%;
         //border: 1px solid #999;
         margin: 5px auto;
         padding: 0;
@@ -439,12 +439,13 @@ import riden from '@/assets/riden.jpg'
         border-radius: 30px;
         transition: all 500ms;
         border-radius: 30px;
-        background-color: #e2e3e5;
+        background-color: #ffffff;
+
     }
     .card:hover{
         color: #6253FF;
         box-shadow: 20px 15px 5px gray;
-        background-color: #ffffff;
+        background-color: #f1f8ff;
         padding-top: 1%;
         padding-bottom: 1%;
     }

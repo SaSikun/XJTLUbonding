@@ -19,7 +19,7 @@
                     <el-form ref="postForm" :model="postForm" :rules="postFormRules" label-width="0px" class="login_form">
                         <!--用户名-->
                         <el-form-item prop="title">
-                            <el-input placeholder="Post title here" v-model="postForm.title" prefix-icon="el-icon-chat-round"></el-input>
+                            <el-input placeholder="Post title here" v-model="postForm.title" prefix-icon="el-icon-edit"></el-input>
                         </el-form-item>
                       <el-form-item prop="type">
                         <el-select v-model="addInfo.valueS" @focus="getScene" @change="sendScene(addInfo.valueS)" multiple filterable remote style="margin-top: 0px;margin-right: 400px" placeholder="Select category">

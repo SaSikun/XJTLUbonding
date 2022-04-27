@@ -250,7 +250,7 @@
   }
   .card{
     width:65%;
-    opacity: 85%;
+    opacity: 80%;
     line-height: 30px;
     color: black;
     //border: 1px solid #999;
@@ -262,7 +262,7 @@
     box-shadow: 10px 10px 5px gray;
     transition: all 500ms;
     border-radius: 30px;
-    background-color: #e2e3e5;
+    background-color: white;
 
   }
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -275,7 +275,7 @@
 .card:hover{
   color: #6253FF;
   box-shadow: 20px 15px 5px gray;
-  background-color: #ffffff;
+  background-color: #f1f8ff;
   padding-top: 1%;
   padding-bottom: 1%;
 }
