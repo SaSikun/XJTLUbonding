@@ -13,10 +13,10 @@
             </div>
         </el-dialog>
         <div class="login_container">
-            <div class="create_box">
+            <div class="create_box ">
                 <el-header> Write Post </el-header>
                 <div class = "inputs">
-                    <el-form ref="postForm" :model="postForm" :rules="postFormRules" label-width="0px" class="login_form">
+                    <el-form style=" position: relative" ref="postForm" :model="postForm" :rules="postFormRules" label-width="0px" class="login_form">
                         <!--用户名-->
                         <el-form-item prop="title">
                             <el-input placeholder="Post title here" v-model="postForm.title" prefix-icon="el-icon-edit"></el-input>
@@ -119,6 +119,9 @@
 </script>
 
 <style lang="less" scoped>
+
+
+
     .login_container{
         height: 100%;
     }
@@ -127,14 +130,15 @@
         top: 1%;
     }
 
+
     .create_box{
         width:600px;
-        height:550px;
+
         background-color: #E0E0DF;
         border-radius:3px;
         position: absolute;
         left:50%;
-        top:50%;
+        top:60%;
         opacity: 80%;
         flex-wrap: wrap;
         align-content: center;
@@ -142,6 +146,7 @@
         border-radius: 20px;
         box-shadow:2px 2px 8px #aaaaaa;
         transform: translate(-50%,-50%);
+
     }
     //顺便加了两个按钮的鼠标动效，后续可以再添加其他效果
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
