@@ -1,7 +1,7 @@
 <template xmlns:el-col="http://www.w3.org/1999/html">
 
         <!-- 这个10就是让行距变小大概, 默认160   -->
-        <div>
+        <div v-loading.fullscreen.lock="fullscreenLoading">
             <el-row class="me-row" :gutter="20" type="flex" align="middle" style="margin-top: 100px">
                 <el-col :span="5" :offset="0">
                     <div class="left-nav">
@@ -146,6 +146,7 @@ import riden from '@/assets/riden.jpg'
         data() {
 
             return {
+              fullscreenLoading: false,
               PersonId: {
                 id:0
               },
@@ -188,6 +189,16 @@ import riden from '@/assets/riden.jpg'
         },
 
         methods: {
+            openmyposts() {
+                const h = this.$createElement;
+                this.$notify({
+                    title: 'Welcome to XJTLU bonding',
+                    duration: 6000,
+                    position: 'bottom-right',
+                    offset: 220,
+                    message: h('i', { style: 'color: teal'}, 'You can all your posts here!')
+                });
+            },
           //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -271,11 +282,19 @@ import riden from '@/assets/riden.jpg'
           },
         },
         created() {
+            //磨洋工加载条，给钱加速
+            this.fullscreenLoading = true;
+            setTimeout(() => {
+                this.fullscreenLoading = false;
+            }, 1000);
             //this.getUserInfo()
-          this.getMyPostList()
+            this.getMyPostList()
+            setTimeout(() =>{
+                this.openmyposts()}, 1500)
+            },
         }
 
-    }
+
 </script>
 
 <style lang="less" scoped>
@@ -299,11 +318,12 @@ import riden from '@/assets/riden.jpg'
 
     .left-nav-list .nav-button{
       margin-top: 20px;
-      margin-left: 100px;
-        opacity: 90%;
+      margin-left: 200px;
+
       box-shadow: 10px 10px 5px #3d3c3c;
       border-radius: 50px 10px 50px 10px;
       background-color: #f9fafc;
+        opacity: 90%;
     }
     .nav-button1{
       height: 100px;
@@ -333,6 +353,7 @@ import riden from '@/assets/riden.jpg'
         height: 100px;
         width: 200px;
         opacity: 90%;
+        background-color: rgba(255, 255, 255, 0.3);
         border:2px black solid;
         margin: 2px auto;
         border-radius: 20px;
@@ -409,7 +430,7 @@ import riden from '@/assets/riden.jpg'
         color: #A7BFE8;
     }
     .card{
-        width:900px;
+        width:70%;
         height:90px;
         opacity: 80%;
         //border: 1px solid #999;
