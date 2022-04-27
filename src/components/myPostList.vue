@@ -95,11 +95,16 @@
                         </div>
                         <div class="card" >
                             <el-row type="flex" align="middle">
-                                <el-col :span="18" style="text-align: left">
-                                    <div class = "title" style="font-size: 20px;font-family: Microsoft YaHei;"> <strong>Title:</strong>  {{post.title}}</div>
+                                <el-col :span="16" style="text-align: left">
+                                    <div class = "title" style="font-size: 20px;font-family: Microsoft YaHei;"> <strong>Title:</strong>  {{post.title}}
+                                    <el-tag style = "margin-left: 10px;" type="warning" effect="plain">
+                                        {{post.writerName}}
+                                    </el-tag>
+                                    </div>
                                 </el-col>
-                                <el-col :span='5'>
+                                <el-col :span='8'>
                                     <!--                    这里就是最方便的地方了， 直接绑定postid，  可以通过router to 直接传参post,id到detail 虽然还没实现  作为实验， 点击即可在控制台打印id-->
+
                                     <div class="detailbtn">
                                         <el-button type="primary" plain round @click="SendToDetail(post.id)">See Detail</el-button>
                                         <el-button type="danger" icon="el-icon-delete" circle @click="toggleDeletion(post.id)"></el-button>
@@ -150,6 +155,13 @@ import riden from '@/assets/riden.jpg'
               PersonId: {
                 id:0
               },
+               /* itemslabel: [
+                    { type: '', label: 'Love' },
+                    { type: 'success', label: 'Friendship' },
+                    { type: 'info', label: '标签三' },
+                    { type: 'danger', label: '标签四' },
+                    { type: 'warning', label: '标签五' }
+                ],*/
               personalInfo:{
                 nickName:'',
                 gender:'',
@@ -195,7 +207,7 @@ import riden from '@/assets/riden.jpg'
                     title: 'Welcome to XJTLU bonding',
                     duration: 6000,
                     position: 'bottom-right',
-                    offset: 220,
+                    offset: 250,
                     message: h('i', { style: 'color: teal'}, 'You can see all your posts here!')
                 });
             },

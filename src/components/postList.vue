@@ -2,6 +2,9 @@
 
   <div  v-loading.fullscreen.lock="fullscreenLoading" style="margin-top: 60px">
     <el-row class="card2">
+     <!-- <el-col :span = "3">
+        <el-button type="primary" icon="el-icon-message" circle class = "contact"></el-button>
+      </el-col>-->
       <el-col :span="18" :offset="3" style="line-height: 10px">
         <!--下面就是v-for  便利取出并将post的信息赋予每个小card2   有几个post对象, 生成几个card2-->
         <div class="grid-content bg-purple" v-for="post in postList.slice((pageNumber-1)*pageSize, pageNumber * pageSize)" style="margin-bottom: 30px" >
@@ -13,30 +16,36 @@
               <!--头像-->
               <el-col :span="5" class="pic-name" style="text-align: right" >
                 <!--                 上方设置右对齐 -->
+                <el-badge is-dot class="item">
                 <el-avatar  :src= "riden" ></el-avatar>
+                </el-badge>
               </el-col>
               <!-- 名字-->
-              <el-col :span="10" style="text-align: left; margin-left: 2px">
+              <el-col :span="12" style="text-align: left; margin-left: 2px">
                 <div class = "username">
                   <h4>
                     {{post.writerName}}
                   </h4>
                 </div>
               </el-col>
-<!--              <el-col :span="10" style="margin-left: 2px">-->
-<!--                <div class = "username">-->
-<!--                  <h4>-->
-<!--                    {{post.date}}-->
-<!--                  </h4>-->
-<!--                </div>-->
-<!--              </el-col>-->
+              <el-col :span="8" style="margin-left: 2px">
+                <div class = "date">
+                  <h4>
+                    {{post.date}}
+                  </h4>
+                </div>
+              </el-col>
             </el-row>
 
           </div>
           <div class="card" >
             <el-row type="flex" align="middle">
               <el-col :span="18" style="text-align: left">
-                <div class = "title" style="font-size: 20px;font-family: Microsoft YaHei;"> <strong>Title:</strong>  {{post.title}}</div>
+                <div class = "title" style="font-size: 20px; font-family: Microsoft YaHei;"> <strong>Title:</strong>  {{post.title}}
+                    <el-tag  v-for="postType in post.typeContent.split(',')" style = "margin-left: 10px;" :type = "displayType(postType)" effect="plain">
+                      {{postType}}</el-tag>
+                  <!---->
+                </div>
               </el-col>
               <el-col :span='5'>
                 <!--                    这里就是最方便的地方了， 直接绑定postid，  可以通过router to 直接传参post,id到detail 虽然还没实现  作为实验， 点击即可在控制台打印id-->
@@ -50,6 +59,7 @@
       </el-col>
 
     </el-row>
+
     <el-pagination
         background
         @current-change="handleCurrentChange"
@@ -62,7 +72,7 @@
     >
     </el-pagination>
 
-
+    <el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop>
   </div>
 </template>
 
@@ -73,6 +83,13 @@
     comments:{
       'home':home,
     },
+/*    filters: {
+      statusFilter(status) {
+        const statusMap = {
+          1: 'success',
+          2: 'danger'
+        }
+      },*/
     data(){
 
       return{
@@ -84,6 +101,7 @@
           typeList: [],
           typeListString: ''
         },
+
         riden:riden,
         circleUrl: "../assets/riden.jpg",
         total:0,
@@ -125,6 +143,24 @@
       })
     },
     methods:{
+      displayType(type) {
+        if(type === "Friendship"){
+          return "success";
+        }
+        else if(type === "Love"){
+          return "danger";
+        }
+        else if(type === "Tweets"){
+          return "info";
+        }
+        else if(type === "Share the joy" ){
+          return "warning";
+        }
+        else{
+          return "";
+        }
+      },
+
       print:function (id){
         console.log(id)
       },
@@ -143,7 +179,7 @@
           title: 'Welcome',
           duration: 6000,
           position: 'bottom-right',
-          offset: 220,
+          offset: 250,
           message: h('i', { style: 'color: teal'}, 'This is XJTLU Bonding, a web forum for XJTLUers!')
         });
       },
@@ -205,6 +241,11 @@
 .seedetail{
   background-color: #7DC4CC;
 }
+.contact {
+  position: absolute;
+
+}
+
 .seedetail:hover {
   background: linear-gradient(90deg, #BC95C6 0%, #7DC4CC 50%, #BC95C6 100%);
   background-size: 300% 100%; /*扩大背景区域*/
@@ -242,6 +283,11 @@
   .username{
     padding-left: 5px;
   }
+  .date{
+    text-align: left;
+    font-style: italic;
+    padding-left: 5px;
+  }
   .detailbtn{
     position: relative;
     right:0px;
@@ -261,7 +307,7 @@
     overflow-y: hidden;
     box-shadow: 10px 10px 5px gray;
     transition: all 500ms;
-    border-radius: 30px;
+    border-radius: 15px;
     background-color: white;
 
   }
