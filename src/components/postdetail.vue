@@ -157,7 +157,13 @@
       //   post_content: "Sing praises of her heavenly descent!\nSpread the word of her heavenly descent!\nSing praises of her heavenly descent!\nAll be in awe of her heavenly descent!"
       // };
       return {
+
         fsLoading: false,
+        isLiked:false,
+        isCollected:false,
+        likeNum:0,
+        collectNum:0,
+        //临时 上
         queryInfo: {
           postId:0,
           pageNumber: 1,
@@ -197,6 +203,7 @@
       }
     },
     methods:{
+
       opendetail() {
         const h = this.$createElement;
 
@@ -208,6 +215,68 @@
           message: h('i', { style: 'color: teal'}, 'You are currently looking at a post.\n You can comment anything if you want!\n')
         });
       },
+
+      ///!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      ///!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      ///!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      ///!!!!!!!!!!!!!!!!!!!!!!!!!!!like
+      ifLikedAndCollected:function (){
+        const token = localStorage.getItem('idToken')
+        this.$http.get('/post/checkLikeCollect',{params:{'posterId':token,'postId':this.post.id}}).then(res=>{
+          console.log(res)
+          if(res.data.status===200){
+            this.isLiked = res.data.isLiked
+            this.isCollected = res.data.isCollected
+          }
+        }).catch(() => {
+          this.$message({
+            type: "warning",
+            message: "can not fetch data"
+          });
+        });
+      },
+      changeLike:function (){
+        const token = localStorage.getItem('idToken')
+        this.isLiked= !this.isLiked
+        //这里我写成这样就跟b站类似， 点赞和取消都只是加一减一
+        if(this.isLiked){
+          this.likeNum+=1
+        }else {
+          this.likeNum-=1
+        }
+        this.$http.get('/post/likePost',{params:{'posterId':token,'postId':this.post.id,"isLiked":this.isLiked}}).then(res=>{
+          if(res.data.status===200){
+            console.log("连通了")
+          }
+        }).catch(()=>{
+          this.$message({
+            type: "warning",
+            message: "can not fetch data/change like"
+          });
+        })
+      },
+      changeCollect:function (){
+        const token = localStorage.getItem('idToken')
+        this.isCollected= !this.isCollected
+        //这里我写成这样就跟b站类似， 点赞和取消都只是加一减一
+        if(this.isCollected){
+          this.collectNum+=1
+        }else {
+          this.collectNum-=1
+        }
+        this.$http.get('/post/likePost',{params:{'posterId':token,'postId':this.post.id,"isCollected":this.isCollected}}).then(res=>{
+          if(res.data.status===200){
+            console.log("连通了")
+          }
+        }).catch(()=>{
+          this.$message({
+            type: "warning",
+            message: "can not fetch data/change collect"
+          });
+        })
+      },
+      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 
       submitComment(form,id) {
         if(this.form.content===''){
@@ -262,6 +331,9 @@
           this.post.avatar =  res.data.data.avatar
           console.log(this.post)
           this.postData.push(this.post)
+          //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!4/26 like pbi
+          this.likeNum = res.data.likeNum
+          this.collectNum=res.data.collectNum
           // this.post.commentNum = res.data.data.commentAmount
           // this.post.comments = res.data.data.comment
         })
@@ -279,9 +351,9 @@
       this.post.id = parseInt(this.$route.query.id)
       this.getPostDetail(this.post.id)
       this.getCommentList()
-
       setTimeout(() =>{
-        this.opendetail()}, 2000)
+      this.opendetail()}, 2000)
+      this.ifLikedAndCollected()
     },
     handleClose(done) {
       if (this.loading) {
