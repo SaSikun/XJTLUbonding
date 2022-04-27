@@ -131,7 +131,8 @@
                     title="Deletion"
                     :visible.sync="dialogVisible"
                     width="20%"
-                    height ="20%"
+                    top="15%"
+                    style="line-height: 20px; opacity: 90%;"
             >
                 <h1>Are you sure?</h1>
                 <div style = "text-align:center">
