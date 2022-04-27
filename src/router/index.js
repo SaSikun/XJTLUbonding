@@ -55,7 +55,7 @@ router.beforeEach((to, from, next) => {
   console.log(localStorage.getItem('idToken'))
   console.log(to.path)
   if(to.path ==='/404') return next();
-  if (to.path === '/Login'||to.path==='/register') return next();
+  if (to.path === '/Login'||to.path==='/register'||to.path==='/reset') return next();
 
 
   // 从 lOCALStorage 中获取到保存的 token 值
