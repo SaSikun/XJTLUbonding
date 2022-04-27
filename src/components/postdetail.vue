@@ -343,10 +343,7 @@
       }
     },
     created() {
-      this.fsLoading = true;
-      setTimeout(() => {
-        this.fsLoading = false;
-      }, 1000);
+
 
       this.post.id = parseInt(this.$route.query.id)
       this.getPostDetail(this.post.id)
