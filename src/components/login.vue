@@ -129,7 +129,7 @@ export default {
             //   密码错了
               if(localStorage.getItem('passwordWrongTime')>=3){
                 this.$store.commit('INIT_PASS_W')
-                this.$router.push('/home')
+                this.$router.push('/reset')
               }
               this.$store.commit('ADD_PASS_W')
               this.popMessage = res.data.msg
