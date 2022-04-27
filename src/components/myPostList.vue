@@ -78,7 +78,7 @@
                             <el-row class="card22" style="margin-bottom: 0;" type="flex" align="middle" justify="start">
 
                                 <!--头像-->
-                                <el-col :span="5" class="pic-name" style="text-align: center" >
+                                <el-col :span="5" class="pic-name" style="text-align: right" >
                                     <!--                 上方设置右对齐 -->
                                     <el-avatar :src="riden"  ></el-avatar>
                                 </el-col>
@@ -318,8 +318,7 @@ import riden from '@/assets/riden.jpg'
 
     .left-nav-list .nav-button{
       margin-top: 20px;
-      margin-left: 200px;
-
+      margin-left: 100px;
       box-shadow: 10px 10px 5px #3d3c3c;
       border-radius: 50px 10px 50px 10px;
       background-color: #f9fafc;
@@ -432,17 +431,20 @@ import riden from '@/assets/riden.jpg'
     .card{
         width:70%;
         height:90px;
-        opacity: 80%;
+        opacity: 90%;
         //border: 1px solid #999;
         margin: 5px auto;
         padding: 0;
-        transition: padding 500ms;
         box-shadow: 10px 10px 5px gray;
         border-radius: 30px;
-        background-color: #f9fafc;
+        transition: all 500ms;
+        border-radius: 30px;
+        background-color: #e2e3e5;
     }
     .card:hover{
+        color: #6253FF;
         box-shadow: 20px 15px 5px gray;
+        background-color: #ffffff;
         padding-top: 1%;
         padding-bottom: 1%;
     }
