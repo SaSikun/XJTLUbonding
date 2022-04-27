@@ -40,8 +40,8 @@ const routes = [
         { path: '/home/myInfo', component: mePage},
         { path: '/home/myPost', component: myPostList},
       ]
-    }
-    //{ path: '*', redirect: '/404' }
+    },
+    { path: '/*', redirect: '/404' }
   ]
 
 const router = new VueRouter({
