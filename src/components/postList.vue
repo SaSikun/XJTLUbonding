@@ -42,7 +42,7 @@
             <el-row type="flex" align="middle">
               <el-col :span="18" style="text-align: left">
                 <div class = "title" style="font-size: 20px; font-family: Microsoft YaHei;"> <strong>Title:</strong>  {{post.title}}
-                    <el-tag  v-for="postType in post.typeContent.split(',')" style = "margin-left: 10px;" :type = "displayType(postType)" effect="plain">
+                    <el-tag  v-show="typeof post.typeContent!=='undefined'" v-if="postType!=='none'" v-for="postType in (post.typeContent+',none').split(',') "  style = "margin-left: 10px;" :type = "displayType(postType)" effect="plain">
                       {{postType}}</el-tag>
                   <!---->
                 </div>
