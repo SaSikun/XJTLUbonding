@@ -1,13 +1,12 @@
 <template xmlns:el-col="http://www.w3.org/1999/html" xmlns:font-style="http://www.w3.org/1999/xhtml">
 
     <!-- 这个10就是让行距变小大概, 默认160   -->
-    <div v-loading.fullscreen.lock="fullscreenLoading">
+    <div>
       <div class="middle" :style="backgroundDiv"></div>
       <el-row class="me-row" :gutter="20" type="flex" align="middle" style="margin-top: 100px">
           <!--          这里我加了hover,  颜色选的丑的一批, 后面诺, 交给你了, 加油奥里给
                         对了click也可以加, 然后效果什么的都可以调 什么鼠标变手 阴影之类的
           -->
-        <el-col :span="6">
         <div>
           <ul class="left-nav-list">
             <li><div class="nav-button">
@@ -57,10 +56,8 @@
             <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!shang-->
           </ul>
         </div>
-        </el-col>
 
-
-        <el-col :span="7">
+        <el-col :span="15">
           <div>
             <div class="middle-avatar" style="margin-top: -50px">
               <el-avatar :size="180" :src="riden"></el-avatar>
@@ -99,8 +96,8 @@
               <el-dialog
                   :visible.sync="dialogVisible"
                   width="35%"
-                  :modal = "false"
-                  style="line-height: 30px; opacity:inherit">
+                  :modal="false"
+                  style="line-height: 30px;">
                 <h3>!!Modify Your Information!!</h3>
                 <el-form ref="InfoModificationForm" hide-required-asterisk="true" :label-position="labelPosition" label-width="100px" :model="InfoModificationForm" :rules="InfoModificationFormRules">
                   <el-form-item label="nickName" prop="nickName">
@@ -162,7 +159,6 @@ export default {
         major:'',
         PersonalizedInfo:''
       },
-      fullscreenLoading: false,
       personalInfo:{
         nickName:'',
         gender:'',
@@ -203,18 +199,6 @@ export default {
     }
   },
   methods:{
-    openinfo() {
-      const h = this.$createElement;
-
-      this.$notify({
-        title: 'Personal information page',
-        duration: 6000,
-        position: 'bottom-right',
-        offset: 250,
-        message: h('i', { style: 'color: teal'}, 'This is you personal information, you can check or modify it if you want.')
-      });
-    },
-
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -231,7 +215,6 @@ export default {
       this.$router.push('/home/myPost')
     },
     showEditWindow:function(){
-      this.dialogVisible=true
       this.PersonId.id = localStorage.getItem('idToken')
       this.$http.get('/user/getPersonalInfo', {params:this.PersonId}).then(res=>{
         if(res.status===200){
@@ -244,6 +227,8 @@ export default {
         }
       })
 
+      console.log(this.InfoModificationForm,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+      this.dialogVisible=true
     },
 
     getPersonalInfo:function (){
@@ -289,15 +274,8 @@ export default {
   },
   created() {
     //header栏的,后面整合删掉
-    //磨洋工加载条，给钱加速
-    this.fullscreenLoading = true;
-    setTimeout(() => {
-      this.fullscreenLoading = false;
-    }, 1000);
-    this.getPersonalInfo();
-    setTimeout(() =>{
-      this.openinfo()}, 2000)
 
+    this.getPersonalInfo()
   }
 }
 
@@ -312,13 +290,12 @@ el-divider{
   height: 650px;
   width: 500px;
   position: absolute;
-
+  right: 15%;
   bottom: -5%;
 
   padding-right: -20%;
   background-color: white;
   opacity: 80%;
-
   margin: 0 auto;
   border-radius: 20px;
   line-height: 30px;
@@ -330,7 +307,6 @@ el-divider{
 .left-nav-list .nav-button1{
   margin-top: 20px;
   margin-left: 100px;
-  opacity: 90%;
   border-radius: 50px 10px 50px 10px;
   background-color: #f9fafc;
 }
@@ -338,7 +314,6 @@ el-divider{
 .left-nav-list .nav-button{
   margin-top: 20px;
   margin-left: 100px;
-  opacity: 90%;
   box-shadow: 10px 10px 5px #3d3c3c;
   border-radius: 50px 10px 50px 10px;
   background-color: #f9fafc;
@@ -346,7 +321,6 @@ el-divider{
 .nav-button1{
   height: 100px;
   width: 200px;
-  opacity: 90%;
   border:2px black solid;
   margin: 2px auto;
   border-radius: 20px;
