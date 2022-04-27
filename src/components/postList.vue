@@ -205,7 +205,11 @@
     },
     created() {
 
-
+      //磨洋工加载条，给钱加速
+      this.fullscreenLoading = true;
+      setTimeout(() => {
+        this.fullscreenLoading = false;
+      }, 1000);
       this.getPostList()
       //磨洋工对话条
       setTimeout(() =>{
