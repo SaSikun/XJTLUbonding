@@ -250,7 +250,7 @@
   }
   .card{
     width:65%;
-    opacity: 80%;
+    opacity: 85%;
     line-height: 30px;
     color: black;
     //border: 1px solid #999;
@@ -259,10 +259,11 @@
     height: auto;
     overflow-x: hidden;
     overflow-y: hidden;
-    transition: color, padding 500ms;
     box-shadow: 10px 10px 5px gray;
+    transition: all 500ms;
     border-radius: 30px;
-    background-color: #f9fafc;
+    background-color: #e2e3e5;
+
   }
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -274,6 +275,7 @@
 .card:hover{
   color: #6253FF;
   box-shadow: 20px 15px 5px gray;
+  background-color: #ffffff;
   padding-top: 1%;
   padding-bottom: 1%;
 }

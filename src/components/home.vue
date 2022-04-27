@@ -6,7 +6,7 @@
 
           <div style="width:auto; margin-top: 18px; text-align: left" >
             <router-link to="/home/" @click.native="refresh">
-              <i class="el-icon-eleme" style = "display: inline-block;">XJTLU BONDING</i>
+              <i class="el-icon-eleme" style = "display: inline-block; font-weight: bold">XJTLU BONDING</i>
 <!--     这里用来跳转首页, 颜色可以调整 在下面的a里面是静态颜色, active是点进去, css你自己设计吧 符合咱们的风格 图标大小也可以调整-->
             </router-link>
               <!--<h1 class="text" style="display: inline"><strong>XJTLU</strong><em>Bonding</em></h1>-->
@@ -358,7 +358,7 @@ body > .el-container {
   }
   .middle {
     width:100%;
-    height:100%;
+    height:auto;
     position:absolute;
     background-size:cover;
     object-fit: cover;
