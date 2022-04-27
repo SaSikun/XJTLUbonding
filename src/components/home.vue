@@ -4,21 +4,20 @@
       <el-row>
         <el-col :span="5" class="header-row">
 
-          <div style="float: left; margin-top: 18px" >
+          <div style="width:auto; margin-top: 18px; text-align: left" >
             <router-link to="/home/" @click.native="refresh">
-              <i class="el-icon-s-home" ></i>
+              <i class="el-icon-eleme" style = "display: inline-block; font-weight: bold">XJTLU BONDING</i>
 <!--     这里用来跳转首页, 颜色可以调整 在下面的a里面是静态颜色, active是点进去, css你自己设计吧 符合咱们的风格 图标大小也可以调整-->
             </router-link>
-              <h1 class="text" style="display: inline"><strong>XJTLU</strong><em>Bonding</em></h1>
+              <!--<h1 class="text" style="display: inline"><strong>XJTLU</strong><em>Bonding</em></h1>-->
           </div>
         </el-col>
         <el-col :span="6">
           <div style="margin-top: 12px">
           <el-input
-              placeholder="请输入内容"
+              placeholder="Search..."
               prefix-icon="el-icon-search"
               @keyup.enter.native="sendquery()"
-
               v-model="input2">
           </el-input>
           </div>
@@ -28,7 +27,7 @@
           </el-button>
         </el-col>
         <el-col :span="3">
-          <el-select v-model="queryInfo.valueS" @focus="getScene" @change="sendScene(queryInfo.valueS)" multiple filterable remote style="margin-top: 12px;margin-left: 22px" placeholder="Select category">
+          <el-select v-model="queryInfo.valueS" @focus="getScene" @change="sendScene(queryInfo.valueS)" multiple filterable remote style="margin-top: 12px; margin-left: 22px; color: rebeccapurple;" placeholder="Select category">
             <el-option
                 v-for="item in optionsS"
                 :key="item.id"
@@ -256,15 +255,16 @@ a:visited{
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-.el-icon-s-home{
-  text-decoration: none;
-  color: blue;
-  font-size: 25px;
+.el-icon-eleme{
+    font-style: italic;
+    font-family: "BIZ UDGothic";
+    font-size: x-large;
+    color: mediumpurple;
+    transition: color ease-in 500ms;
 }
-.el-icon-s-home:hover{
+.el-icon-eleme:hover{
   text-decoration: none;
   color: white;
-  font-size: 25px;
 }
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -358,7 +358,7 @@ body > .el-container {
   }
   .middle {
     width:100%;
-    height:100%;
+    height:auto;
     position:absolute;
     background-size:cover;
     object-fit: cover;

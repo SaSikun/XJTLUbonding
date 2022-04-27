@@ -1,5 +1,5 @@
 <template>
-    <div class="common-layout">
+    <div  v-loading.fullscreen.lock="fullscreenLoading" class="common-layout">
       <el-dialog
         title="Failed Login"
         :visible.sync="DialogVisible"
@@ -82,6 +82,7 @@ export default {
       isLoading:false,
       DialogVisible: false,
       popMessage:'',
+      fullscreenLoading: false,
 
       // 表单验证规则
       loginFormRules: {
@@ -100,6 +101,7 @@ export default {
     }
   },
   methods: {
+
     reset: function (){
       this.$router.push('/reset')
     },
@@ -148,7 +150,7 @@ export default {
     },
     register () {
       this.$router.push('/register')
-    }
+    },
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template xmlns:el-col="http://www.w3.org/1999/html">
 
         <!-- 这个10就是让行距变小大概, 默认160   -->
-        <div>
+        <div v-loading.fullscreen.lock="fullscreenLoading">
             <el-row class="me-row" :gutter="20" type="flex" align="middle" style="margin-top: 100px">
                 <el-col :span="5" :offset="0">
                     <div class="left-nav">
@@ -78,12 +78,12 @@
                             <el-row class="card22" style="margin-bottom: 0;" type="flex" align="middle" justify="start">
 
                                 <!--头像-->
-                                <el-col :span="5" class="pic-name" style="text-align: center" >
+                                <el-col :span="5" class="pic-name" style="text-align: right" >
                                     <!--                 上方设置右对齐 -->
                                     <el-avatar :src="riden"  ></el-avatar>
                                 </el-col>
                                 <!-- 名字-->
-                                <el-col :span="2" style="margin-left: 2px">
+                                <el-col :span="10" style="text-align: left; margin-left: 2px">
                                     <div class = "username">
                                         <h4><!--date ！！！！！！！暂时需要后端方法稍作调整, 目前显示不了！！！！！！-->
                                             {{post.date}}
@@ -146,6 +146,7 @@ import riden from '@/assets/riden.jpg'
         data() {
 
             return {
+              fullscreenLoading: false,
               PersonId: {
                 id:0
               },
@@ -188,6 +189,16 @@ import riden from '@/assets/riden.jpg'
         },
 
         methods: {
+            openmyposts() {
+                const h = this.$createElement;
+                this.$notify({
+                    title: 'Welcome to XJTLU bonding',
+                    duration: 6000,
+                    position: 'bottom-right',
+                    offset: 220,
+                    message: h('i', { style: 'color: teal'}, 'You can see all your posts here!')
+                });
+            },
           //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -271,11 +282,19 @@ import riden from '@/assets/riden.jpg'
           },
         },
         created() {
+            //磨洋工加载条，给钱加速
+            this.fullscreenLoading = true;
+            setTimeout(() => {
+                this.fullscreenLoading = false;
+            }, 1000);
             //this.getUserInfo()
-          this.getMyPostList()
+            this.getMyPostList()
+            setTimeout(() =>{
+                this.openmyposts()}, 1500)
+            },
         }
 
-    }
+
 </script>
 
 <style lang="less" scoped>
@@ -300,10 +319,10 @@ import riden from '@/assets/riden.jpg'
     .left-nav-list .nav-button{
       margin-top: 20px;
       margin-left: 100px;
-        opacity: 90%;
       box-shadow: 10px 10px 5px #3d3c3c;
       border-radius: 50px 10px 50px 10px;
       background-color: #f9fafc;
+        opacity: 90%;
     }
     .nav-button1{
       height: 100px;
@@ -333,6 +352,7 @@ import riden from '@/assets/riden.jpg'
         height: 100px;
         width: 200px;
         opacity: 90%;
+        background-color: rgba(255, 255, 255, 0.3);
         border:2px black solid;
         margin: 2px auto;
         border-radius: 20px;
@@ -409,19 +429,23 @@ import riden from '@/assets/riden.jpg'
         color: #A7BFE8;
     }
     .card{
-        width:900px;
+        width:70%;
         height:90px;
         opacity: 80%;
         //border: 1px solid #999;
         margin: 5px auto;
         padding: 0;
-        transition: padding 500ms;
         box-shadow: 10px 10px 5px gray;
         border-radius: 30px;
-        background-color: #f9fafc;
+        transition: all 500ms;
+        border-radius: 30px;
+        background-color: #ffffff;
+
     }
     .card:hover{
+        color: #6253FF;
         box-shadow: 20px 15px 5px gray;
+        background-color: #f1f8ff;
         padding-top: 1%;
         padding-bottom: 1%;
     }

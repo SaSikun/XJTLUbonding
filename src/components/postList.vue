@@ -1,6 +1,6 @@
 <template>
 
-  <div style="margin-top: 60px">
+  <div  v-loading.fullscreen.lock="fullscreenLoading" style="margin-top: 60px">
     <el-row class="card2">
       <el-col :span="18" :offset="3" style="line-height: 10px">
         <!--下面就是v-for  便利取出并将post的信息赋予每个小card2   有几个post对象, 生成几个card2-->
@@ -16,7 +16,7 @@
                 <el-avatar  :src= "riden" ></el-avatar>
               </el-col>
               <!-- 名字-->
-              <el-col :span="2" style="margin-left: 2px">
+              <el-col :span="10" style="text-align: left; margin-left: 2px">
                 <div class = "username">
                   <h4>
                     {{post.writerName}}
@@ -91,6 +91,7 @@
         pageSize: 4,    // 每页的数据
         input2:'',
         disabled:false,
+        fullscreenLoading: false,
         postList:[],
         postList2:[{
           userName: "dandan1",
@@ -135,6 +136,17 @@
         this.queryInfo.pageNumber = newPage
         this.getPostList()
       },
+      open() {
+        const h = this.$createElement;
+
+        this.$notify({
+          title: 'Welcome',
+          duration: 6000,
+          position: 'bottom-right',
+          offset: 220,
+          message: h('i', { style: 'color: teal'}, 'This is XJTLU Bonding, a web forum for XJTLUers!')
+        });
+      },
       handleSizeChange: function(newSize){
         this.queryInfo.pageSize = newSize
         this.getPostList()
@@ -156,7 +168,16 @@
       }
     },
     created() {
+
+      //磨洋工加载条，给钱加速
+      this.fullscreenLoading = true;
+      setTimeout(() => {
+        this.fullscreenLoading = false;
+      }, 1000);
       this.getPostList()
+      //磨洋工对话条
+      setTimeout(() =>{
+      this.open()}, 1500)
     },
 
     handleSizeChange(newSize) {
@@ -232,16 +253,17 @@
     opacity: 80%;
     line-height: 30px;
     color: black;
-    //border: 1px solid #999;
+    //border: 1px solid #999
     margin: 5px auto;
     padding: 0;
     height: auto;
     overflow-x: hidden;
     overflow-y: hidden;
-    transition: color, padding 500ms;
     box-shadow: 10px 10px 5px gray;
+    transition: all 500ms;
     border-radius: 30px;
-    background-color: #f9fafc;
+    background-color: white;
+
   }
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -253,6 +275,7 @@
 .card:hover{
   color: #6253FF;
   box-shadow: 20px 15px 5px gray;
+  background-color: #f1f8ff;
   padding-top: 1%;
   padding-bottom: 1%;
 }

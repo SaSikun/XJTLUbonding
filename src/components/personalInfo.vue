@@ -1,7 +1,7 @@
 <template xmlns:el-col="http://www.w3.org/1999/html" xmlns:font-style="http://www.w3.org/1999/xhtml">
 
     <!-- 这个10就是让行距变小大概, 默认160   -->
-    <div>
+    <div v-loading.fullscreen.lock="fullscreenLoading">
       <div class="middle" :style="backgroundDiv"></div>
       <el-row class="me-row" :gutter="20" type="flex" align="middle" style="margin-top: 100px">
           <!--          这里我加了hover,  颜色选的丑的一批, 后面诺, 交给你了, 加油奥里给
@@ -162,6 +162,7 @@ export default {
         major:'',
         PersonalizedInfo:''
       },
+      fullscreenLoading: false,
       personalInfo:{
         nickName:'',
         gender:'',
@@ -202,6 +203,18 @@ export default {
     }
   },
   methods:{
+    openinfo() {
+      const h = this.$createElement;
+
+      this.$notify({
+        title: 'Personal information page',
+        duration: 6000,
+        position: 'bottom-right',
+        offset: 250,
+        message: h('i', { style: 'color: teal'}, 'This is you personal information, you can check or modify it if you want.')
+      });
+    },
+
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -276,8 +289,15 @@ export default {
   },
   created() {
     //header栏的,后面整合删掉
+    //磨洋工加载条，给钱加速
+    this.fullscreenLoading = true;
+    setTimeout(() => {
+      this.fullscreenLoading = false;
+    }, 1000);
+    this.getPersonalInfo();
+    setTimeout(() =>{
+      this.openinfo()}, 2000)
 
-    this.getPersonalInfo()
   }
 }
 

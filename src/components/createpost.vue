@@ -1,5 +1,5 @@
 <template>
-    <div class="common-layout">
+    <div class="common-layout" v-loading.fullscreen.lock="fullscreenLoading">
         <el-dialog
                 title="Duplicate UserName!"
                 :visible.sync="DialogVisible"
@@ -12,17 +12,14 @@
               </span>
             </div>
         </el-dialog>
-        <el-container>
-            <el-main><div style = "transform:rotate(6deg)">Post!</div></el-main>
-        </el-container>
         <div class="login_container">
             <div class="create_box">
-                <div>
+                <el-header> Write Post </el-header>
+                <div class = "inputs">
                     <el-form ref="postForm" :model="postForm" :rules="postFormRules" label-width="0px" class="login_form">
                         <!--用户名-->
-
                         <el-form-item prop="title">
-                            <el-input placeholder="Post title here" v-model="postForm.title" prefix-icon="el-icon-chat-round"></el-input>
+                            <el-input placeholder="Post title here" v-model="postForm.title" prefix-icon="el-icon-edit"></el-input>
                         </el-form-item>
                       <el-form-item prop="type">
                         <el-select v-model="addInfo.valueS" @focus="getScene" @change="sendScene(addInfo.valueS)" multiple filterable remote style="margin-top: 0px;margin-right: 400px" placeholder="Select category">
@@ -58,9 +55,11 @@
               addInfo:{
                 valueS:''
               },
+
               optionsS:[],
                 DialogVisible: false,
                 isLoading:false,
+                fullscreenLoading:false,
                 captureImage:'',
                 realValid: '',
                 // 这是登陆表单的数据绑定对象
@@ -86,7 +85,6 @@
 
         methods: {
           delay:function(fn,time){return new Promise(resolve=>{setTimeout(()=>{resolve(fn())},time)})},
-
           submit (formName) {
               this.$refs[formName].validate(async (valid)=>{
                 if(valid){
@@ -115,7 +113,7 @@
           },
             cancel () {
                 this.$router.push('/home/')
-            }
+            },
         }
     }
 </script>
@@ -124,10 +122,14 @@
     .login_container{
         height: 100%;
     }
+    .inputs{
+        position: relative;
+        top: 1%;
+    }
 
     .create_box{
         width:600px;
-        height:500px;
+        height:550px;
         background-color: #E0E0DF;
         border-radius:3px;
         position: absolute;
@@ -196,15 +198,9 @@
 
     .el-main {
         background-color: #e9eef3;
-        line-height: 1000px;
         color: #6253FF;
         text-align: center;
-        font-family: "BIZ UDGothic";
-        font-size: 300px;
         opacity: 70%;
-        font-weight: bold;
-        overflow-y:hidden;
-        overflow-x:hidden;
         filter: blur(20px);
         transition: all 1s;
     }
