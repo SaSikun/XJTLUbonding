@@ -16,7 +16,7 @@
                 <el-avatar  :src= "riden" ></el-avatar>
               </el-col>
               <!-- 名字-->
-              <el-col :span="2" style="margin-left: 2px">
+              <el-col :span="10" style="text-align: left; margin-left: 2px">
                 <div class = "username">
                   <h4>
                     {{post.writerName}}
@@ -253,7 +253,7 @@
     opacity: 80%;
     line-height: 30px;
     color: black;
-    //border: 1px solid #999;
+    //border: 1px solid #999
     margin: 5px auto;
     padding: 0;
     height: auto;

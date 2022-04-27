@@ -83,7 +83,7 @@
                                     <el-avatar :src="riden"  ></el-avatar>
                                 </el-col>
                                 <!-- 名字-->
-                                <el-col :span="2" style="margin-left: 2px">
+                                <el-col :span="10" style="text-align: left; margin-left: 2px">
                                     <div class = "username">
                                         <h4><!--date ！！！！！！！暂时需要后端方法稍作调整, 目前显示不了！！！！！！-->
                                             {{post.date}}
@@ -196,7 +196,7 @@ import riden from '@/assets/riden.jpg'
                     duration: 6000,
                     position: 'bottom-right',
                     offset: 220,
-                    message: h('i', { style: 'color: teal'}, 'You can all your posts here!')
+                    message: h('i', { style: 'color: teal'}, 'You can see all your posts here!')
                 });
             },
           //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
