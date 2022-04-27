@@ -75,6 +75,7 @@
                         { required: true, message: 'Title', trigger: 'blur' },
                         { min: 3, max: 24, message: 'length: 3-24', trigger: 'blur' }
                     ],
+
                     content: [
                         { required: true, message: 'Content', trigger: 'blur' },
                         { min: 1, max: 255, message: 'length: not more than 255', trigger: 'blur' }
@@ -109,7 +110,6 @@
           },
           sendScene () {
             this.postForm.typeString = JSON.stringify(this.addInfo.valueS)
-
           },
             cancel () {
                 this.$router.push('/home/')
