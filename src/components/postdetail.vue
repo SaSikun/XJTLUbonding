@@ -1,6 +1,6 @@
 <template>
 
-  <el-container style="height: 100%; border: 1px solid #eee">
+  <el-container v-loading.fullscreen.lock="fsLoading" style="height: 100%; border: 1px solid #eee">
     <el-container>
       <el-header style="text-align: center; font-size: 18px">
         <el-row :gutter="24" style="margin: 0;padding: 0">
@@ -157,6 +157,7 @@
       //   post_content: "Sing praises of her heavenly descent!\nSpread the word of her heavenly descent!\nSing praises of her heavenly descent!\nAll be in awe of her heavenly descent!"
       // };
       return {
+        fsLoading: false,
         queryInfo: {
           postId:0,
           pageNumber: 1,
@@ -196,6 +197,18 @@
       }
     },
     methods:{
+      opendetail() {
+        const h = this.$createElement;
+
+        this.$notify({
+          title: 'Post page',
+          duration: 6000,
+          position: 'bottom-right',
+          offset: 250,
+          message: h('i', { style: 'color: teal'}, 'You are currently looking at a post.\n You can comment anything if you want!\n')
+        });
+      },
+
       submitComment(form,id) {
         if(this.form.content===''){
           alert("pls do not input empty content")
@@ -258,10 +271,17 @@
       }
     },
     created() {
-      this.post.id = parseInt(this.$route.query.id)
+      this.fsLoading = true;
+      setTimeout(() => {
+        this.fsLoading = false;
+      }, 1000);
 
+      this.post.id = parseInt(this.$route.query.id)
       this.getPostDetail(this.post.id)
       this.getCommentList()
+
+      setTimeout(() =>{
+        this.opendetail()}, 2000)
     },
     handleClose(done) {
       if (this.loading) {
