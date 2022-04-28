@@ -278,7 +278,7 @@
       },
       //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-
+      delay:function(fn,time){return new Promise(resolve=>{setTimeout(()=>{resolve(fn())},time)})},
       submitComment(form,id) {
         if(this.form.content===''){
           alert("pls do not input empty content")
@@ -289,14 +289,13 @@
           this.postAddForm.posterId=token
           this.postAddForm.postId=this.post.id
           this.postAddForm.content = this.form.content
-          this.$http.get('/post/replyWrite', {params:this.postAddForm}).then(res=>{
+          this.$http.get('/post/replyWrite', {params:this.postAddForm}).then(async res=>{
             console.log(res)
             if(res.data.status===200){
               this.$message({message:'success!! congratulations',type: 'success'});
-              this.$router.go(0)
-              setTimeout("alert('success!! congratulations')",1000)
-
             }
+            await this.delay(()=>console.log("waiting"),400)
+            await this.$router.go(0)
           })
         }
       },

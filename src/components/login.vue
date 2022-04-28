@@ -1,3 +1,4 @@
+
 <template>
     <div  v-loading.fullscreen.lock="fullscreenLoading" class="common-layout">
       <el-dialog
@@ -138,7 +139,6 @@ export default {
           })
 
         } else {
-          alert('fail submit!');
           console.log('error submit!!');
           this.isLoading = false
           this.DialogVisible = true
