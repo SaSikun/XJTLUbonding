@@ -7,55 +7,65 @@
           <!--          这里我加了hover,  颜色选的丑的一批, 后面诺, 交给你了, 加油奥里给
                         对了click也可以加, 然后效果什么的都可以调 什么鼠标变手 阴影之类的
           -->
-        <div>
-          <ul class="left-nav-list">
-            <li><div class="nav-button">
-              <div class="text2" style="margin-top: 25px">
-                <p style="margin: 8px auto">Personal</p>
-                <p style="margin: 8px auto">Information</p>
-              </div>
-            </div>
-            </li>
+        <el-col :span="6">
+          <div>
+            <ul class="left-nav-list">
+              <li><div class="nav-button">
+                <div class="text2" style="margin-top: 25px">
+                  <p style="margin: 8px auto">Personal</p>
+                  <p style="margin: 8px auto">Information</p>
 
-            <li><div class="nav-button" style="line-height: 100px" @click="toMyPost()">
-              <!--                line height = height 居中-->
-              <div class="text2" @click="toMyPost()">
-                <p style="margin: 0 auto" @click="toMyPost()">My Post list</p>
-              </div>
-            </div></li>
+                  <!----各多如下一行------->
 
-            <li><div class="nav-button" style="line-height: 100px">
-              <div class="text2" >
-                <p style="margin: 0 auto">Liked History</p>
+                  <div class="bgsqr1"></div><div class="bgsqr2"></div><div class="bgsqr3"></div><div class="bgsqr4"></div>
+                </div>
               </div>
-            </div>
-            </li>
+              </li>
 
-            <li><div class="nav-button" >
-              <div class="text2" style="margin-top: 25px">
-                <p style="margin: 8px auto">Commented</p>
-                <p style="margin: 8px auto">History</p>
+              <li><div class="nav-button" style="line-height: 100px" @click="toMyPost()">
+                <!--                line height = height 居中-->
+                <div class="text2" @click="toMyPost()">
+                  <p style="margin: 0 auto" @click="toMyPost()">My Post list</p>
+                  <div class="bgsqr1"></div><div class="bgsqr2"></div><div class="bgsqr3"></div><div class="bgsqr4"></div>
+                </div>
+              </div></li>
+
+              <li><div class="nav-button" style="line-height: 100px">
+                <div class="text2" >
+                  <p style="margin: 0 auto">Liked History</p>
+                  <div class="bgsqr1"></div><div class="bgsqr2"></div><div class="bgsqr3"></div><div class="bgsqr4"></div>
+                </div>
               </div>
-            </div>
-            </li>
-<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xia-->
-            <li><div class="nav-button" style="line-height: 100px">
-              <div class="text2" >
-                <p @click="toReset()" style="margin: 0 auto">Reset</p>
+              </li>
+
+              <li><div class="nav-button" >
+                <div class="text2" style="margin-top: 25px">
+                  <p style="margin: 8px auto">Commented</p>
+                  <p style="margin: 8px auto">History</p>
+                  <div class="bgsqr1"></div><div class="bgsqr2"></div><div class="bgsqr3"></div><div class="bgsqr4"></div>
+                </div>
               </div>
-            </div>
-            </li>
-            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!shang-->
-          </ul>
-        </div>
+              </li>
+              <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+              <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+              <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+              <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+              <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xia-->
+              <li><div class="nav-button" style="line-height: 100px">
+                <div class="text2" >
+                  <p @click="toReset()" style="margin: 0 auto">Reset</p>
+                  <div class="bgsqr1"></div><div class="bgsqr2"></div><div class="bgsqr3"></div><div class="bgsqr4"></div>
+                </div>
+              </div>
+              </li>
+              <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+              <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+              <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+              <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+              <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!shang-->
+            </ul>
+          </div>
+        </el-col>
 
         <el-col :span="15">
           <div>
@@ -304,32 +314,30 @@ el-divider{
   box-shadow:5px 5px 16px #aaaaaa;
 }
 
-.left-nav-list .nav-button1{
-  margin-top: 20px;
-  margin-left: 100px;
-  border-radius: 50px 10px 50px 10px;
-  background-color: #f9fafc;
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xia
+//左边效果* html部分也有调整//
+
+.text2 {
+  font-family: "Helvetica";
+  font-weight: bold;
 }
 
+.text2:hover {
+  text-shadow: #676769 1px 1px 2px;
+}
 .left-nav-list .nav-button{
   margin-top: 20px;
   margin-left: 100px;
-  box-shadow: 10px 10px 5px #3d3c3c;
-  border-radius: 50px 10px 50px 10px;
-  background-color: #f9fafc;
+  opacity: 90%;
+  box-shadow: 2px 2px 4px #3d3c3c;
+  border-radius: 15px;
+  background-color: rgba(220, 233, 255, 0.75);
 }
-.nav-button1{
-  height: 100px;
-  width: 200px;
-  border:2px black solid;
-  margin: 2px auto;
-  border-radius: 20px;
-}
-
-
 //左边波纹效果*//
-
-
 .left-nav-list .nav-button:hover{
   animation: animated-border 1.5s infinite;
   @keyframes animated-border {
@@ -337,24 +345,71 @@ el-divider{
       box-shadow: 0 0 0 0 rgba(253, 252, 252, 0.37);
     }
     100% {
-      box-shadow: 0 0 0 20px rgba(255,255,255,0);
+      box-shadow: 0 0 0 10px rgba(255,255,255,0);
     }
   }
   //挑radius要连着下面的navbutton一起调
 }
 .nav-button{
+  position: relative;
   height: 100px;
   opacity: 90%;
   width: 200px;
-  border:2px black solid;
   margin: 2px auto;
-  border-radius: 20px;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: all .6s;
 }
-li{
-  list-style: none;
+.nav-button:hover {
+  color: #fff;
+  border-color: #00000c;
 }
 
-//姑且先加了logout按钮*//
+.nav-button .bgsqr1, .nav-button .bgsqr2,.nav-button .bgsqr3, .nav-button .bgsqr4 {
+  background: rgba(149, 158, 232, 0.99);
+  position: absolute;
+  top: 0;
+  width: 0px;
+  height: 100%;
+  transition: all 0.4s;
+  opacity: 0.35;
+}
+
+.nav-button .bgsqr3, .nav-button .bgsqr4 {
+  opacity: 0.75;
+}
+
+.nav-button .bgsqr1 {
+  left: 0;
+}
+
+.nav-button .bgsqr2 {
+  right: 0
+}
+
+.nav-button .bgsqr3 {
+  right: 0;
+}
+
+.nav-button .bgsqr4 {
+  left: 0;
+}
+
+.nav-button:hover .bgsqr1, .nav-button:hover .bgsqr2, .nav-button:hover .bgsqr3, .nav-button:hover .bgsqr4 {
+  width: 100%;
+}
+
+.nav-button:hover .bgsqr3, .nav-button:hover .bgsqr4 {
+  transition-delay: .4s;
+}
+
+.nav-button p {
+  position: relative;
+  z-index: 999;
+}
+li {
+  list-style: none;
+}
 
 
 .logout{
@@ -470,27 +525,6 @@ a:hover{
     100% {
       background-position: -150% 0;
     }
-  }
-  .text2{
-    background: linear-gradient(90deg, #9F02FF 0%, #00DBDE 33.3%, rgba(131,58,180,1) 66.6%, #9F02FF 100%);
-    -webkit-background-clip: text; /*截取背景区域为文字*/
-    color: transparent;
-    background-size: 300% 100%; /*扩大背景区域*/
-    font-family: "Comic Sans MS";
-    font-weight: bold;
-  }
-  .text2:hover{
-    animation: text 4s infinite linear;
-    text-shadow: #676769 4px 4px 5px;
-    @keyframes text2 {
-      0% {
-        background-position: 0 0;
-      }
-      100% {
-        background-position: -150% 0;
-      }
-    }
-
   }
 
 .router-link-active {

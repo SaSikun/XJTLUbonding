@@ -2,6 +2,7 @@
 
         <!-- 这个10就是让行距变小大概, 默认160   -->
         <div v-loading.fullscreen.lock="fullscreenLoading">
+
             <el-row class="me-row" :gutter="20" type="flex" align="middle" style="margin-top: 100px">
                 <el-col :span="5" :offset="0">
                     <div class="left-nav">
@@ -12,9 +13,11 @@
                         <ul class="left-nav-list">
                             <li>
                                 <div class="nav-button" @click="toMePage()">
-                                    <div class="text text2" style="margin-top: 25px" @click="toMePage()">
+                                    <div class="text2" style="margin-top: 25px" @click="toMePage()">
                                         <p style="margin: 8px auto" @click="toMePage()">Personal</p>
                                         <p style="margin: 8px auto" @click="toMePage()">Information</p>
+                                        <!----各多如下一行------->
+                                        <div class="bgsqr1"></div><div class="bgsqr2"></div><div class="bgsqr3"></div><div class="bgsqr4"></div>
                                     </div>
                                 </div>
                             </li>
@@ -22,50 +25,53 @@
                             <li>
                                 <div class="nav-button" style="line-height: 100px">
                                     <!--                line height = height 居中-->
-                                    <div class="text text2">
+                                    <div class="text2">
                                         <p style="margin: 0 auto">My Post list</p>
+                                        <div class="bgsqr1"></div><div class="bgsqr2"></div><div class="bgsqr3"></div><div class="bgsqr4"></div>
                                     </div>
                                 </div>
                             </li>
 
                             <li>
                                 <div class="nav-button" style="line-height: 100px">
-                                    <div class="text text2">
+                                    <div class="text2">
                                         <p style="margin: 0 auto">Post Collection</p>
+                                        <div class="bgsqr1"></div><div class="bgsqr2"></div><div class="bgsqr3"></div><div class="bgsqr4"></div>
                                     </div>
                                 </div>
                             </li>
 
                             <li>
                                 <div class="nav-button">
-                                    <div class="text text2" style="margin-top: 25px">
+                                    <div class="text2" style="margin-top: 25px">
                                         <p style="margin: 8px auto">Commented</p>
                                         <p style="margin: 8px auto">History</p>
+                                        <div class="bgsqr1"></div><div class="bgsqr2"></div><div class="bgsqr3"></div><div class="bgsqr4"></div>
                                     </div>
                                 </div>
                             </li>
 
-                          <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-                          <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-                          <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-                          <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-                          <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xia-->
-                          <li><div class="nav-button" style="line-height: 100px">
-                            <div class="text2" >
-                              <p @click="toReset()" style="margin: 0 auto">Reset</p>
+                            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+                            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+                            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+                            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+                            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xia-->
+                            <li><div class="nav-button" style="line-height: 100px">
+                                <div class="text2" >
+                                    <p @click="toReset()" style="margin: 0 auto">Reset</p>
+                                    <div class="bgsqr1"></div><div class="bgsqr2"></div><div class="bgsqr3"></div><div class="bgsqr4"></div>
+                                </div>
                             </div>
-                          </div>
-                          </li>
-                          <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-                          <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-                          <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-                          <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
-                          <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!shang-->
+                            </li>
+                            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+                            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+                            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+                            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+                            <!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!shang-->
 
                         </ul>
                     </div>
                 </el-col>
-
 
 
 
@@ -320,55 +326,92 @@ import riden from '@/assets/riden.jpg'
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xia
     //左边波纹效果*//
 
-
-    .left-nav-list .nav-button1{
-      margin-top: 20px;
-      margin-left: 100px;
-      border-radius: 50px 10px 50px 10px;
-      background-color: #f9fafc;
-      opacity: 90%;
-    }
-
     .left-nav-list .nav-button{
-      margin-top: 20px;
-      margin-left: 100px;
-      box-shadow: 10px 10px 5px #3d3c3c;
-      border-radius: 50px 10px 50px 10px;
-      background-color: #f9fafc;
+        margin-top: 20px;
+        margin-left: 100px;
         opacity: 90%;
+        box-shadow: 2px 2px 4px #3d3c3c;
+        border-radius: 15px;
+        background-color: rgba(220, 233, 255, 0.75);
     }
-    .nav-button1{
-      height: 100px;
-        opacity: 90%;
-      width: 200px;
-      border:2px black solid;
-      margin: 2px auto;
-      border-radius: 20px;
-    }
+    //左边波纹效果*//
     .left-nav-list .nav-button:hover{
-      animation: animated-border 1.5s infinite;
-      @keyframes animated-border {
-        0% {
-          box-shadow: 0 0 0 0 rgba(253, 252, 252, 0.37);
+        animation: animated-border 1.5s infinite;
+        @keyframes animated-border {
+            0% {
+                box-shadow: 0 0 0 0 rgba(253, 252, 252, 0.37);
+            }
+            100% {
+                box-shadow: 0 0 0 10px rgba(255,255,255,0);
+            }
         }
-        100% {
-          box-shadow: 0 0 0 20px rgba(255,255,255,0);
-        }
-      }
-      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!shang
         //挑radius要连着下面的navbutton一起调
     }
+    .text2{
+        font-family: "Helvetica";
+        font-weight: bold;
+    }
+    .text2:hover{
+        animation: text 4s infinite linear;
+        text-shadow: #676769 1px 1px 2px;
+    }
     .nav-button{
+        position: relative;
         height: 100px;
-        width: 200px;
         opacity: 90%;
-        background-color: rgba(255, 255, 255, 0.3);
-        border:2px black solid;
+        width: 200px;
+        //border:1px black solid;
         margin: 2px auto;
-        border-radius: 20px;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all .6s;
+    }
+    .nav-button:hover {
+        color: #fff;
+        border-color: #00000c;
+    }
+
+    .nav-button .bgsqr1, .nav-button .bgsqr2,.nav-button .bgsqr3, .nav-button .bgsqr4 {
+        background: rgba(149, 158, 232, 0.99);
+        position: absolute;
+        top: 0;
+        width: 0px;
+        height: 100%;
+        transition: all 0.4s;
+        opacity: 0.35;
+    }
+
+    .nav-button .bgsqr3, .nav-button .bgsqr4 {
+        opacity: 0.75;
+    }
+
+    .nav-button .bgsqr1 {
+        left: 0;
+    }
+
+    .nav-button .bgsqr2 {
+        right: 0
+    }
+
+    .nav-button .bgsqr3 {
+        right: 0;
+    }
+
+    .nav-button .bgsqr4 {
+        left: 0;
+    }
+
+    .nav-button:hover .bgsqr1, .nav-button:hover .bgsqr2, .nav-button:hover .bgsqr3, .nav-button:hover .bgsqr4 {
+        width: 100%;
+    }
+
+    .nav-button:hover .bgsqr3, .nav-button:hover .bgsqr4 {
+        transition-delay: .4s;
+    }
+
+    .nav-button p {
+        position: relative;
+        z-index: 999;
     }
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -501,27 +544,6 @@ import riden from '@/assets/riden.jpg'
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xia
-    .text2{
-      background: linear-gradient(90deg, #9F02FF 0%, #00DBDE 33.3%, rgba(131,58,180,1) 66.6%, #9F02FF 100%);
-      -webkit-background-clip: text; /*截取背景区域为文字*/
-      color: transparent;
-      background-size: 300% 100%; /*扩大背景区域*/
-      font-family: "Comic Sans MS";
-      font-weight: bold;
-    }
-    .text2:hover{
-      animation: text 4s infinite linear;
-      text-shadow: #676769 4px 4px 5px;
-      @keyframes text2 {
-        0% {
-          background-position: 0 0;
-        }
-        100% {
-          background-position: -150% 0;
-        }
-      }
-
-    }
 
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
