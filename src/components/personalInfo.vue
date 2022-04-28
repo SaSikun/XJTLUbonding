@@ -67,7 +67,7 @@
           </div>
         </el-col>
 
-        <el-col :span="15">
+        <el-col :span="7">
           <div>
             <div class="middle-avatar" style="margin-top: -50px">
               <el-avatar :size="180" :src="riden"></el-avatar>
@@ -80,7 +80,7 @@
           <el-divider direction="vertical" style="height:10em"></el-divider>
         </el-col>
 
-        <el-col :span="10">
+        <el-col :span="10" >
           <div>
             <div class="personalInfo">
               <el-header style = "border-radius: 10px; font-style: italic; color: white; padding-top: 10px"> Info </el-header>
@@ -300,9 +300,7 @@ el-divider{
   height: 650px;
   width: 500px;
   position: absolute;
-  right: 15%;
   bottom: -5%;
-
   padding-right: -20%;
   background-color: white;
   opacity: 80%;
