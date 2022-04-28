@@ -99,21 +99,20 @@
                             </el-row>
 
                         </div>
-                        <div class="card" >
+                        <div class="card"  >
                             <el-row type="flex" align="middle">
                                 <el-col :span="16" style="text-align: left">
-                                    <div class = "title" style="font-size: 20px;font-family: Microsoft YaHei;"> <strong>Title:</strong>  {{post.title}}
-                                    <el-tag style = "margin-left: 10px;" type="warning" effect="plain">
+                                    <div class = "title" style="font-size: 20px;font-family: Microsoft YaHei; line-height: 25px"> <strong>Title:</strong>  {{post.title}}
+                                    <el-tag style = "margin-left: 10px; " size="small" type="warning"  effect="plain">
                                         {{post.writerName}}
                                     </el-tag>
                                     </div>
                                 </el-col>
                                 <el-col :span='8'>
                                     <!--                    这里就是最方便的地方了， 直接绑定postid，  可以通过router to 直接传参post,id到detail 虽然还没实现  作为实验， 点击即可在控制台打印id-->
-
                                     <div class="detailbtn">
                                         <el-button type="primary" plain round @click="SendToDetail(post.id)">See Detail</el-button>
-                                        <el-button type="danger" icon="el-icon-delete" circle @click="toggleDeletion(post.id)"></el-button>
+                                        <el-button style="position: relative" type="danger" icon="el-icon-delete" circle @click="toggleDeletion(post.id)"></el-button>
                                     </div>
                                 </el-col>
                             </el-row>
@@ -481,12 +480,12 @@ import riden from '@/assets/riden.jpg'
     .detailbtn{
         position: relative;
         right:0px;
-        bottom:-50px;
+        top: 30px;
         color: #A7BFE8;
     }
     .card{
         width:70%;
-        height:90px;
+        height:100px;
         opacity: 80%;
         //border: 1px solid #999;
         margin: 5px auto;
