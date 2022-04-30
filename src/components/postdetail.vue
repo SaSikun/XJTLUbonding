@@ -1,6 +1,7 @@
 <template>
 
   <el-container v-loading.fullscreen.lock="fsLoading" style="height: 100%; border: 1px solid #eee">
+
     <el-container>
       <el-header style="text-align: center; font-size: 18px">
         <el-row :gutter="24" style="margin: 0;padding: 0">
@@ -12,6 +13,22 @@
           <el-col :span="12" style="text-align: center">
             <strong><em>Welcome to see detail!</em></strong>
           </el-col>
+          <el-col :span = "5" style="text-align: right">
+            <div class = "star">
+              <el-badge :value= "collectNum" class="item" type = "primary">
+                <el-button type="warning" :icon= "collectIcon" circle @click="changeCollect"></el-button>
+              </el-badge>
+            </div>
+          </el-col>
+
+          <el-col :span = "1">
+            <div class = "heart">
+              <el-badge :value= "likeNum" class="item" type = "primary">
+                <el-button type="danger" :icon="likeIcon" circle @click="changeLike()"></el-button>
+              </el-badge>
+            </div>
+          </el-col>
+
         </el-row>
       </el-header>
       <el-main>
@@ -39,8 +56,8 @@
 
         <div class = "comment_button"><!--comment button-->
           <el-button type="success" @click="dialog = true">Comment!</el-button>
-          <el-button type="warning" icon="el-icon-star-off" circle></el-button>
         </div>
+
 
         <div class = "comment">
           <el-table :data="commentList" stripe><!--Comments-->
@@ -87,14 +104,16 @@
           </el-footer>
         </div>
       </el-drawer>
-
-
     </el-container>
   </el-container>
 
 </template>
 
 <style scoped>
+  ::v-deep .heart.star{
+    padding: 5px;
+    position: absolute;
+  }
   .el-header {
     background-color: #6253FF;
     color: white;
@@ -157,7 +176,8 @@
       //   post_content: "Sing praises of her heavenly descent!\nSpread the word of her heavenly descent!\nSing praises of her heavenly descent!\nAll be in awe of her heavenly descent!"
       // };
       return {
-
+        collectIcon: "el-icon-star-off",
+        likeIcon: "el-icon-plus",
         fsLoading: false,
         isLiked:false,
         isCollected:false,
@@ -241,8 +261,10 @@
         this.isLiked= !this.isLiked
         //这里我写成这样就跟b站类似， 点赞和取消都只是加一减一
         if(this.isLiked){
+          this.likeIcon = "el-icon-plus"
           this.likeNum+=1
         }else {
+          this.likeIcon = "el-icon-check"
           this.likeNum-=1
         }
         this.$http.get('/post/likePost',{params:{'posterId':token,'postId':this.post.id,"isLiked":this.isLiked}}).then(res=>{
@@ -253,7 +275,7 @@
           this.$message({
             type: "warning",
             message: "can not fetch data/change like"
-          });
+          });rr
         })
       },
       changeCollect:function (){
@@ -261,11 +283,13 @@
         this.isCollected= !this.isCollected
         //这里我写成这样就跟b站类似， 点赞和取消都只是加一减一
         if(this.isCollected){
+          this.collectIcon = "el-icon-star-on"
           this.collectNum+=1
         }else {
+          this.collectIcon = "el-icon-star-off"
           this.collectNum-=1
         }
-        this.$http.get('/post/likePost',{params:{'posterId':token,'postId':this.post.id,"isCollected":this.isCollected}}).then(res=>{
+        this.$http.get('/post/collectPost',{params:{'posterId':token,'postId':this.post.id,"isCollected":this.isCollected}}).then(res=>{
           if(res.data.status===200){
             console.log("连通了")
           }

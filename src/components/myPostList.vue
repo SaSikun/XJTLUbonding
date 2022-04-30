@@ -33,7 +33,7 @@
                             </li>
 
                             <li>
-                                <div class="nav-button" style="line-height: 100px">
+                                <div class="nav-button" style="line-height: 100px" @click = "toCollection()">
                                     <div class="text2">
                                         <p style="margin: 0 auto">Post Collection</p>
                                         <div class="bgsqr1"></div><div class="bgsqr2"></div><div class="bgsqr3"></div><div class="bgsqr4"></div>
@@ -176,9 +176,7 @@ import riden from '@/assets/riden.jpg'
                 PersonalizedInfo:'',
               },
               riden:riden,
-              deleteTarget: {
-                id:0
-              },
+                deleteTarget:'',
               tableData: [],
               queryInfo: {
                 id:0,
@@ -226,23 +224,23 @@ import riden from '@/assets/riden.jpg'
             // 启动删除的函数，将target设置为目标id
             toggleDeletion:function (id){
                 this.dialogVisible = true;
-                this.deleteTarget.id = id
+                this.deleteTarget = id
                 console.log(id)
             },
 
             //实际删除的函数
-            deletion: async function (){
-              const { data: res } = await this.$http.get('/post/delete',{ params: this.deleteTarget })
+            deletion:function (){
+                this.dialogVisible = false;
+                target = this.deleteTarget
+                console.log(target)
                 //对target进行删除
-              if (res.status !== 200) {
-                this.dialogVisible = false
-                return this.$message.error('Delete failed')
-              }else {
-                this.dialogVisible = false
-                return this.$message.success("Delete successfully")
-              }
+                this.$http.get('/post/delete',{params:{'postid':target,}})
                 //置空，防止潜在bug
+                this.deleteTarget = ''
+            },
 
+            toCollection:function (){
+                this.$router.push('/home/postcollection')
             },
 
             toReset:function (){
