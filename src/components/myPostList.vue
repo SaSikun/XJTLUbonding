@@ -198,6 +198,7 @@
             }
         },
         methods: {
+            delay:function(fn,time){return new Promise(resolve=>{setTimeout(()=>{resolve(fn())},time)})},
             openmyposts() {
                 const h = this.$createElement;
                 this.$notify({
@@ -217,6 +218,7 @@
                 this.dialogVisible = true;
                 this.deleteTarget.id = id
                 console.log(id)
+
             },
             //实际删除的函数
             deletion: async function (){
@@ -227,7 +229,9 @@
                     return this.$message.error('Delete failed')
                 }else {
                     this.dialogVisible = false
-                    return this.$message.success("Delete successfully")
+                    this.$message.success("Delete successfully")
+                    await this.delay(()=>console.log("waiting"),400)
+                    return this.$router.go(0)
                 }
                 //置空，防止潜在bug
             },
