@@ -14,6 +14,7 @@ import mePage from '../components/personalInfo'
 import resetPassword from "@/components/resetpassword";
 import postDetail from "@/components/postdetail";
 import myPostList from "@/components/myPostList";
+import postcollection from "@/components/postcollection"
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,7 @@ const routes = [
         { path: '/home/createPost', component: createPost},
         { path: '/home/myInfo', component: mePage},
         { path: '/home/myPost', component: myPostList},
+          { path: '/home/postcollection', component: postcollection},
       ]
     },
     { path: '/*', redirect: '/404' }
