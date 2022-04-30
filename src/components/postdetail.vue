@@ -203,7 +203,7 @@
       }
     },
     methods:{
-
+      delay:function(fn,time){return new Promise(resolve=>{setTimeout(()=>{resolve(fn())},time)})},
       opendetail() {
         const h = this.$createElement;
 
@@ -278,7 +278,7 @@
       },
       //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-      delay:function(fn,time){return new Promise(resolve=>{setTimeout(()=>{resolve(fn())},time)})},
+
       submitComment(form,id) {
         if(this.form.content===''){
           alert("pls do not input empty content")
