@@ -210,7 +210,12 @@
           posterId:0,
           postId:0,
           content:''
-
+        },
+        viewerPost:{
+          viewerId:0,
+          postId:0,
+          like:false,
+          collect:false,
         },
         formLabelWidth: '160px',
         timer: null,
@@ -242,32 +247,39 @@
       ///!!!!!!!!!!!!!!!!!!!!!!!!!!!like
       ifLikedAndCollected:function (){
         const token = localStorage.getItem('idToken')
-        this.$http.get('/post/checkLikeCollect',{params:{'posterId':token,'postId':this.post.id}}).then(res=>{
+        this.viewerPost.viewerId=token
+        this.viewerPost.postId=this.post.id
+        this.$http.get('/post/checkLikeCollect',{params:this.viewerPost}).then(async res=>{
           console.log(res)
           if(res.data.status===200){
-            this.isLiked = res.data.isLiked
-            this.isCollected = res.data.isCollected
+            this.isLiked = res.data.likeCheck
+            this.isCollected = res.data.collectCheck
+            this.viewerPost.like = this.isLiked
+            this.viewerPost.collect = this.isCollected
           }
         }).catch(() => {
           console.log()
-          // this.$message({
-          //   type: "warning",
-          //   message: "can not fetch data"
-          //});
+          this.$message({
+            type: "warning",
+            message: "can not fetch data"
+          });
         });
       },
       changeLike:function (){
         const token = localStorage.getItem('idToken')
         this.isLiked= !this.isLiked
+        this.viewerPost.like=this.isLiked
+        this.viewerPost.viewerId=token
+        this.viewerPost.postId=this.post.id
         //这里我写成这样就跟b站类似， 点赞和取消都只是加一减一
         if(this.isLiked){
-          this.likeIcon = "el-icon-plus"
+          this.likeIcon = "el-icon-check"
           this.likeNum+=1
         }else {
-          this.likeIcon = "el-icon-check"
+          this.likeIcon = "el-icon-plus"
           this.likeNum-=1
         }
-        this.$http.get('/post/likePost',{params:{'posterId':token,'postId':this.post.id,"isLiked":this.isLiked}}).then(res=>{
+        this.$http.get('/post/likePost',{params:this.viewerPost}).then( async res=>{
           if(res.data.status===200){
             console.log("连通了")
           }
@@ -281,6 +293,9 @@
       changeCollect:function (){
         const token = localStorage.getItem('idToken')
         this.isCollected= !this.isCollected
+        this.viewerPost.collect =  this.isCollected
+        this.viewerPost.viewerId=token
+        this.viewerPost.postId=this.post.id
         //这里我写成这样就跟b站类似， 点赞和取消都只是加一减一
         if(this.isCollected){
           this.collectIcon = "el-icon-star-on"
@@ -289,7 +304,7 @@
           this.collectIcon = "el-icon-star-off"
           this.collectNum-=1
         }
-        this.$http.get('/post/collectPost',{params:{'posterId':token,'postId':this.post.id,"isCollected":this.isCollected}}).then(res=>{
+        this.$http.get('/post/collectPost',{params:this.viewerPost}).then( async res=>{
           if(res.data.status===200){
             console.log("连通了")
           }
@@ -300,6 +315,11 @@
           });
         })
       },
+      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
       //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
       delay:function(fn,time){return new Promise(resolve=>{setTimeout(()=>{resolve(fn())},time)})},
@@ -356,8 +376,10 @@
           console.log(this.post)
           this.postData.push(this.post)
           //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!4/26 like pbi
-          this.likeNum = res.data.likeNum
-          this.collectNum=res.data.collectNum
+          // this.likeNum = 100
+          this.likeNum = res.data.totalLikes
+          this.collectNum=res.data.totalCollects
+          // this.collectNum=10000
           // this.post.commentNum = res.data.data.commentAmount
           // this.post.comments = res.data.data.comment
         })
