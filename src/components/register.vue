@@ -63,7 +63,7 @@ export default {
     let isPassword = (rule,value,callback) => {
       // let phoneReg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
       //实现密码校验数字和字母
-      let Reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{5,9}$/;
+      let Reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/;
       if (!value) {
         //如果为空就回调错误的信息
         return callback(new Error("password could not be empty"));
