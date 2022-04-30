@@ -30,9 +30,9 @@
                 </div>
               </div></li>
 
-              <li><div class="nav-button" style="line-height: 100px">
+              <li><div class="nav-button" style="line-height: 100px" @click = "toCollection()">
                 <div class="text2" >
-                  <p style="margin: 0 auto">Liked History</p>
+                  <p style="margin: 0 auto">Post Collection</p>
                   <div class="bgsqr1"></div><div class="bgsqr2"></div><div class="bgsqr3"></div><div class="bgsqr4"></div>
                 </div>
               </div>
@@ -216,6 +216,9 @@ export default {
     toReset:function (){
       console.log(1)
       this.$router.push('/reset')
+    },
+    toCollection:function (){
+      this.$router.push('/home/postcollection')
     },
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
