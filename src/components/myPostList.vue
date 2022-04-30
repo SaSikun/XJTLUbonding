@@ -8,6 +8,7 @@
                     <div class="left-nav">
                         <!--          这里我加了hover,  颜色选的丑的一批, 后面诺, 交给你了, 加油奥里给
                                       对了click也可以加, 然后效果什么的都可以调 什么鼠标变手 阴影之类的
+
                         -->
                         <ul class="left-nav-list">
                             <li>
@@ -20,6 +21,7 @@
                                     </div>
                                 </div>
                             </li>
+
                             <li>
                                 <div class="nav-button" style="line-height: 100px">
                                     <!--                line height = height 居中-->
@@ -153,6 +155,7 @@ import riden from '@/assets/riden.jpg'
     export default {
         name: 'myPostList',
         data() {
+
             return {
               fullscreenLoading: false,
               PersonId: {
@@ -187,16 +190,24 @@ import riden from '@/assets/riden.jpg'
                 pageSize: 4,    // 每页的数据
                 input2:'',
                 disabled:false,
+
+
+
                 //用来操作弹出框
                 labelPosition:'left',
                 dialogVisible: false,
+
+
                 AvatarUrl: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+
                 userInfo: {
                     nickName: 'DefaultAdmin',
                     avatar: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
                 },
+
             }
         },
+
         methods: {
             openmyposts() {
                 const h = this.$createElement;
@@ -218,6 +229,7 @@ import riden from '@/assets/riden.jpg'
                 this.deleteTarget.id = id
                 console.log(id)
             },
+
             //实际删除的函数
             deletion: async function (){
               const { data: res } = await this.$http.get('/post/delete',{ params: this.deleteTarget })
@@ -230,11 +242,14 @@ import riden from '@/assets/riden.jpg'
                 return this.$message.success("Delete successfully")
               }
                 //置空，防止潜在bug
+
             },
+
             toReset:function (){
             console.log(1)
             this.$router.push('/reset')
             },
+
           //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
           //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -251,10 +266,12 @@ import riden from '@/assets/riden.jpg'
                 this.tableData = res.data.postList
                 this.total = res.data.totalpage
             },
+
             handleSizeChange(newSize) {
                 this.queryInfo.pageSize = newSize
                 this.getMyPostList()
             },
+
           //上面的表格dongheng说能够实现跳转了能实现传参了, 但我不确定, 就是
             SendToDetail:function (id){
                 this.$router.push({name:'postDetail',query: { id } || this.redirect})
@@ -264,6 +281,7 @@ import riden from '@/assets/riden.jpg'
                 this.queryInfo.pageNumber = newPage
                 this.getMyPostList()
             },
+
             // getUserInfo: function () {
             //     const token = localStorage.getItem('idToken')
             //     this.$http.get('/getUserInfo', {headers: {'token': token}}).then(res => {
@@ -275,11 +293,13 @@ import riden from '@/assets/riden.jpg'
             this.PersonId.id = localStorage.getItem('idToken')
             this.$http.get('/user/getPersonalInfo', {params:this.PersonId}).then(res=>{
               if(res.status===200){
+
                 this.personalInfo.nickName=res.data.data.username
                 this.personalInfo.gender=res.data.data.gender
                 this.personalInfo.grade=res.data.data.grade
                 this.personalInfo.major=res.data.data.major
                 this.personalInfo.PersonalizedInfo=res.data.data.personalInfo
+
               }else {
                 alert('unknown error of system')
               }
@@ -298,6 +318,8 @@ import riden from '@/assets/riden.jpg'
                 this.openmyposts()}, 1500)
             },
         }
+
+
 </script>
 
 <style lang="less" scoped>
@@ -309,6 +331,7 @@ import riden from '@/assets/riden.jpg'
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xia
     //左边波纹效果*//
+
     .left-nav-list .nav-button{
         margin-top: 20px;
         margin-left: 100px;
@@ -353,6 +376,7 @@ import riden from '@/assets/riden.jpg'
         color: #fff;
         border-color: #00000c;
     }
+
     .nav-button .bgsqr1, .nav-button .bgsqr2,.nav-button .bgsqr3, .nav-button .bgsqr4 {
         background: rgba(149, 158, 232, 0.99);
         position: absolute;
@@ -362,27 +386,35 @@ import riden from '@/assets/riden.jpg'
         transition: all 0.4s;
         opacity: 0.35;
     }
+
     .nav-button .bgsqr3, .nav-button .bgsqr4 {
         opacity: 0.75;
     }
+
     .nav-button .bgsqr1 {
         left: 0;
     }
+
     .nav-button .bgsqr2 {
         right: 0
     }
+
     .nav-button .bgsqr3 {
         right: 0;
     }
+
     .nav-button .bgsqr4 {
         left: 0;
     }
+
     .nav-button:hover .bgsqr1, .nav-button:hover .bgsqr2, .nav-button:hover .bgsqr3, .nav-button:hover .bgsqr4 {
         width: 100%;
     }
+
     .nav-button:hover .bgsqr3, .nav-button:hover .bgsqr4 {
         transition-delay: .4s;
     }
+
     .nav-button p {
         position: relative;
         z-index: 999;
@@ -392,6 +424,8 @@ import riden from '@/assets/riden.jpg'
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xia
     //see detail按钮效果*//
+
+
     .seedetail{
       background-color: #7DC4CC;
     }
@@ -421,6 +455,7 @@ import riden from '@/assets/riden.jpg'
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!shang
+
     li{
         list-style: none;
     }
@@ -438,6 +473,7 @@ import riden from '@/assets/riden.jpg'
     .el-col {
         border-radius: 4px;
     }
+
     .userpanel{
         text-align: center;
         color: white;
@@ -466,6 +502,7 @@ import riden from '@/assets/riden.jpg'
         transition: all 500ms;
         border-radius: 30px;
         background-color: #ffffff;
+
     }
     .card:hover{
         color: #6253FF;
@@ -474,8 +511,10 @@ import riden from '@/assets/riden.jpg'
         padding-top: 1%;
         padding-bottom: 1%;
     }
+
     .el-pagination{
         position: absolute;
+
         bottom: -15%;margin: auto;left: 0;right: 0;
     }
     .el-dropdown-link{
@@ -485,7 +524,9 @@ import riden from '@/assets/riden.jpg'
     }
     .pic-name{
         line-height: 0;
+
     }
+
     a {
         text-decoration: none;
         color: blue;
@@ -503,10 +544,13 @@ import riden from '@/assets/riden.jpg'
         100% { background-position: -150% 0;}
     }
     //左侧几个按钮的字体渐变色动画*//
+
+
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xia
+
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -515,6 +559,7 @@ import riden from '@/assets/riden.jpg'
         text-decoration: none;
         color: #A7BFE8;
     }
+
     .el-container{
         padding: 0;
         margin: 0;
@@ -527,6 +572,7 @@ import riden from '@/assets/riden.jpg'
         color: #333;
         border-radius: 3px;
     }
+
     .el-col{
         height: 100%;
         margin-top: 0;
@@ -542,13 +588,16 @@ import riden from '@/assets/riden.jpg'
         text-align: center;
         line-height: 160px;
     }
+
     body > .el-container {
         margin-bottom: 40px;
     }
+
     .el-container:nth-child(5) .el-aside,
     .el-container:nth-child(6) .el-aside {
         line-height: 260px;
     }
+
     .el-container:nth-child(7) .el-aside {
         line-height: 320px;
     }
@@ -556,25 +605,35 @@ import riden from '@/assets/riden.jpg'
         padding-left: 10%;
         padding-top: 5px;
         font-family: "Segoe UI";
+
+
         .el-col {
             border-radius: 4px;
         }
+
         .bg-purple-dark {
             background: #99a9bf;
         }
+
         .bg-purple {
             background: #d3dce6;
         }
+
         .bg-purple-light {
             background: #e5e9f2;
         }
+
         .grid-content {
             border-radius: 4px;
             min-height: 36px;
         }
+
         .row-bg {
             padding: 0px;
             background-color: #f9fafc;
         }
+
     }
+
+
 </style>
