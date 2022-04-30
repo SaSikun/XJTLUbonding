@@ -275,7 +275,7 @@
           this.$message({
             type: "warning",
             message: "can not fetch data/change like"
-          });rr
+          });
         })
       },
       changeCollect:function (){
