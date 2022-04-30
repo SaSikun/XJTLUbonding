@@ -176,7 +176,9 @@ import riden from '@/assets/riden.jpg'
                 PersonalizedInfo:'',
               },
               riden:riden,
-                deleteTarget:'',
+              deleteTarget: {
+                id:0
+              },
               tableData: [],
               queryInfo: {
                 id:0,
@@ -224,18 +226,23 @@ import riden from '@/assets/riden.jpg'
             // 启动删除的函数，将target设置为目标id
             toggleDeletion:function (id){
                 this.dialogVisible = true;
-                this.deleteTarget = id
+                this.deleteTarget.id = id
                 console.log(id)
             },
 
             //实际删除的函数
-            deletion:function (){
-                target = this.deleteTarget
-                console.log(target)
+            deletion: async function (){
+              const { data: res } = await this.$http.get('/post/delete',{ params: this.deleteTarget })
                 //对target进行删除
-
+              if (res.status !== 200) {
+                this.dialogVisible = false
+                return this.$message.error('Delete failed')
+              }else {
+                this.dialogVisible = false
+                return this.$message.success("Delete successfully")
+              }
                 //置空，防止潜在bug
-                this.deleteTarget = ''
+
             },
 
             toReset:function (){
