@@ -16,7 +16,7 @@
           <el-col :span = "5" style="text-align: right">
             <div class = "star">
               <el-badge :value= "collectNum" class="item" type = "primary">
-                <el-button type="warning" :icon= "collectIcon" circle @click="changeCollect"></el-button>
+                <el-button type="warning" :icon= "collectIcon" circle @click="changeCollect()"></el-button>
               </el-badge>
             </div>
           </el-col>
@@ -214,8 +214,10 @@
         viewerPost:{
           viewerId:0,
           postId:0,
-          like:false,
-          collect:false,
+          like:0,
+          collect:0,
+          likeopt:0,
+          collectopt:0
         },
         formLabelWidth: '160px',
         timer: null,
@@ -256,6 +258,16 @@
             this.isCollected = res.data.collectCheck
             this.viewerPost.like = this.isLiked
             this.viewerPost.collect = this.isCollected
+            if(this.viewerPost.like!==1){
+              this.likeIcon = "el-icon-check"
+            }else {
+              this.likeIcon = "el-icon-plus"
+            }
+            if(this.viewerPost.collect!==1){
+              this.collectIcon = "el-icon-star-on"
+            }else {
+              this.collectIcon = "el-icon-star-off"
+            }
           }
         }).catch(() => {
           console.log()
@@ -267,8 +279,13 @@
       },
       changeLike:function (){
         const token = localStorage.getItem('idToken')
-        this.isLiked= !this.isLiked
-        this.viewerPost.like=this.isLiked
+        // this.isLiked= !this.isLiked
+        // this.viewerPost.like=this.isLiked
+        if(this.viewerPost.like===0){
+          this.viewerPost.likeopt=1
+        }else {
+          this.viewerPost.likeopt=0
+        }
         this.viewerPost.viewerId=token
         this.viewerPost.postId=this.post.id
         //这里我写成这样就跟b站类似， 点赞和取消都只是加一减一
@@ -281,7 +298,19 @@
         }
         this.$http.get('/post/likePost',{params:this.viewerPost}).then( async res=>{
           if(res.data.status===200){
-            console.log("连通了")
+            if(res.data.opt===0){
+              this.$message({
+                type:"success",
+                message:"like success"
+              })
+            }
+            if(res.data.opt===1){
+              this.$message({
+                type:"warning",
+                message:"cancel like"
+              })
+            }
+            this.ifLikedAndCollected()
           }
         }).catch(()=>{
           this.$message({
@@ -292,8 +321,14 @@
       },
       changeCollect:function (){
         const token = localStorage.getItem('idToken')
-        this.isCollected= !this.isCollected
-        this.viewerPost.collect =  this.isCollected
+        // this.isCollected= !this.isCollected
+        // this.viewerPost.collect =  this.isCollected
+        if(this.viewerPost.collect===0){
+          this.viewerPost.collectopt=1
+        }else {
+          this.viewerPost.collectopt=0
+        }
+
         this.viewerPost.viewerId=token
         this.viewerPost.postId=this.post.id
         //这里我写成这样就跟b站类似， 点赞和取消都只是加一减一
@@ -306,7 +341,19 @@
         }
         this.$http.get('/post/collectPost',{params:this.viewerPost}).then( async res=>{
           if(res.data.status===200){
-            console.log("连通了")
+            if(res.data.opt===0){
+              this.$message({
+                type:"success",
+                message:"collect success"
+              })
+            }
+            if(res.data.opt===1){
+              this.$message({
+                type:"warning",
+                message:"cancel collect"
+              })
+            }
+            this.ifLikedAndCollected()
           }
         }).catch(()=>{
           this.$message({
@@ -315,12 +362,7 @@
           });
         })
       },
-      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 
       delay:function(fn,time){return new Promise(resolve=>{setTimeout(()=>{resolve(fn())},time)})},
       submitComment(form,id) {
