@@ -33,7 +33,7 @@
                             </li>
 
                             <li>
-                                <div class="nav-button" style="line-height: 100px">
+                                <div class="nav-button" @click="toCollection()" style="line-height: 100px">
                                     <div class="text2">
                                         <p style="margin: 0 auto">Post Collection</p>
                                         <div class="bgsqr1"></div><div class="bgsqr2"></div><div class="bgsqr3"></div><div class="bgsqr4"></div>
@@ -44,8 +44,8 @@
                             <li>
                                 <div class="nav-button">
                                     <div class="text2" style="margin-top: 25px">
-                                        <p style="margin: 8px auto">Commented</p>
-                                        <p style="margin: 8px auto">History</p>
+                                        <p style="margin: 8px auto">Notification</p>
+                                        <p style="margin: 8px auto">Board</p>
                                         <div class="bgsqr1"></div><div class="bgsqr2"></div><div class="bgsqr3"></div><div class="bgsqr4"></div>
                                     </div>
                                 </div>
@@ -209,6 +209,10 @@ import riden from '@/assets/riden.jpg'
         },
 
         methods: {
+
+            toCollection:function (){
+                this.$router.push('/home/postcollection')
+            },
             openmyposts() {
                 const h = this.$createElement;
                 this.$notify({
@@ -310,10 +314,6 @@ import riden from '@/assets/riden.jpg'
         },
         created() {
             //磨洋工加载条，给钱加速
-            this.fullscreenLoading = true;
-            setTimeout(() => {
-                this.fullscreenLoading = false;
-            }, 1000);
             //this.getUserInfo()
             this.getMyPostList()
             setTimeout(() =>{

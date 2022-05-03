@@ -23,7 +23,7 @@
                         </li>
 
                         <li>
-                            <div class="nav-button" style="line-height: 100px">
+                            <div class="nav-button" @click="toMyPost()" style="line-height: 100px">
                                 <!--                line height = height 居中-->
                                 <div class="text2">
                                     <p style="margin: 0 auto">My Post list</p>
@@ -44,8 +44,8 @@
                         <li>
                             <div class="nav-button">
                                 <div class="text2" style="margin-top: 25px">
-                                    <p style="margin: 8px auto">Commented</p>
-                                    <p style="margin: 8px auto">History</p>
+                                    <p style="margin: 8px auto">Notification</p>
+                                    <p style="margin: 8px auto">Board</p>
                                     <div class="bgsqr1"></div><div class="bgsqr2"></div><div class="bgsqr3"></div><div class="bgsqr4"></div>
                                 </div>
                             </div>
@@ -112,7 +112,6 @@
                                 <!--                    这里就是最方便的地方了， 直接绑定postid，  可以通过router to 直接传参post,id到detail 虽然还没实现  作为实验， 点击即可在控制台打印id-->
                                 <div class="detailbtn">
                                     <el-button type="primary" plain round @click="SendToDetail(post.id)">See Detail</el-button>
-                                    <el-button style="position: relative" type="danger" icon="el-icon-delete" circle @click="toggleDeletion(post.id)"></el-button>
                                 </div>
                             </el-col>
                         </el-row>
@@ -132,21 +131,6 @@
             </el-pagination>
         </el-row>
 
-        <el-dialog
-                title="Deletion"
-                :visible.sync="dialogVisible"
-                width="20%"
-                top="15%"
-                style="line-height: 20px; opacity: 90%;"
-        >
-            <h1>Are you sure?</h1>
-            <div style = "text-align:center">
-              <span slot="footer" class="dialog-footer">
-              <el-button @click="dialogVisible = false">Cancel</el-button>
-              <el-button type="danger" @click="deletion">Delete</el-button>
-              </span>
-            </div>
-        </el-dialog>
     </div>
 
 </template>
@@ -157,17 +141,10 @@
         data() {
 
             return {
-                fullscreenLoading: false,
+
                 PersonId: {
                     id:0
                 },
-                /* itemslabel: [
-                     { type: '', label: 'Love' },
-                     { type: 'success', label: 'Friendship' },
-                     { type: 'info', label: '标签三' },
-                     { type: 'danger', label: '标签四' },
-                     { type: 'warning', label: '标签五' }
-                 ],*/
                 personalInfo:{
                     nickName:'',
                     gender:'',
@@ -175,21 +152,20 @@
                     major:'',
                     PersonalizedInfo:'',
                 },
-                riden:riden,
-                deleteTarget:'',
-                tableData: [],
                 queryInfo: {
                     id:0,
                     pageNumber: 1,
                     pageSize: 4,
                 },
+                fullscreenLoading: false,
+                riden:riden,
+                tableData: [],
+
                 total:0,
                 pageNumber: 1, //初始页
                 pageSize: 4,    // 每页的数据
                 input2:'',
                 disabled:false,
-
-
 
                 //用来操作弹出框
                 labelPosition:'left',
@@ -207,6 +183,10 @@
         },
 
         methods: {
+            toMyPost:function (){
+                this.$router.push('/home/myPost')
+            },
+
             openmycollection() {
                 const h = this.$createElement;
                 this.$notify({
@@ -217,26 +197,7 @@
                     message: h('i', { style: 'color: teal'}, 'You can see all your collections here!')
                 });
             },
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xia
-            // 启动删除的函数，将target设置为目标id
-            toggleDeletion:function (id){
-                this.dialogVisible = true;
-                this.deleteTarget = id
-                console.log(id)
-            },
 
-            //实际删除的函数
-            deletion:function (){
-                target = this.deleteTarget
-                console.log(target)
-                //对target进行删除
-
-                //置空，防止潜在bug
-                this.deleteTarget = ''
-            },
 
             toReset:function (){
                 console.log(1)
@@ -305,10 +266,6 @@
         },
         created() {
             //磨洋工加载条，给钱加速
-            this.fullscreenLoading = true;
-            setTimeout(() => {
-                this.fullscreenLoading = false;
-            }, 1000);
             //this.getUserInfo()
             this.getCollectionList()
             setTimeout(() =>{

@@ -40,8 +40,8 @@
 
               <li><div class="nav-button" >
                 <div class="text2" style="margin-top: 25px">
-                  <p style="margin: 8px auto">Commented</p>
-                  <p style="margin: 8px auto">History</p>
+                  <p style="margin: 8px auto">Notification</p>
+                  <p style="margin: 8px auto">Board</p>
                   <div class="bgsqr1"></div><div class="bgsqr2"></div><div class="bgsqr3"></div><div class="bgsqr4"></div>
                 </div>
               </div>
