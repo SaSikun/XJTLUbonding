@@ -228,7 +228,7 @@
 
             handleSizeChange(newSize) {
                 this.queryInfo.pageSize = newSize
-                this.getMyPostList()
+                this.getCollectionList()
             },
 
             //上面的表格dongheng说能够实现跳转了能实现传参了, 但我不确定, 就是
@@ -238,7 +238,7 @@
             //当前页改变时触发 跳转其他页
             handleCurrentChange(newPage) {
                 this.queryInfo.pageNumber = newPage
-                this.getMyPostList()
+                this.getCollectionList()
             },
 
             // getUserInfo: function () {
