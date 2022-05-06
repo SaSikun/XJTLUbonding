@@ -295,22 +295,22 @@ import riden from '@/assets/riden.jpg'
             //         this.userInfo.avatar = res.data.data.avatar
             //     })
             // },
-          getPersonalInfo:function (){
-            this.PersonId.id = localStorage.getItem('idToken')
-            this.$http.get('/user/getPersonalInfo', {params:this.PersonId}).then(res=>{
-              if(res.status===200){
-
-                this.personalInfo.nickName=res.data.data.username
-                this.personalInfo.gender=res.data.data.gender
-                this.personalInfo.grade=res.data.data.grade
-                this.personalInfo.major=res.data.data.major
-                this.personalInfo.PersonalizedInfo=res.data.data.personalInfo
-
-              }else {
-                alert('unknown error of system')
-              }
-            })
-          },
+          // getPersonalInfo:function (){
+          //   this.PersonId.id = localStorage.getItem('idToken')
+          //   this.$http.get('/user/getPersonalInfo', {params:this.PersonId}).then(res=>{
+          //     if(res.status===200){
+          //
+          //       this.personalInfo.nickName=res.data.data.username
+          //       this.personalInfo.gender=res.data.data.gender
+          //       this.personalInfo.grade=res.data.data.grade
+          //       this.personalInfo.major=res.data.data.major
+          //       this.personalInfo.PersonalizedInfo=res.data.data.personalInfo
+          //
+          //     }else {
+          //       alert('unknown error of system')
+          //     }
+          //   })
+          // },
         },
         created() {
             //磨洋工加载条，给钱加速
