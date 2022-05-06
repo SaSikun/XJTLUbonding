@@ -419,8 +419,8 @@
           this.postData.push(this.post)
           //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!4/26 like pbi
           // this.likeNum = 100
-          this.likeNum = res.data.totalLikes
-          this.collectNum=res.data.totalCollects
+          this.likeNum = res.data.likeTotal
+          this.collectNum=res.data.collectTotal
           // this.collectNum=10000
           // this.post.commentNum = res.data.data.commentAmount
           // this.post.comments = res.data.data.comment
