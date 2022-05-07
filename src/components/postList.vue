@@ -1,11 +1,14 @@
 <template>
 
   <div  v-loading.fullscreen.lock="fullscreenLoading" style="margin-top: 60px">
+
     <el-row class="card2">
      <!-- <el-col :span = "3">
         <el-button type="primary" icon="el-icon-message" circle class = "contact"></el-button>
       </el-col>-->
       <el-col :span="18" :offset="3" style="line-height: 10px">
+        <el-button @click="addBlockWords">add</el-button>
+        <el-button @click="deleteBlockWords">delete</el-button>
         <!--下面就是v-for  便利取出并将post的信息赋予每个小card2   有几个post对象, 生成几个card2-->
         <div class="grid-content bg-purple" v-for="post in postList.slice((pageNumber-1)*pageSize, pageNumber * pageSize)" style="margin-bottom: 30px" >
           <!-- 第一个div, 将一个card分为上下两部分, 这里是头像加名字-->
@@ -94,6 +97,7 @@
     data(){
 
       return{
+        blockWords:'kkk',
         // 获取用户列表的参数对象
         queryInfo: {
           query: '',
@@ -148,6 +152,24 @@
       })
     },
     methods:{
+      addBlockWords:function (){
+        this.$http.get('/admin/addBlockWords',{params:{"blockWords": this.blockWords}}).then(async res=>{
+          if(res.data.status===200){
+            this.$message({message:":)"+res.data.msg,type:"success"})
+          }
+        }).catch(()=>{
+          this.$message.error("Add words: can not fetch data")
+        })
+      },
+      deleteBlockWords:function (){
+        this.$http.get('/admin/deleteBlockWords',{params:{"blockWords": this.blockWords}}).then(res=>{
+          if(res.data.status===200){
+            this.$message({message:":)"+res.data.msg,type:"success"})
+          }
+        }).catch(()=>{
+          this.$message.error("delete words:can not fetch data")
+        })
+      },
       displayType(type) {
         if(type === "Friendship"){
           return "success";
