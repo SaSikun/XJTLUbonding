@@ -42,7 +42,7 @@
                         </li>
 
                         <li>
-                            <div class="nav-button">
+                            <div class="nav-button" @click="toNotification()">
                                 <div class="text2" style="margin-top: 25px">
                                     <p style="margin: 8px auto">Notification</p>
                                     <p style="margin: 8px auto">Board</p>
@@ -183,6 +183,10 @@
         },
 
         methods: {
+            toNotification:function (){
+                this.$router.push('/home/notificationBoard')
+            },
+
             toMyPost:function (){
                 this.$router.push('/home/myPost')
             },

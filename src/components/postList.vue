@@ -16,7 +16,7 @@
               <!--头像-->
               <el-col :span="5" class="pic-name" style="text-align: right" >
                 <!--                 上方设置右对齐 -->
-                <el-badge is-dot class="item">
+                <el-badge is-dot class="item" type="primary">
                 <el-avatar  :src= "riden" ></el-avatar>
                 </el-badge>
               </el-col>
