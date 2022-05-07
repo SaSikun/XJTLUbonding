@@ -42,7 +42,7 @@
                             </li>
 
                             <li>
-                                <div class="nav-button">
+                                <div class="nav-button" @click="toNotification()">
                                     <div class="text2" style="margin-top: 25px">
                                         <p style="margin: 8px auto">Notification</p>
                                         <p style="margin: 8px auto">Board</p>
@@ -212,6 +212,10 @@ import riden from '@/assets/riden.jpg'
 
             toCollection:function (){
                 this.$router.push('/home/postcollection')
+            },
+
+            toNotification:function (){
+                this.$router.push('/home/notificationBoard')
             },
             openmyposts() {
                 const h = this.$createElement;

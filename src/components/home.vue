@@ -50,7 +50,9 @@
           <div style="float: right;margin-top: 6px">
             <el-dropdown>
               <span class="el-dropdown-link" >
-                <el-avatar shape="square" :size="50" :src="riden" style="margin-right: 5px"></el-avatar>
+                <el-badge is-dot class="item" v-if = "newNotify">
+                    <el-avatar shape="square" :size="50" :src="riden" style="margin-right: 5px"></el-avatar>
+                </el-badge>
                 <h4 style="display: inline; margin-left: 2px">{{ userInfo.nickName }}</h4>
                 <i class="el-icon-arrow-down el-icon--right" style="margin-top: 19px"></i>
               </span>
@@ -61,10 +63,21 @@
                   <el-dropdown-item divided>My Info</el-dropdown-item>
                 </router-link>
 
+
                 <router-link to="/home/myPost">
-                    <el-dropdown-item divided>My Post</el-dropdown-item>
+
+                    <el-dropdown-item divided>
+                        My Post
+                    </el-dropdown-item>
+
                 </router-link>
-                <el-dropdown-item divided>My Like</el-dropdown-item>
+                  <router-link to="/home/postcollection">
+                      <el-dropdown-item divided>Post Collection</el-dropdown-item>
+                  </router-link>
+
+                  <div @click = "toNotification()">
+                     <el-dropdown-item divided><el-badge is-dot class="item" v-if = "newNotify">Notification</el-badge></el-dropdown-item>
+                  </div>
               </el-dropdown-menu>
             </el-dropdown>
           </div>
@@ -83,6 +96,7 @@
 //import { EventBus } from "../EventBus.js"
 import riden from '@/assets/riden.jpg'
 import postList from '@/components/postList'
+import notificationBoard from "./notificationBoard";
 export default {
 
   name:'resetPassword',
@@ -92,6 +106,8 @@ export default {
       queryInfo:{
         valueS:''
       },
+        //提醒boolean
+      newNotify: true,
       optionsS:[],
       backgroundDiv: {
         backgroundImage:"url(" + require('../assets/xjtluBG.jpg') + ")",
@@ -114,6 +130,18 @@ export default {
   },
 
   methods:{
+    notificationCount: async function(){
+      //獲取存在新提醒token
+    },
+    notificationChange: async function(){
+        //清除notification
+    },
+
+    toNotification:function (){
+      this.$router.push('/home/notificationBoard')
+      this.notificationChange()
+    },
+
     refresh:function (){
       this.$router.go(0)
     },

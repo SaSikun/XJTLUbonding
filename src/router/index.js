@@ -15,6 +15,7 @@ import resetPassword from "@/components/resetpassword";
 import postDetail from "@/components/postdetail";
 import myPostList from "@/components/myPostList";
 import postcollection from "@/components/postcollection"
+import notificationBoard from "@/components/notificationBoard";
 
 Vue.use(VueRouter)
 
@@ -41,6 +42,7 @@ const routes = [
         { path: '/home/myInfo', component: mePage},
         { path: '/home/myPost', component: myPostList},
           { path: '/home/postcollection', component: postcollection},
+          { path: '/home/notificationBoard', component: notificationBoard},
       ]
     },
     { path: '/*', redirect: '/404' }

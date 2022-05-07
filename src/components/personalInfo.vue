@@ -38,7 +38,7 @@
               </div>
               </li>
 
-              <li><div class="nav-button" >
+              <li><div class="nav-button" @click="toNotification()" >
                 <div class="text2" style="margin-top: 25px">
                   <p style="margin: 8px auto">Notification</p>
                   <p style="margin: 8px auto">Board</p>
@@ -214,8 +214,10 @@ export default {
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xia
     toReset:function (){
-      console.log(1)
       this.$router.push('/reset')
+    },
+    toNotification:function (){
+      this.$router.push('/home/notificationBoard')
     },
     toCollection:function (){
       this.$router.push('/home/postcollection')
