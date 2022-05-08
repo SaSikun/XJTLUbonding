@@ -205,7 +205,8 @@
             // this.blockWords=this.blockWords.concat([{
             //   word: this.newBlock,
             // }])
-            this.blockWords=this.blockWords.concat(JSON.parse(res.data.data.newBlockWords))
+            // this.blockWords=this.blockWords.concat(JSON.parse(res.data.data.newBlockWords))
+            this.blockWords=this.blockWords.concat(res.data.data.newBlockWords)
             // console.log("this is new data",res.data.data)
             // console.log("this is new json block",res.data.data.newBlockWords)
             // console.log("this is new dejson block",JSON.parse(res.data.data.newBlockWords))
@@ -233,7 +234,9 @@
         //获取一下blockwords
         this.$http.get('admin/getAllBlockWords',).then(res=>{
             if(res.data.status===200){
-              this.blockWords=JSON.parse(res.data.data.blockWords)
+              console.log("success enter getAllBlockWords function")
+              // this.blockWords=JSON.parse(res.data.data.blockWords)
+              this.blockWords=res.data.data.blockWords
             }
         }).catch(()=>{
           this.$message({message:'can not fetch words from backend',type:'warning'})
