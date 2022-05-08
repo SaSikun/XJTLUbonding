@@ -67,7 +67,7 @@
 
     </el-row>
     <!--这个vif先写死了，不知道为什么判断会出问题， 详见底下-->
-    <div v-if = "isAdmin">
+    <div v-if = "isAdmin" >
       <el-container>
         <el-header>Block words manager</el-header>
           <el-main>
@@ -80,16 +80,18 @@
                       label="Word"
                       width="180">
               </el-table-column>
-              <el-table-column
-                      prop="blockUnit"
-                      label="Operation">
+                <el-table-column label="operation">
                 <!--删掉-->
-                <el-button type = "danger" @click="deleteBlockWords(blockUnit)">delete</el-button>
+                <template slot-scope="scope">
+                  <el-button type = "danger" size="mini" @click="deleteBlockWords(scope.$index, scope.row)">delete</el-button>
+                </template>
               </el-table-column>
             </el-table>
             <div class = "addBlockBar">
               <!--加-->
-              <el-input v-model="newBlock" placeholder="Enter new block words here"></el-input>
+              <el-input type="textarea" v-model="newBlock" placeholder="Enter new block words here"
+                        minlength="1" maxlength="30"
+                        show-word-limit></el-input>
               <el-button type = "success" @click="addBlockWords(newBlock)">add</el-button>
             </div>
           </el-main>
@@ -130,27 +132,7 @@
     data(){
       return{
         newBlock:'',
-        blockWords:[{
-          blockUnit:'kkk',
-        },
-          {
-           blockUnit: 'xijinping',
-          },
-          {
-            blockUnit: 'xijinping',
-          },
-          {
-            blockUnit: 'xijinping',
-          },
-          {
-            blockUnit: 'xijinping',
-          },
-          {
-            blockUnit: 'xijinping',
-          },
-          {
-            blockUnit: 'xijinping',
-          },
+        blockWords:[
         ],
         // 获取用户列表的参数对象
         queryInfo: {
@@ -205,18 +187,43 @@
     },
     methods:{
       addBlockWords:function (){
-        this.$http.get('/admin/addBlockWords',{params:{"blockWords": this.blockWords}}).then(async res=>{
+        if(this.newBlock.length<=0){
+          const h = this.$createElement;
+
+          return this.$notify({
+            title: 'Notification',
+            message: h('i', { style: 'color: teal'}, 'Please input something'),
+            duration:1500,
+            type:"info",
+            position:"bottom-left"
+          });
+        }
+        this.$http.get('/admin/addBlockWords',{params:{"blockWords": this.newBlock}}).then(async res=>{
           if(res.data.status===200){
             this.$message({message:":)"+res.data.msg,type:"success"})
+            // 因为这里可以一次性输入多个数据， 所以最终应该是从后端接受
+            // this.blockWords=this.blockWords.concat([{
+            //   blockUnit: this.newBlock,
+            // }])
+            this.blockWords=this.blockWords.concat(JSON.parse(res.data.data.newBlockWords))
+            // console.log("this is new data",res.data.data)
+            // console.log("this is new json block",res.data.data.newBlockWords)
+            // console.log("this is new dejson block",JSON.parse(res.data.data.newBlockWords))
+            console.log(this.blockWords)
+            this.newBlock=''
           }
         }).catch(()=>{
           this.$message.error("Add words: can not fetch data")
         })
       },
-      deleteBlockWords:function (){
-        this.$http.get('/admin/deleteBlockWords',{params:{"blockWords": this.blockWords}}).then(res=>{
+      deleteBlockWords:function (index,row){
+        console.log(index)
+        console.log("this is",row)
+        // console.log("3",this.blockWords[index].blockUnit="deleted successfully")
+        this.$http.get('/admin/deleteBlockWords',{params:{"blockWords": this.blockWords[index].blockUnit}}).then(res=>{
           if(res.data.status===200){
             this.$message({message:":)"+res.data.msg,type:"success"})
+            this.blockWords[index].blockUnit="deleted successfully"
           }
         }).catch(()=>{
           this.$message.error("delete words:can not fetch data")
@@ -224,7 +231,13 @@
       },
       getBlockWords:function(){
         //获取一下blockwords
-
+        this.$http.get('admin/getAllBlockWords',).then(res=>{
+            if(res.data.status===200){
+              this.blockWords=JSON.parse(res.data.data.blockWords)
+            }
+        }).catch(()=>{
+          this.$message({message:'can not fetch words from backend',type:'warning'})
+        })
       },
 
       displayType(type) {
@@ -292,15 +305,17 @@
       //磨洋工对话条
       setTimeout(() =>{
         this.open()}, 1500)
+      this.getBlockWords()
     },
-    handleSizeChange(newSize) {
-      this.queryInfo.pageSize = newSize
-      this.getPostList()
-    },
-    handleCurrentChange(newPage) {
-      this.queryInfo.pageNumber = newPage
-      this.getPostList()
-    },
+
+    // handleSizeChange(newSize) {
+    //   this.queryInfo.pageSize = newSize
+    //   this.getPostList()
+    // },
+    // handleCurrentChange(newPage) {
+    //   this.queryInfo.pageNumber = newPage
+    //   this.getPostList()
+    // },
   }
 </script>
 
