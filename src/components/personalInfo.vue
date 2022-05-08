@@ -72,7 +72,7 @@
             <div class="middle-avatar" style="margin-top: -50px">
               <el-image :size="180" :src="userAvatar"></el-image>
               <br><br><br>
-              <el-button type="primary" @click="changeAvatar" icon="el-icon-edit">Change</el-button>
+              <el-button type="primary" @click="manageAvatar" icon="el-icon-edit">Change</el-button>
             </div>
           </div>
         </el-col>
@@ -273,11 +273,17 @@ export default {
         // console.log(this.userAvatar)
       })
     },
-    changeAvatar:function (){
+    manageAvatar:function (){
+        console.log(this.changeAvatar)
         this.changeAvatar.userId=localStorage.getItem('idToken')
-        if(this.changeAvatar.avatarId===-1){
-          this.changeAvatar.avatarId=3
+        // if(this.changeAvatar.avatarId===-1){
+        //   this.changeAvatar.avatarId=3
+        // }
+         this.changeAvatar.avatarId +=1
+        if(this.changeAvatar.avatarId===4){
+          this.changeAvatar.avatarId=0
         }
+
         this.$http.get('/user/manageAvatar',{params:this.changeAvatar}).then(async res=>{
           if (res.data.status===200){
             this.$message({message:"Successfully change the avatar",type:"success"})
