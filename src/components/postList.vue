@@ -3,12 +3,16 @@
   <div  v-loading.fullscreen.lock="fullscreenLoading" style="margin-top: 60px">
 
     <el-row class="card2">
-     <!-- <el-col :span = "3">
-        <el-button type="primary" icon="el-icon-message" circle class = "contact"></el-button>
-      </el-col>-->
-      <el-col :span="18" :offset="3" style="line-height: 10px">
-        <el-button @click="addBlockWords">add</el-button>
-        <el-button @click="deleteBlockWords">delete</el-button>
+<!--
+       <el-col :span = "3">
+        &lt;!&ndash; 占位，不要删。&ndash;&gt;
+         .
+       </el-col>
+-->
+
+
+      <el-col :span="18" :offset = "3" style="line-height: 10px">
+
         <!--下面就是v-for  便利取出并将post的信息赋予每个小card2   有几个post对象, 生成几个card2-->
         <div class="grid-content bg-purple" v-for="post in postList.slice((pageNumber-1)*pageSize, pageNumber * pageSize)" style="margin-bottom: 30px" >
           <!-- 第一个div, 将一个card分为上下两部分, 这里是头像加名字-->
@@ -20,7 +24,7 @@
               <el-col :span="5" class="pic-name" style="text-align: right" >
                 <!--                 上方设置右对齐 -->
                 <el-badge is-dot class="item" type="primary">
-                <el-avatar  :src= "riden" ></el-avatar>
+                  <el-avatar  :src= "riden" ></el-avatar>
                 </el-badge>
               </el-col>
               <!-- 名字-->
@@ -45,8 +49,8 @@
             <el-row type="flex" align="middle">
               <el-col :span="18" style="text-align: left">
                 <div class = "title" style="font-size: 20px; font-family: Microsoft YaHei;"> <strong>Title:</strong>  {{post.title}}
-                    <el-tag  v-show="typeof post.typeContent!=='undefined'" v-if="postType!=='none'" v-for="postType in (post.typeContent+',none').split(',') "  style = "margin-left: 10px;" :type = "displayType(postType)" effect="plain">
-                      {{postType}}</el-tag>
+                  <el-tag  v-show="typeof post.typeContent!=='undefined'" v-if="postType!=='none'" v-for="postType in (post.typeContent+',none').split(',') "  style = "margin-left: 10px;" :type = "displayType(postType)" effect="plain">
+                    {{postType}}</el-tag>
                   <!---->
                 </div>
               </el-col>
@@ -62,16 +66,45 @@
       </el-col>
 
     </el-row>
+    <!--这个vif先写死了，不知道为什么判断会出问题， 详见底下-->
+    <div v-if = "isAdmin">
+      <el-container>
+        <el-header>Block words manager</el-header>
+          <el-main>
+            <el-table
+                    :data="blockWords"
+                    max-height = "300px"
+                    style="width: 100%">
+              <el-table-column
+                      prop="blockUnit"
+                      label="Word"
+                      width="180">
+              </el-table-column>
+              <el-table-column
+                      prop="blockUnit"
+                      label="Operation">
+                <!--删掉-->
+                <el-button type = "danger" @click="deleteBlockWords(blockUnit)">delete</el-button>
+              </el-table-column>
+            </el-table>
+            <div class = "addBlockBar">
+              <!--加-->
+              <el-input v-model="newBlock" placeholder="Enter new block words here"></el-input>
+              <el-button type = "success" @click="addBlockWords(newBlock)">add</el-button>
+            </div>
+          </el-main>
+      </el-container>
+    </div>
 
     <el-pagination
-        background
-        @current-change="handleCurrentChange"
-        @size-change="handleSizeChange"
-        :current-page="queryInfo.pageNumber"
-        :page-size= "queryInfo.pagesize"
-        :page-sizes="[4]"
-        layout="total, sizes, prev, pager, next"
-        :total="total"
+            background
+            @current-change="handleCurrentChange"
+            @size-change="handleSizeChange"
+            :current-page="queryInfo.pageNumber"
+            :page-size= "queryInfo.pagesize"
+            :page-sizes="[4]"
+            layout="total, sizes, prev, pager, next"
+            :total="total"
     >
     </el-pagination>
 
@@ -87,17 +120,38 @@
     comments:{
       'home':home,
     },
-/*    filters: {
-      statusFilter(status) {
-        const statusMap = {
-          1: 'success',
-          2: 'danger'
-        }
-      },*/
+    /*    filters: {
+          statusFilter(status) {
+            const statusMap = {
+              1: 'success',
+              2: 'danger'
+            }
+          },*/
     data(){
-
       return{
-        blockWords:'kkk',
+        newBlock:'',
+        blockWords:[{
+          blockUnit:'kkk',
+        },
+          {
+           blockUnit: 'xijinping',
+          },
+          {
+            blockUnit: 'xijinping',
+          },
+          {
+            blockUnit: 'xijinping',
+          },
+          {
+            blockUnit: 'xijinping',
+          },
+          {
+            blockUnit: 'xijinping',
+          },
+          {
+            blockUnit: 'xijinping',
+          },
+        ],
         // 获取用户列表的参数对象
         queryInfo: {
           query: '',
@@ -106,12 +160,11 @@
           typeList: [],
           typeListString: ''
         },
-
-
-
         kkn:kkn,
-
         riden:riden,
+        //判断是否为管理员，跨组件传值
+        isAdmin: true,
+        // isAdmin: home.PersonId === 0,
         circleUrl: "../assets/riden.jpg",
         total:0,
         pageNumber: 1, //初始页
@@ -126,7 +179,6 @@
           avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
           id:0,
         },
-
           {
             userName: "dandan2",
             title: "i am post title2",
@@ -170,6 +222,11 @@
           this.$message.error("delete words:can not fetch data")
         })
       },
+      getBlockWords:function(){
+        //获取一下blockwords
+
+      },
+
       displayType(type) {
         if(type === "Friendship"){
           return "success";
@@ -187,7 +244,6 @@
           return "";
         }
       },
-
       print:function (id){
         console.log(id)
       },
@@ -201,7 +257,6 @@
       },
       open() {
         const h = this.$createElement;
-
         this.$notify({
           title: 'Welcome',
           duration: 6000,
@@ -221,33 +276,27 @@
         if (res.meta.status !== 200) {
           return this.$message.error('数据获取失败')
         }
-
         this.postList = res.data.postList
         this.total = res.data.totalpage
         console.log(this.total,"totalis")
         console.log(this.postList,"aaaaaaaaaaaaaaaaa")
-
-
       }
     },
     created() {
-
       //磨洋工加载条，给钱加速
       this.fullscreenLoading = true;
       setTimeout(() => {
         this.fullscreenLoading = false;
-      }, 1000);
+      }, 500);
       this.getPostList()
       //磨洋工对话条
       setTimeout(() =>{
-      this.open()}, 1500)
+        this.open()}, 1500)
     },
-
     handleSizeChange(newSize) {
       this.queryInfo.pageSize = newSize
       this.getPostList()
     },
-
     handleCurrentChange(newPage) {
       this.queryInfo.pageNumber = newPage
       this.getPostList()
@@ -256,50 +305,45 @@
 </script>
 
 <style lang="less" scoped>
-
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xia
-//see detail按钮效果*//
-
-
-.seedetail{
-  background-color: #7DC4CC;
-}
-.contact {
-  position: absolute;
-
-}
-
-.seedetail:hover {
-  background: linear-gradient(90deg, #BC95C6 0%, #7DC4CC 50%, #BC95C6 100%);
-  background-size: 300% 100%; /*扩大背景区域*/
-  animation: text 4s infinite linear both, animated-border 1.5s infinite;
-  text-shadow: #676769 4px 4px 5px;
-  @keyframes logout {
-    0% {
-      background-position: 0 0;
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xia
+  //see detail按钮效果*//
+  .seedetail{
+    background-color: #7DC4CC;
+  }
+  .contact {
+    position: absolute;
+  }
+  .seedetail:hover {
+    background: linear-gradient(90deg, #BC95C6 0%, #7DC4CC 50%, #BC95C6 100%);
+    background-size: 300% 100%; /*扩大背景区域*/
+    animation: text 4s infinite linear both, animated-border 1.5s infinite;
+    text-shadow: #676769 4px 4px 5px;
+    @keyframes logout {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: -150% 0;
+      }
     }
-    100% {
-      background-position: -150% 0;
+    @keyframes animated-border {
+      0% {
+        box-shadow: 0 0 0 0 #A7BFE8;
+      }
+      100% {
+        box-shadow: 0 0 0 20px rgba(255,255,255,0);
+      }
     }
   }
-  @keyframes animated-border {
-    0% {
-      box-shadow: 0 0 0 0 #A7BFE8;
-    }
-    100% {
-      box-shadow: 0 0 0 20px rgba(255,255,255,0);
-    }
-  }
-}
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!shang
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!shang
   .userpanel{
     text-align: center;
     color: white;
@@ -336,22 +380,20 @@
     transition: all 500ms;
     border-radius: 15px;
     background-color: white;
-
   }
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xia
-//这里是添加了浮动效果和边框形状改变的效果
-
-.card:hover{
-  color: #6253FF;
-  box-shadow: 20px 15px 5px gray;
-  background-color: #f1f8ff;
-  padding-top: 1%;
-  padding-bottom: 1%;
-}
+  //这里是添加了浮动效果和边框形状改变的效果
+  .card:hover{
+    color: #6253FF;
+    box-shadow: 20px 15px 5px gray;
+    background-color: #f1f8ff;
+    padding-top: 1%;
+    padding-bottom: 1%;
+  }
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -360,7 +402,6 @@
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   .el-pagination{
     position: absolute;
-
     bottom: -15%;margin: auto;left: 0;right: 0;
   }
   .el-dropdown-link{
@@ -370,9 +411,7 @@
   }
   .pic-name{
     line-height: 0;
-
   }
-
   a {
     text-decoration: none;
     color: blue;
@@ -393,20 +432,34 @@
     text-decoration: none;
     color: #A7BFE8;
   }
-
+  .addBlockBar{
+    line-height: 40px;
+    margin: 10px;
+  }
   .el-container{
     padding: 0;
     margin: 0;
-    height: 100%;
+    bottom: 20%;
+    height: auto;
+    width: 20%;
+    position: absolute;
   }
   .el-header {
-    padding-top: 0;
-    padding-bottom: 0;
-    background-image: linear-gradient(to right, #A7BFE8, #6190E8, #6253FF, #6190E8, #A7BFE8);
-    color: #333;
-    border-radius: 3px;
+    background-color: #6253FF;
+    color: white;
+    text-align: center;
+    justify-content: center;
+    font-size: large;
+    opacity: 80%;
+    width: auto;
+    font-style: italic;
+    font-family: "UD Digi Kyokasho N-B";
+    font-weight: bold;
+    fill-opacity: 80%;
+    line-height: 60px;
+    border-radius: 7px;
+    position: page;
   }
-
   .el-col{
     height: 100%;
     margin-top: 0;
@@ -417,24 +470,20 @@
     margin-top: 0;
   }
   .el-main {
+    line-height: 15px;
     background-color: #E9EEF3;
     color: #333;
+    border-radius: 7px;
+    opacity: 80%;
     text-align: center;
-    line-height: 160px;
-    height: auto;
-    overflow-x: hidden;
-    overflow-y: hidden;
   }
-
   body > .el-container {
     margin-bottom: 40px;
   }
-
   .el-container:nth-child(5) .el-aside,
   .el-container:nth-child(6) .el-aside {
     line-height: 260px;
   }
-
   .el-container:nth-child(7) .el-aside {
     line-height: 320px;
   }
@@ -442,39 +491,27 @@
     padding-left: 10%;
     padding-top: 5px;
     font-family: "Segoe UI";
-
     overflow-x: hidden;
-
-
     .el-col {
       border-radius: 4px;
     }
-
     .bg-purple-dark {
       background: #99a9bf;
     }
-
     .bg-purple {
       background: #d3dce6;
     }
-
     .bg-purple-light {
       background: #e5e9f2;
     }
-
     .grid-content {
       border-radius: 4px;
       min-height: 36px;
     }
-
     .row-bg {
       padding: 0px;
       background-color: #f9fafc;
-
       overflow-x: hidden;
     }
-
   }
-
-
 </style>
