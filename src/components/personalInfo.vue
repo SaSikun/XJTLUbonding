@@ -70,7 +70,7 @@
         <el-col :span="7">
           <div>
             <div class="middle-avatar" style="margin-top: -50px">
-              <el-avatar :size="180" :src="riden"></el-avatar>
+              <el-image :size="180" :src="userAvatar"></el-image>
               <br><br><br>
               <el-button type="primary" icon="el-icon-edit">Change</el-button>
             </div>
@@ -158,7 +158,12 @@ export default {
           backgroundSize: "2500px auto",
           marginTop: "10px",
         },
-      riden:riden,
+      changeAvatar:{
+        userId:'',
+        changeToAvatarId:-1,
+      },
+      avatarList:[{id:0,url:require('../assets/avatar/man1.png')},{id:1,url:require('../assets/avatar/man2.png')},{id:2,url:require('../assets/avatar/woman1.png')},{id:3,url:require('../assets/avatar/woman2.png')}],
+      userAvatar:'',
       labelPosition:'left',
       dialogVisible: false,
       InfoModificationForm:{
@@ -179,10 +184,10 @@ export default {
       PersonId: {
           id:0
       },
-      AvatarB64:"https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+      AvatarB64:"../assets/avatar/man1.png",
       userInfo:{
         nickName:'DefaultAdmin',
-        avatar:'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
+        avatar:'../assets/avatar/man1.png',
       },
       InfoModificationFormRules:{
         nickName: [
@@ -209,6 +214,7 @@ export default {
     }
   },
   methods:{
+    delay:function(fn,time){return new Promise(resolve=>{setTimeout(()=>{resolve(fn())},time)})},
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -241,11 +247,43 @@ export default {
           this.InfoModificationForm.PersonalizedInfo=res.data.data.personalInfo
         }
       })
-
       console.log(this.InfoModificationForm,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
       this.dialogVisible=true
     },
-
+    getUserAvatar:function (){
+      const userId = localStorage.getItem('idToken')
+      this.$http.get('/user/getUserAvatar',{params:{id:userId}}).then(res=>{
+        if (res.data.status===200){
+            // this.userAvatar = require(this.avatarList[res.data.data.id].url)
+            this.userAvatar = this.avatarList[res.data.data.id].url
+        }
+      }).catch(()=>{
+        console.log("default avatar")
+        // console.log("this is console",require('../assets/avatar/man1.png'))
+        // this.userAvatar=require(this.avatarList[3].url.toString())
+        // const image = require('../assets/avatar/man1.png')
+        // this.userAvatar=require('../assets/avatar/woman2.png')
+        console.log(this.avatarList[2].url)
+        // console.log('../assets/avatar/woman2.png')
+        // const path = '../assets/avatar/woman2.png'
+        this.userAvatar=this.avatarList[2].url
+        // const path = this.avatarList[3].url
+        // console.log("this is path",path)
+        // this.userAvatar=require(path)
+        // console.log(this.userAvatar)
+      })
+    },
+    changeAvatar:function (){
+        this.$http.get('/user/manageAvatar',{params:this.changeAvatar}).then(async res=>{
+          if (res.data.status===200){
+            this.$message({message:"Successfully change the avatar",type:"success"})
+            await this.delay(()=>console.log("waiting"),500)
+            await this.$router.go(0)
+          }
+        }).catch(()=>{
+          this.$message({message:"can not change avatar",type:"warning"})
+        })
+    },
     getPersonalInfo:function (){
       this.PersonId.id = localStorage.getItem('idToken')
       this.$http.get('/user/getPersonalInfo', {params:this.PersonId}).then(res=>{
@@ -289,7 +327,7 @@ export default {
   },
   created() {
     //header栏的,后面整合删掉
-
+    this.getUserAvatar()
     this.getPersonalInfo()
   }
 }
