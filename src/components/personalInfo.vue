@@ -72,7 +72,7 @@
             <div class="middle-avatar" style="margin-top: -50px">
               <el-image :size="180" :src="userAvatar"></el-image>
               <br><br><br>
-              <el-button type="primary" icon="el-icon-edit">Change</el-button>
+              <el-button type="primary" @click="changeAvatar" icon="el-icon-edit">Change</el-button>
             </div>
           </div>
         </el-col>
@@ -160,7 +160,7 @@ export default {
         },
       changeAvatar:{
         userId:'',
-        changeToAvatarId:-1,
+        avatarId:-1,
       },
       avatarList:[{id:0,url:require('../assets/avatar/man1.png')},{id:1,url:require('../assets/avatar/man2.png')},{id:2,url:require('../assets/avatar/woman1.png')},{id:3,url:require('../assets/avatar/woman2.png')}],
       userAvatar:'',
@@ -263,10 +263,10 @@ export default {
         // this.userAvatar=require(this.avatarList[3].url.toString())
         // const image = require('../assets/avatar/man1.png')
         // this.userAvatar=require('../assets/avatar/woman2.png')
-        console.log(this.avatarList[2].url)
+        console.log(this.avatarList[1].url)
         // console.log('../assets/avatar/woman2.png')
         // const path = '../assets/avatar/woman2.png'
-        this.userAvatar=this.avatarList[2].url
+        this.userAvatar=this.avatarList[1].url
         // const path = this.avatarList[3].url
         // console.log("this is path",path)
         // this.userAvatar=require(path)
@@ -274,6 +274,10 @@ export default {
       })
     },
     changeAvatar:function (){
+        this.changeAvatar.userId=localStorage.getItem('idToken')
+        if(this.changeAvatar.avatarId===-1){
+          this.changeAvatar.avatarId=3
+        }
         this.$http.get('/user/manageAvatar',{params:this.changeAvatar}).then(async res=>{
           if (res.data.status===200){
             this.$message({message:"Successfully change the avatar",type:"success"})
