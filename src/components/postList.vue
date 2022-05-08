@@ -76,7 +76,7 @@
                     max-height = "300px"
                     style="width: 100%">
               <el-table-column
-                      prop="blockUnit"
+                      prop="word"
                       label="Word"
                       width="180">
               </el-table-column>
@@ -203,7 +203,7 @@
             this.$message({message:":)"+res.data.msg,type:"success"})
             // 因为这里可以一次性输入多个数据， 所以最终应该是从后端接受
             // this.blockWords=this.blockWords.concat([{
-            //   blockUnit: this.newBlock,
+            //   word: this.newBlock,
             // }])
             this.blockWords=this.blockWords.concat(JSON.parse(res.data.data.newBlockWords))
             // console.log("this is new data",res.data.data)
@@ -219,11 +219,11 @@
       deleteBlockWords:function (index,row){
         console.log(index)
         console.log("this is",row)
-        // console.log("3",this.blockWords[index].blockUnit="deleted successfully")
-        this.$http.get('/admin/deleteBlockWords',{params:{"blockWords": this.blockWords[index].blockUnit}}).then(res=>{
+        // console.log("3",this.blockWords[index].word="deleted successfully")
+        this.$http.get('/admin/deleteBlockWords',{params:{"blockWords": this.blockWords[index].word}}).then(res=>{
           if(res.data.status===200){
             this.$message({message:":)"+res.data.msg,type:"success"})
-            this.blockWords[index].blockUnit="deleted successfully"
+            this.blockWords[index].word="deleted successfully"
           }
         }).catch(()=>{
           this.$message.error("delete words:can not fetch data")
