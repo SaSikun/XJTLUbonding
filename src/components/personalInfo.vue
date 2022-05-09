@@ -283,7 +283,7 @@ export default {
         if(this.changeAvatar.avatarId===4){
           this.changeAvatar.avatarId=0
         }
-
+        console.log(this.changeAvatar.avatarId)
         this.$http.get('/user/manageAvatar',{params:this.changeAvatar}).then(async res=>{
           if (res.data.status===200){
             this.$message({message:"Successfully change the avatar",type:"success"})
@@ -298,13 +298,13 @@ export default {
       this.PersonId.id = localStorage.getItem('idToken')
       this.$http.get('/user/getPersonalInfo', {params:this.PersonId}).then(res=>{
         if(res.status===200){
-
+          console.log(res,"asdasdasd")
           this.personalInfo.nickName=res.data.data.username
           this.personalInfo.gender=res.data.data.gender
           this.personalInfo.grade=res.data.data.grade
           this.personalInfo.major=res.data.data.major
           this.personalInfo.PersonalizedInfo=res.data.data.personalInfo
-
+          this.changeAvatar.avatarId=res.data.data.avatar
         }else {
           alert('unknown error of system')
         }

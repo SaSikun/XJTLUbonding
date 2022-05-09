@@ -37,7 +37,7 @@
             <el-table-column prop="avatar" label="Avatar" width="200">
               <!--avatar links here 绑定后端来的头像链接，暂时写死-->
               <div>
-                <el-avatar src="https://pic.imgdb.cn/item/615426352ab3f51d9133f071.jpg"></el-avatar>
+                <el-avatar :src="aurl"></el-avatar>
               </div>
             </el-table-column>
             <el-table-column prop="author" label="Author" width="200">
@@ -219,6 +219,12 @@
           likeopt:0,
           collectopt:0
         },
+        avatarList:[{id:0,url:require('../assets/avatar/man1.png')},
+          {id:1,url:require('../assets/avatar/man2.png')},
+          {id:2,url:require('../assets/avatar/woman1.png')},
+          {id:3,url:require('../assets/avatar/woman2.png')}
+        ],
+        aurl:'',
         formLabelWidth: '160px',
         timer: null,
         //假数据，暂时这样写死
@@ -408,12 +414,13 @@
         this.getCommentList()
       },
       getPostDetail:function (id){
-        console.log(this.post.id)
+
         this.$http.get('/post/getPostDetail',{params:{'id':this.post.id}}).then(res=>{
           this.post.author = res.data.writer
           this.post.post_title = res.data.title
           this.post.post_content = res.data.content
-          console.log(res.data.content)
+          this.aurl = this.avatarList[res.data.avatar].url
+
           this.post.avatar =  res.data.data.avatar
           console.log(this.post)
           this.postData.push(this.post)

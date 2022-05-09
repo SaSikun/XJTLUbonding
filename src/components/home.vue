@@ -51,7 +51,7 @@
             <el-dropdown>
               <span class="el-dropdown-link" >
                 <el-badge is-dot class="item" v-if = "newNotify">
-                    <el-avatar shape="square" :size="50" :src="riden" style="margin-right: 5px"></el-avatar>
+                    <el-avatar shape="square" :size="50" :src="aurl" style="margin-right: 5px"></el-avatar>
                 </el-badge>
                 <h4 style="display: inline; margin-left: 2px">{{ userInfo.nickName }}</h4>
                 <i class="el-icon-arrow-down el-icon--right" style="margin-top: 19px"></i>
@@ -115,6 +115,12 @@ export default {
         backgroundSize: "2500px auto",
         marginTop: "10px",
       },
+      avatarList:[{id:0,url:require('../assets/avatar/man1.png')},
+        {id:1,url:require('../assets/avatar/man2.png')},
+        {id:2,url:require('../assets/avatar/woman1.png')},
+        {id:3,url:require('../assets/avatar/woman2.png')}
+        ],
+      aurl:'',
       PersonId: {
         id:0
       },
@@ -187,9 +193,9 @@ export default {
     getUserInfo:function (){
       this.PersonId.id = localStorage.getItem('idToken')
         this.$http.get('/user/getPersonalInfo',{params:this.PersonId}).then(res=>{
-
+          this.aurl = this.avatarList[res.data.data.avatar].url
           this.userInfo.nickName=res.data.data.username
-          console.log(this.userInfo.nickName)
+          console.log(res,":useronfo")
         })
     },
     sendquery:async function (){
