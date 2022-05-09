@@ -86,7 +86,7 @@
                             <!--头像-->
                             <el-col :span="5" class="pic-name" style="text-align: right" >
                                 <!--                 上方设置右对齐 -->
-                                <el-avatar :src="riden"  ></el-avatar>
+                                <el-avatar :src="post.avatarurl"  ></el-avatar>
                             </el-col>
                             <!-- 名字-->
                             <el-col :span="10" style="text-align: left; margin-left: 2px">
@@ -171,6 +171,10 @@
                     major:'',
                     PersonalizedInfo:'',
                 },
+                avatarList:[{id:0,url:require('../assets/avatar/man1.png')},
+                {id:1,url:require('../assets/avatar/man2.png')},
+                {id:2,url:require('../assets/avatar/woman1.png')},
+                {id:3,url:require('../assets/avatar/woman2.png')}],
                 riden:riden,
                 deleteTarget: {
                     id:0
@@ -238,6 +242,9 @@
                 if (res.status !== 200) {
                     return this.$message.error('数据获取失败')
                 }
+              for(let i=0,len=4;i<len;i++){
+                res.data.postList[i].avatarurl=this.avatarList[res.data.postList[i].avatar].url
+              }
                 this.tableData = res.data.postList
                 this.total = res.data.totalpage
             },

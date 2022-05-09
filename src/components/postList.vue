@@ -24,7 +24,7 @@
               <el-col :span="5" class="pic-name" style="text-align: right" >
                 <!--                 上方设置右对齐 -->
                 <el-badge is-dot class="item" type="primary">
-                  <el-avatar  :src= "riden" ></el-avatar>
+                  <el-avatar  :src= "post.avatarurl" ></el-avatar>
                 </el-badge>
               </el-col>
               <!-- 名字-->
@@ -142,8 +142,17 @@
           typeList: [],
           typeListString: ''
         },
+        avatarList:[{id:0,url:require('../assets/avatar/man1.png')},
+          {id:1,url:require('../assets/avatar/man2.png')},
+          {id:2,url:require('../assets/avatar/woman1.png')},
+          {id:3,url:require('../assets/avatar/woman2.png')}],
         kkn:kkn,
         riden:riden,
+        Avatar1:'',
+        Avatar2:'',
+        Avatar3:'',
+        Avatar4:'',
+
         //判断是否为管理员，跨组件传值
         isAdmin: true,
         // isAdmin: home.PersonId === 0,
@@ -292,9 +301,13 @@
         if (res.meta.status !== 200) {
           return this.$message.error('数据获取失败')
         }
+        for(let i=0,len=4;i<len;i++){
+          res.data.postList[i].avatarurl=this.avatarList[res.data.postList[i].avatar].url
+
+        }
+
         this.postList = res.data.postList
         this.total = res.data.totalpage
-        console.log(this.total,"totalis")
         console.log(this.postList,"aaaaaaaaaaaaaaaaa")
       }
     },
