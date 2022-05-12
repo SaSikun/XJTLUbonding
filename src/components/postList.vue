@@ -154,7 +154,8 @@
         Avatar4:'',
 
         //判断是否为管理员，跨组件传值
-        isAdmin: true,
+        //default value has been changed to false
+        isAdmin: false,
         // isAdmin: home.PersonId === 0,
         circleUrl: "../assets/riden.jpg",
         total:0,
@@ -195,6 +196,11 @@
       })
     },
     methods:{
+      checkAdmin:function (){
+          const admin = 52;
+          const userId = localStorage.getItem('idToken')
+          this.isAdmin = userId.toString()=== admin.toString();
+      },
       addBlockWords:function (){
         if(this.newBlock.length<=0){
           const h = this.$createElement;
@@ -301,16 +307,18 @@
         if (res.meta.status !== 200) {
           return this.$message.error('数据获取失败')
         }
-        for(let i=0,len=res.data.postList.length;i<len;i++){
+
+        for(let i=0,len=Math.min(this.pageSize,res.data.postList.length);i<len;i++){
+
           res.data.postList[i].avatarurl=this.avatarList[res.data.postList[i].avatar].url
         }
-
         this.postList = res.data.postList
         this.total = res.data.totalpage
         console.log(this.postList,"aaaaaaaaaaaaaaaaa")
       }
     },
     created() {
+      this.checkAdmin()
       //磨洋工加载条，给钱加速
       this.fullscreenLoading = true;
       setTimeout(() => {
