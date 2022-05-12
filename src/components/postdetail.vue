@@ -13,14 +13,19 @@
           <el-col :span="12" style="text-align: center">
             <strong><em>Welcome to see detail!</em></strong>
           </el-col>
-          <el-col :span = "5" style="text-align: right">
+
+          <el-col :span="3" style="text-align: right">
+              <div class="delete">
+                <el-button v-if="isAdmin" @click="deletion" type="danger" icon="el-icon-delete-solid" size="medium" round>(艹皿艹 )Delete!</el-button>
+              </div>
+          </el-col>
+          <el-col :span = "1" style="text-align: right">
             <div class = "star">
               <el-badge :value= "collectNum" class="item" type = "primary">
                 <el-button type="warning" :icon= "collectIcon" circle @click="changeCollect()"></el-button>
               </el-badge>
             </div>
           </el-col>
-
           <el-col :span = "1">
             <div class = "heart">
               <el-badge :value= "likeNum" class="item" type = "primary">
@@ -169,6 +174,7 @@
     name:'postDetail',
 
     data() {
+
       const comments = [];
       // const post = {
       //   author: 'Default',
@@ -176,6 +182,10 @@
       //   post_content: "Sing praises of her heavenly descent!\nSpread the word of her heavenly descent!\nSing praises of her heavenly descent!\nAll be in awe of her heavenly descent!"
       // };
       return {
+        deleteTarget:{
+          id:0
+        },
+        isAdmin:false,
         collectIcon: "el-icon-star-off",
         likeIcon: "el-icon-plus",
         fsLoading: false,
@@ -236,6 +246,27 @@
       }
     },
     methods:{
+      delay:function(fn,time){return new Promise(resolve=>{setTimeout(()=>{resolve(fn())},time)})},
+      deletion: async function (){
+        this.deleteTarget.id=this.post.id;
+        const { data: res } = await this.$http.get('/post/delete',{ params: this.deleteTarget })
+        //对target进行删除
+        if (res.status !== 200) {
+          this.$message.error('Delete failed')
+
+        }else {
+          this.$message.success("Delete successfully")
+          await this.delay(()=>console.log("waiting"),600)
+          await this.$router.push('/home')
+        }
+        //置空，防止潜在bug
+
+      },
+      checkAdmin:function (){
+        const admin = 52;
+        const userId = localStorage.getItem('idToken')
+        this.isAdmin = userId.toString()=== admin.toString();
+      },
 
       opendetail() {
         const h = this.$createElement;
@@ -370,7 +401,7 @@
       },
 
 
-      delay:function(fn,time){return new Promise(resolve=>{setTimeout(()=>{resolve(fn())},time)})},
+
       submitComment(form,id) {
         if(this.form.content===''){
           alert("pls do not input empty content")
@@ -438,6 +469,7 @@
       }
     },
     created() {
+      this.checkAdmin();
       this.fsLoading = true;
       setTimeout(() => {
         this.fsLoading = false;
