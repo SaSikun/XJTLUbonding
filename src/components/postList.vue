@@ -154,7 +154,8 @@
         Avatar4:'',
 
         //判断是否为管理员，跨组件传值
-        isAdmin: true,
+        //default value has been changed to false
+        isAdmin: false,
         // isAdmin: home.PersonId === 0,
         circleUrl: "../assets/riden.jpg",
         total:0,
@@ -195,6 +196,11 @@
       })
     },
     methods:{
+      checkAdmin:function (){
+          const admin = 52;
+          const userId = localStorage.getItem('idToken')
+          this.isAdmin = userId.toString()=== admin.toString();
+      },
       addBlockWords:function (){
         if(this.newBlock.length<=0){
           const h = this.$createElement;
@@ -312,6 +318,7 @@
       }
     },
     created() {
+      this.checkAdmin()
       //磨洋工加载条，给钱加速
       this.fullscreenLoading = true;
       setTimeout(() => {
