@@ -301,9 +301,8 @@
         if (res.meta.status !== 200) {
           return this.$message.error('数据获取失败')
         }
-        for(let i=0,len=4;i<len;i++){
+        for(let i=0,len=res.data.postList.length;i<len;i++){
           res.data.postList[i].avatarurl=this.avatarList[res.data.postList[i].avatar].url
-
         }
 
         this.postList = res.data.postList
