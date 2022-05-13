@@ -107,6 +107,7 @@
               <el-dialog :visible.sync="avatardialogVisible"
                          width = "50%"
                          height = "auto"
+                         style="line-height: 30px"
                          :modal="false">
                 <el-row :gutter = "24">
                   <el-col :span = "6">
@@ -114,7 +115,7 @@
                       <el-card :body-style="{ padding: '10px' }">
                         <img src="../assets/avatar/man1.png">
                         <div style="padding: 4px;">
-                          <el-button type="primary" @click="manageAvatar(0)" icon="el-icon-edit"></el-button>
+                          <el-button type="primary" @click="manageAvatar(0)" icon="el-icon-edit">select</el-button>
                         </div>
                       </el-card>
                     </div>
@@ -124,7 +125,7 @@
                     <el-card :body-style="{ padding: '10px' }">
                       <img src="../assets/avatar/man2.png">
                       <div style="padding: 4px;">
-                        <el-button type="primary" @click="manageAvatar(1)" icon="el-icon-edit"></el-button>
+                        <el-button type="primary" @click="manageAvatar(1)" icon="el-icon-edit">select</el-button>
                       </div>
                     </el-card>
                   </el-col>
@@ -133,7 +134,7 @@
                     <el-card :body-style="{ padding: '10px' }">
                       <img src="../assets/avatar/woman1.png">
                       <div style="padding: 4px;">
-                        <el-button type="primary" @click="manageAvatar(2)" icon="el-icon-edit"></el-button>
+                        <el-button type="primary" @click="manageAvatar(2)" icon="el-icon-edit">select</el-button>
                       </div>
                     </el-card>
                   </el-col>
@@ -142,7 +143,7 @@
                     <el-card :body-style="{ padding: '10px' }">
                       <img src="../assets/avatar/woman2.png">
                       <div style="padding: 4px;">
-                        <el-button type="primary" @click="manageAvatar(3)" icon="el-icon-edit"></el-button>
+                        <el-button type="primary" @click="manageAvatar(3)" icon="el-icon-edit">select</el-button>
                       </div>
                     </el-card>
                   </el-col>

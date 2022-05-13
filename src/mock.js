@@ -145,3 +145,346 @@ Mock.mock((/\/user\/getUserAvatar(.*)/),'get',(options)=>{
     resultUserAvatar.data.id=1
     return resultUserAvatar
 })
+
+let homeResultNotification1 = {
+    status:200,
+    msg:"success",
+    data:{
+        newLikeAndComment:100
+    }
+}
+
+let homeResultNotification2 = {
+    status:200,
+    msg:"success",
+    data:{
+        newLikeAndComment:0
+    }
+}
+Mock.mock(RegExp('/user/checkNotification(.*)'),'get',(options)=>{
+    console.log(options)
+    return homeResultNotification1
+})
+// Mock.mock('/user/checkNotification','get',(options)=>{
+//     console.log(options)
+//     return homeResultNotification2
+// })
+
+let postListResult = {
+    // meta:{
+    //     status:200
+    // },
+    status:200,
+    msg:"success",
+    totalpage:1,
+    postList:[{
+        userName: "dandan1",
+        title: "i am post title1",
+        avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+        id:0,
+    },
+        {
+            userName: "dandan2",
+            title: "i am post title2",
+            avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+            id:1,
+        },
+        {
+            userName: "dandan8",
+            title: "i am post title3",
+            avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+            id:2,
+        },
+        // {
+        //     userName: "dandan3",
+        //     title: "i am post title4",
+        //     avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+        //     id:3,
+        // },
+        // {
+        //     userName: "dandan4",
+        //     title: "i am post title5",
+        //     avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+        //     id:4,
+        // },
+        {
+            userName: "dandan5",
+            title: "i am post title6",
+            avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+            id:5,
+        }],
+    data:{
+        postList:[{
+            userName: "dandan1",
+            title: "i am post title1",
+            avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+            id:0,
+        },
+            {
+                userName: "dandan2",
+                title: "i am post title2",
+                avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+                id:1,
+            },
+            {
+                userName: "dandan8",
+                title: "i am post title3",
+                avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+                id:2,
+            },
+            // {
+            //     userName: "dandan3",
+            //     title: "i am post title4",
+            //     avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+            //     id:3,
+            // },
+            // {
+            //     userName: "dandan4",
+            //     title: "i am post title5",
+            //     avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+            //     id:4,
+            // },
+            {
+                userName: "dandan5",
+                title: "i am post title6",
+                avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+                id:5,
+            }],
+    }
+}
+
+Mock.mock(RegExp('/post/queryPost(.*)'),'get',(option)=>{
+    return postListResult
+})
+
+let myPostListResultPost = {
+    status:200,
+    msg:"hahaha",
+    totalpage:1,
+    postList:[
+        {
+        id: '0',
+        writerName: "kun",
+        title: 'today is a nice dat',
+        avatar:1
+        },
+        {
+            id: '1',
+            writerName: "kun",
+            title: 'today is a nice dat',
+            avatar:1
+        },
+        {
+            id: '2',
+            writerName: "kun",
+            title: 'today is a nice dat',
+            avatar:1
+        },
+        {
+            id: '3',
+            writerName: "kun",
+            title: 'today is a nice dat',
+            avatar:1
+        }],
+    data:{
+        postList:[{
+            userName: "dandan1",
+            title: "i am post title1",
+            avatar:1,
+            id:0,
+        },
+            {
+                userName: "dandan2",
+                title: "i am post title2",
+                avatar:1,
+                id:1,
+            },
+            {
+                userName: "dandan8",
+                title: "i am post title3",
+                avatar:1,
+                id:2,
+            },
+            // {
+            //     userName: "dandan3",
+            //     title: "i am post title4",
+            //     avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+            //     id:3,
+            // },
+            // {
+            //     userName: "dandan4",
+            //     title: "i am post title5",
+            //     avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+            //     id:4,
+            // },
+            {
+                userName: "dandan5",
+                title: "i am post title6",
+                avatar:1,
+                id:5,
+            }],
+    }
+}
+
+Mock.mock(RegExp('/user/getPersonalPost(.*)'),'get',(config)=>{
+    console.log(config)
+    return myPostListResultPost
+})
+
+
+let notificationResult = {
+    status:200,
+    msg:"hahaha",
+    totalpage:1,
+    data:{
+        postList:[{
+            userName: "dandan1",
+            title: "i am post title1",
+            avatar:1,
+            id:0,
+            likeNum:5,
+            commentNum:4
+        },
+            {
+                userName: "dandan2",
+                title: "i am post title2",
+                avatar:1,
+                id:1,
+                likeNum:5,
+                commentNum:4
+            },
+            {
+                userName: "dandan8",
+                title: "i am post title3",
+                avatar:1,
+                id:2,
+                likeNum:5,
+                commentNum:4
+            },
+            // {
+            //     userName: "dandan3",
+            //     title: "i am post title4",
+            //     avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+            //     id:3,
+            // },
+            // {
+            //     userName: "dandan4",
+            //     title: "i am post title5",
+            //     avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+            //     id:4,
+            // },
+            {
+                userName: "dandan5",
+                title: "i am post title6",
+                avatar:1,
+                id:5,
+                likeNum:0,
+                commentNum:4
+            }],
+    }
+}
+let notificationResult1 = {
+    status:200,
+    msg:"hahaha",
+    totalpage:1,
+    postList:[{
+        userName: "dandan1",
+        title: "i am post title1",
+        avatar:1,
+        id:0,
+        likeNum:5,
+        commentNum:4
+    },
+        {
+            userName: "dandan2",
+            title: "i am post title2",
+            avatar:1,
+            id:1,
+            likeNum:5,
+            commentNum:4
+        },
+        {
+            userName: "dandan8",
+            title: "i am post title3",
+            avatar:1,
+            id:2,
+            likeNum:5,
+            commentNum:4
+        },
+        // {
+        //     userName: "dandan3",
+        //     title: "i am post title4",
+        //     avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+        //     id:3,
+        // },
+        // {
+        //     userName: "dandan4",
+        //     title: "i am post title5",
+        //     avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+        //     id:4,
+        // },
+        {
+            userName: "dandan5",
+            title: "i am post title6",
+            avatar:1,
+            id:5,
+            likeNum:0,
+            commentNum:4
+        }],
+    data:{
+        postList:[{
+            userName: "dandan1",
+            title: "i am post title1",
+            avatar:1,
+            id:0,
+            likeNum:5,
+            commentNum:4
+        },
+            {
+                userName: "dandan2",
+                title: "i am post title2",
+                avatar:1,
+                id:1,
+                likeNum:5,
+                commentNum:4
+            },
+            {
+                userName: "dandan8",
+                title: "i am post title3",
+                avatar:1,
+                id:2,
+                likeNum:5,
+                commentNum:4
+            },
+            // {
+            //     userName: "dandan3",
+            //     title: "i am post title4",
+            //     avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+            //     id:3,
+            // },
+            // {
+            //     userName: "dandan4",
+            //     title: "i am post title5",
+            //     avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+            //     id:4,
+            // },
+            {
+                userName: "dandan5",
+                title: "i am post title6",
+                avatar:1,
+                id:5,
+                likeNum:0,
+                commentNum:4
+            }],
+    }
+}
+let notificationResult2 = {
+    status:200,
+    msg:"hahaha",
+    totalpage:1,
+    postList:[]
+}
+Mock.mock(RegExp('/user/getNotificationPost(.*)'),'get',(config)=>{
+    console.log(config)
+    return notificationResult1
+})

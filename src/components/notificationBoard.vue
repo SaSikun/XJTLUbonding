@@ -25,8 +25,8 @@
                         <li>
                             <div class="nav-button" style="line-height: 100px">
                                 <!--                line height = height 居中-->
-                                <div class="text2">
-                                    <p style="margin: 0 auto">My Post list</p>
+                                <div class="text2" @click="toMyPost()">
+                                    <p style="margin: 0 auto" @click="toMyPost()">My Post list</p>
                                     <div class="bgsqr1"></div><div class="bgsqr2"></div><div class="bgsqr3"></div><div class="bgsqr4"></div>
                                 </div>
                             </div>
@@ -77,38 +77,42 @@
 
             <el-col :span="18" :offset="3" style="line-height: 10px">
                 <!--下面就是v-for  便利取出并将post的信息赋予每个小card2   有几个post对象, 生成几个card2-->
+
+              <div style="margin: 40px 0">
+                <h3><em>{{titleOfThisPage}}</em></h3>
+              </div>
                 <div class="grid-content bg-purple" v-for="post in tableData.slice((pageNumber-1)*pageSize, pageNumber * pageSize)" style="margin-bottom: 30px" >
                     <!-- 第一个div, 将一个card分为上下两部分, 这里是头像加名字-->
-                    <div>
-                        <!--row内居中-->
-                        <el-row class="card22" style="margin-bottom: 0;" type="flex" align="middle" justify="start">
+<!--                    <div>-->
+<!--                        &lt;!&ndash;row内居中&ndash;&gt;-->
+<!--                        <el-row class="card22" style="margin-bottom: 0;" type="flex" align="middle" justify="start">-->
 
-                            <!--头像-->
-                            <el-col :span="5" class="pic-name" style="text-align: right" >
-                                <!--                 上方设置右对齐 -->
-                                <el-avatar :src="post.avatarurl"  ></el-avatar>
-                            </el-col>
-                            <!-- 名字-->
-                            <el-col :span="10" style="text-align: left; margin-left: 2px">
-                                <div class = "username">
-                                    <h4><!--date ！！！！！！！暂时需要后端方法稍作调整, 目前显示不了！！！！！！-->
-                                        {{post.writerName}}
-                                    </h4>
-                                </div>
-                            </el-col>
-                        </el-row>
+<!--                            &lt;!&ndash;头像&ndash;&gt;-->
+<!--                            <el-col :span="5" class="pic-name" style="text-align: right" >-->
+<!--                                &lt;!&ndash;                 上方设置右对齐 &ndash;&gt;-->
+<!--                                <el-avatar :src="post.avatarurl"  ></el-avatar>-->
+<!--                            </el-col>-->
+<!--                            &lt;!&ndash; 名字&ndash;&gt;-->
+<!--                            <el-col :span="10" style="text-align: left; margin-left: 2px">-->
+<!--                                <div class = "username">-->
+<!--                                    <h4>&lt;!&ndash;date ！！！！！！！暂时需要后端方法稍作调整, 目前显示不了！！！！！！&ndash;&gt;-->
+<!--                                        {{post.writerName}}-->
+<!--                                    </h4>-->
+<!--                                </div>-->
+<!--                            </el-col>-->
+<!--                        </el-row>-->
 
-                    </div>
+<!--                    </div>-->
                     <div class="card"  >
                         <el-row type="flex" align="middle">
                             <el-col :span="16" style="text-align: left">
                                 <div class = "title" style="font-size: 20px;font-family: Microsoft YaHei; line-height: 25px"> <strong>Title:</strong>  {{post.title}}
                                     <!--實際後端上綫後需要在兩個vif的num前都加上post.-->
-                                    <el-tag style = "margin-left: 10px; " size="small" type="warning"  effect="dark" v-if = "commentnum!==0">
-                                        new comments: {{post.commentnum}}
+                                    <el-tag style = "margin-left: 10px; " size="small" type="warning"  effect="dark" v-if = "post.commentNum!==0">
+                                        new comments: {{post.commentNum}}
                                     </el-tag>
-                                    <el-tag style = "margin-left: 10px; " size="small" type="danger"  effect="dark" v-if = "likenum!==0">
-                                        new likes: {{post.likenum}}
+                                    <el-tag style = "margin-left: 10px; " size="small" type="danger"  effect="dark" v-if = "post.likeNum!==0">
+                                        new likes: {{post.likeNum}}
                                     </el-tag>
                                 </div>
                             </el-col>
@@ -135,21 +139,21 @@
             </el-pagination>
         </el-row>
 
-        <el-dialog
-                title="Deletion"
-                :visible.sync="dialogVisible"
-                width="20%"
-                top="15%"
-                style="line-height: 20px; opacity: 90%;"
-        >
-            <h1>Are you sure?</h1>
-            <div style = "text-align:center">
-              <span slot="footer" class="dialog-footer">
-              <el-button @click="dialogVisible = false">Cancel</el-button>
-              <el-button type="danger" @click="deletion">Delete</el-button>
-              </span>
-            </div>
-        </el-dialog>
+<!--        <el-dialog-->
+<!--                title="Deletion"-->
+<!--                :visible.sync="dialogVisible"-->
+<!--                width="20%"-->
+<!--                top="15%"-->
+<!--                style="line-height: 20px; opacity: 90%;"-->
+<!--        >-->
+<!--            <h1>Are you sure?</h1>-->
+<!--            <div style = "text-align:center">-->
+<!--              <span slot="footer" class="dialog-footer">-->
+<!--              <el-button @click="dialogVisible = false">Cancel</el-button>-->
+<!--              <el-button type="danger" @click="deletion">Delete</el-button>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--        </el-dialog>-->
     </div>
 
 </template>
@@ -160,6 +164,7 @@
         data() {
 
             return {
+                titleOfThisPage:"Your Post with new like or comments！",
                 fullscreenLoading: false,
                 PersonId: {
                     id:0
@@ -192,8 +197,8 @@
                 disabled:false,
 
                 //num的假數據
-                likenum: 1,
-                commentnum: 1,
+                likeNum: 1,
+                commentNum: 1,
 
 
                 //用来操作弹出框
@@ -212,6 +217,9 @@
         },
 
         methods: {
+          toMyPost:function (){
+            this.$router.push('/home/myPost')
+          },
 
             toCollection:function (){
                 this.$router.push('/home/postCollection')
@@ -238,15 +246,26 @@
 
             getNotiPostList: async function (){
                 this.queryInfo.id = localStorage.getItem('idToken')
-                const { data: res } = await this.$http.get('/user/getPersonalPost',{ params: this.queryInfo })
-                if (res.status !== 200) {
-                    return this.$message.error('数据获取失败')
-                }
-              for(let i=0,len=4;i<len;i++){
-                res.data.postList[i].avatarurl=this.avatarList[res.data.postList[i].avatar].url
-              }
-                this.tableData = res.data.postList
-                this.total = res.data.totalpage
+                this.$http.get('/user/getNotificationPost',{ params: this.queryInfo }).then(res=>{
+                  if(res.data.status===200){
+                    console.log("emit啊")
+                    this.$emit('update',1,2)
+                    console.log(res)
+                    // console.log("length",res.data.postList.length)
+                    if(res.data.postList.length===0){
+                      this.titleOfThisPage="Your posts have neither new like nor new comment"
+                    }
+                      for(let i=0,len=res.data.postList.length;i<len;i++){
+                        res.data.postList[i].avatarurl=this.avatarList[res.data.postList[i].avatar].url
+                      }
+                    this.tableData = res.data.postList
+                    this.total = res.data.totalpage
+                  }
+                }).catch(()=>{
+                  this.titleOfThisPage="Fail to fetch notification data from server T_T"
+                })
+
+
             },
 
             handleSizeChange(newSize) {
@@ -292,8 +311,8 @@
             //磨洋工加载条，给钱加速
             //this.getUserInfo()
             this.getNotiPostList()
-            setTimeout(() =>{
-                this.openmyposts()}, 1500)
+            // setTimeout(() =>{
+            //     this.openmyposts()}, 1500)
         },
     }
 

@@ -50,8 +50,8 @@
           <div style="float: right;margin-top: 6px">
             <el-dropdown>
               <span class="el-dropdown-link" >
-                <el-badge is-dot class="item" v-if = "newNotify">
-                    <el-avatar shape="square" :size="50" :src="aurl" style="margin-right: 5px"></el-avatar>
+                <el-badge :value="newLikeAndComment" :hidden="hideNewNotifyAvatar" :max="99" class="item" >
+                    <el-avatar  shape="square" :size="50" :src="aurl" style="margin-right: 5px"></el-avatar>
                 </el-badge>
                 <h4 style="display: inline; margin-left: 2px">{{ userInfo.nickName }}</h4>
                 <i class="el-icon-arrow-down el-icon--right" style="margin-top: 19px"></i>
@@ -71,12 +71,12 @@
                     </el-dropdown-item>
 
                 </router-link>
-                  <router-link to="/home/postcollection">
+                  <router-link to="/home/postCollection">
                       <el-dropdown-item divided>Post Collection</el-dropdown-item>
                   </router-link>
 
                   <div @click = "toNotification()">
-                     <el-dropdown-item divided><el-badge is-dot class="item" v-if = "newNotify">Notification</el-badge></el-dropdown-item>
+                     <el-dropdown-item divided><el-badge :value="newLikeAndComment" :max="99" class="item" :hidden="hideNewNotifyDropdown">Notification</el-badge></el-dropdown-item>
                   </div>
               </el-dropdown-menu>
             </el-dropdown>
@@ -87,7 +87,7 @@
     <!-- 这个10就是让行距变小大概, 默认160   -->
     <el-main class="postListMain"  >
       <div class="middle" :style="backgroundDiv"></div>
-      <router-view></router-view>
+      <router-view @update="eliminateNotification"></router-view>
 
     </el-main>
   </el-container>
@@ -96,10 +96,14 @@
 //import { EventBus } from "../EventBus.js"
 import riden from '@/assets/riden.jpg'
 import postList from '@/components/postList'
-import notificationBoard from "./notificationBoard";
+import notificationBoard from "@/components/notificationBoard";
+import createPost from "@/components/createpost";
+import myPostList from "@/components/myPostList";
+import personalInfo from "@/components/personalInfo";
 export default {
 
   name:'resetPassword',
+  components:{postList,notificationBoard,createPost,myPostList,personalInfo},
   data(){
 
     return{
@@ -107,7 +111,9 @@ export default {
         valueS:''
       },
         //提醒boolean
-      newNotify: true,
+      newLikeAndComment:30,
+      hideNewNotifyAvatar: false,
+      hideNewNotifyDropdown: false,
       optionsS:[],
       backgroundDiv: {
         backgroundImage:"url(" + require('../assets/xjtluBG.jpg') + ")",
@@ -136,16 +142,43 @@ export default {
   },
 
   methods:{
-    notificationCount: async function(){
-      //獲取存在新提醒token
+    // changeAvatarNotify:function (){
+    //   console.log("changing")
+    //   this.newNotifyAvatar=true
+    // },
+    // notificationCount: async function(){
+    //   //獲取存在新提醒token
+    // },
+    // notificationChange: async function(){
+    //     //清除notification
+    // },
+    //因为我决定等到用户真的在notification界面看见才清零， 所以这两个方法我就注掉了。
+    eliminateNotification:function (flag,flag2){
+        console.log("激活了")
+        if(flag===1&&flag2===2){
+          this.hideNewNotifyAvatar=true;
+          this.hideNewNotifyDropdown=true;
+        }
     },
-    notificationChange: async function(){
-        //清除notification
+    getNotifications: async function (){
+        const id = localStorage.getItem("idToken")
+        this.$http.get('/user/checkNotification',{params:{userId:id}}).then(res=>{
+          if(res.data.status===200){
+            this.newLikeAndComment=res.data.data.newLikeAndComment
+            if(this.newLikeAndComment>0){
+              this.hideNewNotifyDropdown=false
+              this.hideNewNotifyAvatar=false
+            }
+          }
+        }).catch(()=>{
+          this.hideNewNotifyDropdown=true
+          this.hideNewNotifyAvatar=true
+          this.$message.error({message:"fail to fetch notification data from server"})
+        })
     },
 
     toNotification:function (){
       this.$router.push('/home/notificationBoard')
-      this.notificationChange()
     },
 
     refresh:function (){
@@ -212,6 +245,7 @@ export default {
   },
   created() {
     this.getUserInfo()
+    this.getNotifications()
   }
 
 

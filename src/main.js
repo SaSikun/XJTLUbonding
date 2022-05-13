@@ -19,7 +19,7 @@ Vue.prototype.queryevent = q
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
 Vue.use(Element)
-// require('./mock')
+require('./mock')
 
 
 new Vue({

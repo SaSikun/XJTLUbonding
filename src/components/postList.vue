@@ -165,24 +165,6 @@
         disabled:false,
         fullscreenLoading: false,
         postList:[],
-        postList2:[{
-          userName: "dandan1",
-          title: "i am post title1",
-          avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
-          id:0,
-        },
-          {
-            userName: "dandan2",
-            title: "i am post title2",
-            avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
-            id:1,
-          },
-          {
-            userName: "dandan3",
-            title: "i am post title3",
-            avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
-            id:2,
-          }],
       }
     },
     mounted() {
