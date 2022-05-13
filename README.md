@@ -1,4 +1,4 @@
-# vue-admain
+# XJTLU Bonding Forum Frontend
 
 ## Project setup
 ```
