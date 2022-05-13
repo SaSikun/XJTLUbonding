@@ -288,13 +288,23 @@
       },
       open() {
         const h = this.$createElement;
+        this.$notify.info({
+          title: 'Rules',
+          duration: 6000,
+          position: 'top-left',
+          dangerouslyUseHTMLString: true,
+          message: '<ul><li>1. This forum is an online community focusing on exchanging campus life.</li> <li>2. Members of this forum are independently responsible for the content they publish. The forum does not involve any political topics. Please understand.</li> <li>3. Advertising in any form is prohibited in this forum</li></ul>',
+          offset: 0,
+        });
+
         this.$notify({
           title: 'Welcome',
-          duration: 6000,
+          duration: 500,
           position: 'bottom-right',
           offset: 250,
           message: h('i', { style: 'color: teal'}, 'This is XJTLU Bonding, a web forum for XJTLUers!')
         });
+
       },
       handleSizeChange: function(newSize){
         this.queryInfo.pageSize = newSize

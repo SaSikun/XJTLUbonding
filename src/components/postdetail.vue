@@ -14,25 +14,12 @@
             <strong><em>Welcome to see detail!</em></strong>
           </el-col>
 
-          <el-col :span="3" style="text-align: right">
+          <el-col :span="6" style="text-align: right">
               <div class="delete">
                 <el-button v-if="isAdmin" @click="deletion" type="danger" icon="el-icon-delete-solid" size="medium" round>(艹皿艹 )Delete!</el-button>
               </div>
           </el-col>
-          <el-col :span = "1" style="text-align: right">
-            <div class = "star">
-              <el-badge :value= "collectNum" class="item" type = "primary">
-                <el-button type="warning" :icon= "collectIcon" circle @click="changeCollect()"></el-button>
-              </el-badge>
-            </div>
-          </el-col>
-          <el-col :span = "1">
-            <div class = "heart">
-              <el-badge :value= "likeNum" class="item" type = "primary">
-                <el-button type="danger" :icon="likeIcon" circle @click="changeLike()"></el-button>
-              </el-badge>
-            </div>
-          </el-col>
+
 
         </el-row>
       </el-header>
@@ -62,6 +49,24 @@
         <div class = "comment_button"><!--comment button-->
           <el-button type="success" @click="dialog = true">Comment!</el-button>
         </div>
+
+        <el-col :span = "22" style="text-align: right">
+          <div class = "star">
+            <el-badge :value= "collectNum" class="item" type = "primary">
+              <el-button type="warning" :icon= "collectIcon" circle @click="changeCollect()"></el-button>
+            </el-badge>
+          </div>
+        </el-col>
+        <el-col :span = "1" style="text-align: center; font-size: large">
+        /
+      </el-col>
+        <el-col :span = "1">
+          <div class = "heart" style = "text-align: left">
+            <el-badge :value= "likeNum" class="item" type = "primary">
+              <el-button type="danger" :icon="likeIcon" circle @click="changeLike()"></el-button>
+            </el-badge>
+          </div>
+        </el-col>
 
 
         <div class = "comment">

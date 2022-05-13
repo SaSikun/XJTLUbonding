@@ -72,7 +72,8 @@
             <div class="middle-avatar" style="margin-top: -50px">
               <el-image :size="180" :src="userAvatar"></el-image>
               <br><br><br>
-              <el-button type="primary" @click="manageAvatar" icon="el-icon-edit">Change</el-button>
+              <el-button type="primary" @click="showEditAvatarWindow" icon="el-icon-edit">Change</el-button>
+
             </div>
           </div>
         </el-col>
@@ -102,6 +103,53 @@
               <el-button style="margin: 10px auto;" type="primary" icon="el-icon-edit" size="medium" plain
                          @click="showEditWindow">Modify personalInfo
               </el-button>
+
+              <el-dialog :visible.sync="avatardialogVisible"
+                         width = "50%"
+                         height = "auto"
+                         :modal="false">
+                <el-row :gutter = "24">
+                  <el-col :span = "6">
+                    <div>
+                      <el-card :body-style="{ padding: '10px' }">
+                        <img src="../assets/avatar/man1.png">
+                        <div style="padding: 4px;">
+                          <el-button type="primary" @click="manageAvatar(0)" icon="el-icon-edit"></el-button>
+                        </div>
+                      </el-card>
+                    </div>
+                  </el-col>
+
+                  <el-col :span = "6">
+                    <el-card :body-style="{ padding: '10px' }">
+                      <img src="../assets/avatar/man2.png">
+                      <div style="padding: 4px;">
+                        <el-button type="primary" @click="manageAvatar(1)" icon="el-icon-edit"></el-button>
+                      </div>
+                    </el-card>
+                  </el-col>
+
+                  <el-col :span = "6">
+                    <el-card :body-style="{ padding: '10px' }">
+                      <img src="../assets/avatar/woman1.png">
+                      <div style="padding: 4px;">
+                        <el-button type="primary" @click="manageAvatar(2)" icon="el-icon-edit"></el-button>
+                      </div>
+                    </el-card>
+                  </el-col>
+
+                  <el-col :span = "6">
+                    <el-card :body-style="{ padding: '10px' }">
+                      <img src="../assets/avatar/woman2.png">
+                      <div style="padding: 4px;">
+                        <el-button type="primary" @click="manageAvatar(3)" icon="el-icon-edit"></el-button>
+                      </div>
+                    </el-card>
+                  </el-col>
+                </el-row>
+
+              </el-dialog>
+
               <!--                    title="Modify your Information"-->
               <el-dialog
                   :visible.sync="dialogVisible"
@@ -166,6 +214,7 @@ export default {
       userAvatar:'',
       labelPosition:'left',
       dialogVisible: false,
+      avatardialogVisible: false,
       InfoModificationForm:{
         id:0,
         nickName:'',
@@ -250,6 +299,14 @@ export default {
       console.log(this.InfoModificationForm,"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
       this.dialogVisible=true
     },
+
+    showEditAvatarWindow:function(){
+      this.PersonId.id = localStorage.getItem('idToken')
+      this.$http.get('/user/getPersonalInfo', {params:this.PersonId}).then(res=>{
+      this.avatardialogVisible=true
+    })
+    },
+
     getUserAvatar:function (){
       const userId = localStorage.getItem('idToken')
       this.$http.get('/user/getUserAvatar',{params:{id:userId}}).then(res=>{
@@ -273,16 +330,17 @@ export default {
         // console.log(this.userAvatar)
       })
     },
-    manageAvatar:function (){
+    manageAvatar:function (id){
         console.log(this.changeAvatar)
         this.changeAvatar.userId=localStorage.getItem('idToken')
         // if(this.changeAvatar.avatarId===-1){
         //   this.changeAvatar.avatarId=3
         // }
-         this.changeAvatar.avatarId +=1
-        if(this.changeAvatar.avatarId===4){
+        // this.changeAvatar.avatarId +=1
+     /*   if(this.changeAvatar.avatarId===4){
           this.changeAvatar.avatarId=0
-        }
+        }*/
+        this.changeAvatar.avatarId = id
         console.log(this.changeAvatar.avatarId)
         this.$http.get('/user/manageAvatar',{params:this.changeAvatar}).then(async res=>{
           if (res.data.status===200){
@@ -512,9 +570,6 @@ li {
   background-color: #f9fafc;
 }
 
-.card2{
-  z-index: 2;
-}
 .userpanel{
   text-align: center;
   color: white;
@@ -530,15 +585,6 @@ li {
   right:0px;
   bottom:-50px;
   color: #A7BFE8;
-}
-.card{
-  width:900px;
-  height:90px;
-  border: 1px solid #999;
-  margin: 5px auto;
-  box-shadow: 10px 10px 5px gray;
-  border-radius: 30px;
-  background-color: #f9fafc;
 }
 .el-pagination{
   position: absolute;
@@ -594,6 +640,12 @@ a:hover{
   color: #333;
   border-radius: 3px;
 }
+
+.image {
+  width: 100%;
+  display: block;
+}
+
 .el-col{
   height: auto;
   margin-top: 0;

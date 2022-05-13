@@ -6,7 +6,7 @@
             <div class = "box">
                 <el-form label-width="0px" class="login_form">
                     <el-form-item class="btns">
-                        <el-button @click = "back" type="primary">Back to log in page</el-button>
+                        <el-button @click = "back" type="primary">Go Back</el-button>
                     </el-form-item>
                 </el-form>
             </div>
