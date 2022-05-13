@@ -5,7 +5,7 @@ import store from "@/store";
 
 //定义url前半部分
 // axios.defaults.baseURL = 'http://localhost:8080'
-// axios.defaults.baseURL = 'http://47.111.2.133:8080/demo-0.0.1-SNAPSHOT/'
+axios.defaults.baseURL = 'http://47.111.2.133:8080/demo-0.0.1-SNAPSHOT/'
 //axios.defaults.baseURL = 'http://localhost:8080/demo_0_0_1_SNAPSHOT_wa r/'
 
 

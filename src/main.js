@@ -22,6 +22,7 @@ Vue.use(Element)
 require('./mock')
 
 
+
 new Vue({
   router,
   store,
