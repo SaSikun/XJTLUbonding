@@ -275,7 +275,7 @@ export default {
       this.$router.push('/home/notificationBoard')
     },
     toCollection:function (){
-      this.$router.push('/home/postcollection')
+      this.$router.push('/home/postCollection')
     },
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

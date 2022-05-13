@@ -215,7 +215,7 @@ import riden from '@/assets/riden.jpg'
         methods: {
 
             toCollection:function (){
-                this.$router.push('/home/postcollection')
+                this.$router.push('/home/postCollection')
             },
 
             toNotification:function (){

@@ -137,7 +137,7 @@
 <script>
     import riden from '@/assets/riden.jpg'
     export default {
-        name: 'myPostList',
+        name: "postCollection",
         data() {
 
             return {

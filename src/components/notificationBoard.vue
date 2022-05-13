@@ -214,7 +214,7 @@
         methods: {
 
             toCollection:function (){
-                this.$router.push('/home/postcollection')
+                this.$router.push('/home/postCollection')
             },
 
             //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
