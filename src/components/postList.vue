@@ -56,8 +56,11 @@
               </el-col>
               <el-col :span='5'>
                 <!--                    这里就是最方便的地方了， 直接绑定postid，  可以通过router to 直接传参post,id到detail 虽然还没实现  作为实验， 点击即可在控制台打印id-->
-                <div class="detailbtn">
-                  <el-button type="success" size="medium" round @click="SendToDetail(post.id)">See Detail</el-button>
+                <div>
+                  <el-button class="detailbtn" size="medium" round @click="SendToDetail(post.id)">
+                    <span>Click!</span>
+                    <span>See Detail</span>
+                    <div class="btnbg-x"></div></el-button>
                 </div>
               </el-col>
             </el-row>
@@ -340,34 +343,76 @@
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!xia
-  //see detail按钮效果*//
-  .seedetail{
-    background-color: #7DC4CC;
+   //see detail按钮效果*//
+  .detailbtn{
+    margin-bottom: 25px;
+    position: relative;
+    border:none;
+    width: 130px;
+    height: 40px;
+    line-height: 42px;
+    -webkit-perspective: 230px;
+    perspective: 230px;
+    right:0px;
+    bottom:-20px;
+    color: #A7BFE8;
   }
-  .contact {
+  .detailbtn span {
+    background: #7fbfff;
+    color: #626060;
+    display: block;
     position: absolute;
+    width: 130px;
+    height: 40px;
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+    7px 7px 20px 0px rgba(0,0,0,.1),
+    4px 4px 5px 0px rgba(0,0,0,.1);
+    border-radius: 50px;
+    margin:0;
+    text-align: center;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all .3s;
+    transition: all .3s;
   }
-  .seedetail:hover {
-    background: linear-gradient(90deg, #BC95C6 0%, #7DC4CC 50%, #BC95C6 100%);
-    background-size: 300% 100%; /*扩大背景区域*/
-    animation: text 4s infinite linear both, animated-border 1.5s infinite;
-    text-shadow: #676769 4px 4px 5px;
-    @keyframes logout {
-      0% {
-        background-position: 0 0;
-      }
-      100% {
-        background-position: -150% 0;
-      }
-    }
-    @keyframes animated-border {
-      0% {
-        box-shadow: 0 0 0 0 #A7BFE8;
-      }
-      100% {
-        box-shadow: 0 0 0 20px rgba(255,255,255,0);
-      }
-    }
+  .detailbtn span:nth-child(1) {
+    box-shadow:
+          -7px -7px 20px 0px #fff9,
+          -4px -4px 5px 0px #fff9,
+        7px 7px 20px 0px #0002,
+        4px 4px 5px 0px #0001;
+    -webkit-transform: rotateX(90deg);
+    -moz-transform: rotateX(90deg);
+    transform: rotateX(90deg);
+    -webkit-transform-origin: 50% 50% -20px;
+    -moz-transform-origin: 50% 50% -20px;
+    transform-origin: 50% 50% -20px;
+  }
+  .detailbtn span:nth-child(2) {
+    -webkit-transform: rotateX(0deg);
+    -moz-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+    -webkit-transform-origin: 50% 50% -20px;
+    -moz-transform-origin: 50% 50% -20px;
+    transform-origin: 50% 50% -20px;
+  }
+  .detailbtn:hover span:nth-child(1) {
+    box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+    7px 7px 20px 0px rgba(0,0,0,.1),
+    4px 4px 5px 0px rgba(0,0,0,.1);
+    -webkit-transform: rotateX(0deg);
+    -moz-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+  }
+  .detailbtn:hover span:nth-child(2) {
+    background: transparent;
+    color: transparent;
+    box-shadow: none;
+    text-shadow: none;
+    -webkit-transform: rotateX(-90deg);
+    -moz-transform: rotateX(-90deg);
+    transform: rotateX(-90deg);
   }
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
