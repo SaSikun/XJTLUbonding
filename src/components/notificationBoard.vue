@@ -246,11 +246,11 @@
 
             getNotiPostList: async function (){
                 this.queryInfo.id = localStorage.getItem('idToken')
-                this.$http.get('/user/getNotificationPost',{ params: this.queryInfo }).then(res=>{
+                this.$http.get('/user/getNotificationPost',{ params: this.queryInfo }).then(async res=>{
                   if(res.data.status===200){
-                    console.log("emit啊")
-                    this.$emit('update',1,2)
-                    console.log(res)
+                    // console.log("emit啊")
+
+                    // console.log(res)
                     // console.log("length",res.data.postList.length)
                     if(res.data.postList.length===0){
                       this.titleOfThisPage="Your posts have neither new like nor new comment"
@@ -260,14 +260,21 @@
                       }
                     this.tableData = res.data.postList
                     this.total = res.data.totalpage
+                    this.$emit('update',1,2)
+                    await this.clearNotification()
                   }
                 }).catch(()=>{
                   this.titleOfThisPage="Fail to fetch notification data from server T_T"
                 })
-
-
             },
-
+            clearNotification:function (){
+                const id = localStorage.getItem('idToken')
+                this.$http.get('/user/clearNotification',{params:{userId:id}}).then(res=>{
+                  if(res.data.status===200){
+                    return console.log("success")
+                  }
+                })
+            },
             handleSizeChange(newSize) {
                 this.queryInfo.pageSize = newSize
                 this.getMyPostList()
