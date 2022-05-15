@@ -386,7 +386,7 @@ let notificationResult = {
 let notificationResult1 = {
     status:200,
     msg:"hahaha",
-    totalpage:1,
+    // totalpage:1,
     postList:[{
         userName: "dandan1",
         title: "i am post title1",
@@ -411,72 +411,77 @@ let notificationResult1 = {
             likeNum:5,
             commentNum:4
         },
-        // {
-        //     userName: "dandan3",
-        //     title: "i am post title4",
-        //     avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
-        //     id:3,
-        // },
-        // {
-        //     userName: "dandan4",
-        //     title: "i am post title5",
-        //     avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
-        //     id:4,
-        // },
         {
-            userName: "dandan5",
-            title: "i am post title6",
+            userName: "dandan3",
+            title: "i am post title4",
             avatar:1,
-            id:5,
             likeNum:0,
-            commentNum:4
-        }],
-    data:{
-        postList:[{
-            userName: "dandan1",
-            title: "i am post title1",
-            avatar:1,
-            id:0,
-            likeNum:5,
-            commentNum:4
+            commentNum:4,
+            id:3,
         },
-            {
-                userName: "dandan2",
-                title: "i am post title2",
-                avatar:1,
-                id:1,
-                likeNum:5,
-                commentNum:4
-            },
-            {
-                userName: "dandan8",
-                title: "i am post title3",
-                avatar:1,
-                id:2,
-                likeNum:5,
-                commentNum:4
-            },
-            // {
-            //     userName: "dandan3",
-            //     title: "i am post title4",
-            //     avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
-            //     id:3,
-            // },
-            // {
-            //     userName: "dandan4",
-            //     title: "i am post title5",
-            //     avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
-            //     id:4,
-            // },
-            {
-                userName: "dandan5",
-                title: "i am post title6",
-                avatar:1,
-                id:5,
-                likeNum:0,
-                commentNum:4
-            }],
-    }
+        {
+            userName: "dandan4",
+            title: "i am post title5",
+            avatar:1,
+            likeNum:0,
+            commentNum:4,
+            id:4,
+        },
+        // {
+        //     userName: "dandan5",
+        //     title: "i am post title6",
+        //     avatar:1,
+        //     id:5,
+        //     likeNum:0,
+        //     commentNum:4
+        // }
+        ],
+    // data:{
+    //     postList:[{
+    //         userName: "dandan1",
+    //         title: "i am post title1",
+    //         avatar:1,
+    //         id:0,
+    //         likeNum:5,
+    //         commentNum:4
+    //     },
+    //         {
+    //             userName: "dandan2",
+    //             title: "i am post title2",
+    //             avatar:1,
+    //             id:1,
+    //             likeNum:5,
+    //             commentNum:4
+    //         },
+    //         {
+    //             userName: "dandan8",
+    //             title: "i am post title3",
+    //             avatar:1,
+    //             id:2,
+    //             likeNum:5,
+    //             commentNum:4
+    //         },
+    //         // {
+    //         //     userName: "dandan3",
+    //         //     title: "i am post title4",
+    //         //     avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+    //         //     id:3,
+    //         // },
+    //         // {
+    //         //     userName: "dandan4",
+    //         //     title: "i am post title5",
+    //         //     avatar: "https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png",
+    //         //     id:4,
+    //         // },
+    //         {
+    //             userName: "dandan5",
+    //             title: "i am post title6",
+    //             avatar:1,
+    //             id:5,
+    //             likeNum:0,
+    //             commentNum:4
+    //         }],
+    // }
 }
 let notificationResult2 = {
     status:200,
@@ -487,4 +492,13 @@ let notificationResult2 = {
 Mock.mock(RegExp('/user/getNotificationPost(.*)'),'get',(config)=>{
     console.log(config)
     return notificationResult1
+})
+
+let resultClearNotification = {
+    status:200,
+}
+Mock.mock(RegExp('/user/clearNotification(.*)'),'get',(config)=>{
+    console.log(config)
+    console.log("enter clear")
+    return resultClearNotification
 })
