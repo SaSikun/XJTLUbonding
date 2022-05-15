@@ -112,8 +112,8 @@ export default {
       },
         //提醒boolean
       newLikeAndComment:30,
-      hideNewNotifyAvatar: false,
-      hideNewNotifyDropdown: false,
+      hideNewNotifyAvatar: true,
+      hideNewNotifyDropdown: true,
       optionsS:[],
       backgroundDiv: {
         backgroundImage:"url(" + require('../assets/xjtluBG.jpg') + ")",
@@ -168,6 +168,9 @@ export default {
             if(this.newLikeAndComment>0){
               this.hideNewNotifyDropdown=false
               this.hideNewNotifyAvatar=false
+            }else{
+              this.hideNewNotifyAvatar=true
+              this.hideNewNotifyDropdown=true
             }
           }
         }).catch(()=>{
