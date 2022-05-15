@@ -226,6 +226,7 @@
             getCollectionList: async function (){
                 this.queryInfo.id = localStorage.getItem('idToken')
                 const { data: res } = await this.$http.get('/user/getCollection',{ params: this.queryInfo })
+                console.log(res,"resisaaaaaaaaaaaaaaaaaa")
                 if (res.status !== 200) {
                     return this.$message.error('no posts collected!')
                 }
