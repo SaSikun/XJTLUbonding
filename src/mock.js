@@ -489,9 +489,52 @@ let notificationResult2 = {
     totalpage:1,
     postList:[]
 }
+let notificationResult3 = {
+    "totalpage": 1,
+    "msg": "Successful get notification posts.",
+    "data": {
+        "totalpage": 1,
+        "postList": [
+            {
+                "anonymous": 0,
+                "avatar": 0,
+                "content": "test",
+                "criticism": 0,
+                "id": 2,
+                "isDeleted": 0,
+                "newComments": 10,
+                "newLikes": 10,
+                "title": "test",
+                "totalCollects": 0,
+                "totalLikes": 0,
+                "views": 0,
+                "writerId": 10002,
+                "writtenTime": 1652009005000
+            },
+            {
+                "anonymous": 0,
+                "avatar": 0,
+                "content": "test321",
+                "criticism": 0,
+                "id": 3,
+                "isDeleted": 0,
+                "newComments": 10,
+                "newLikes": 10,
+                "title": "test123",
+                "totalCollects": 0,
+                "totalLikes": 0,
+                "views": 0,
+                "writerId": 10002,
+                "writtenTime": 1652013422000
+            }
+        ],
+        "pagenum": 1
+    },
+    "status": 200
+}
 Mock.mock(RegExp('/user/getNotificationPost(.*)'),'get',(config)=>{
     console.log(config)
-    return notificationResult1
+    return notificationResult3
 })
 
 let resultClearNotification = {
