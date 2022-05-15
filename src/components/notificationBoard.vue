@@ -108,11 +108,11 @@
                             <el-col :span="16" style="text-align: left">
                                 <div class = "title" style="font-size: 20px;font-family: Microsoft YaHei; line-height: 25px"> <strong>Title:</strong>  {{post.title}}
                                     <!--實際後端上綫後需要在兩個vif的num前都加上post.-->
-                                    <el-tag style = "margin-left: 10px; " size="small" type="warning"  effect="dark" v-if = "post.commentNum!==0">
-                                        new comments: {{post.commentNum}}
+                                    <el-tag style = "margin-left: 10px; " size="small" type="warning"  effect="dark" v-if = "post.newComments!==0">
+                                      new comments: {{ post.newComments }}
                                     </el-tag>
-                                    <el-tag style = "margin-left: 10px; " size="small" type="danger"  effect="dark" v-if = "post.likeNum!==0">
-                                        new likes: {{post.likeNum}}
+                                    <el-tag style = "margin-left: 10px; " size="small" type="danger"  effect="dark" v-if = "post.newLikes!==0">
+                                        new likes: {{post.newLikes}}
                                     </el-tag>
                                 </div>
                             </el-col>
@@ -197,8 +197,8 @@
                 disabled:false,
 
                 //num的假數據
-                likeNum: 1,
-                commentNum: 1,
+              newLikes: 1,
+                newComments: 1,
 
 
                 //用来操作弹出框
@@ -252,14 +252,14 @@
 
                     // console.log(res)
                     // console.log("length",res.data.postList.length)
-                    if(res.data.postList.length===0){
+                    if(res.data.data.postList.length===0){
                       this.titleOfThisPage="Your posts have neither new like nor new comment"
                     }
-                      for(let i=0,len=res.data.postList.length;i<len;i++){
-                        res.data.postList[i].avatarurl=this.avatarList[res.data.postList[i].avatar].url
+                      for(let i=0,len=res.data.data.postList.length;i<len;i++){
+                        res.data.data.postList[i].avatarurl=this.avatarList[res.data.data.postList[i].avatar].url
                       }
-                    this.tableData = res.data.postList
-                    this.total = res.data.totalpage
+                    this.tableData = res.data.data.postList
+                    this.total = res.data.data.totalpage
                     this.$emit('update',1,2)
                     await this.clearNotification()
                   }
