@@ -488,9 +488,14 @@
         });
       },
       changeLike:function (){
-      var box = document.querySelectorAll('.box')
+            var box = document.querySelectorAll('.box')
       box[0].addEventListener('click', () => {
-        box[0].classList.add('boxactive')
+        if (box[0].classList.contains('boxactive')){
+          box[0].classList.remove('boxactive')
+        }
+          else{
+            box[0].classList.add('boxactive')
+          }
       })
         const token = localStorage.getItem('idToken')
         // this.isLiked= !this.isLiked
