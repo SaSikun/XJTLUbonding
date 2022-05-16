@@ -15,9 +15,12 @@
           </el-col>
 
           <el-col :span="6" style="text-align: right">
-              <div class="delete">
-                <el-button v-if="isAdmin" @click="deletion" type="danger" icon="el-icon-delete-solid" size="medium" round>(艹皿艹 )Delete!</el-button>
-              </div>
+            <div class="delete">
+              <el-button v-if="isAdmin" @click="deletion" class="btn5" icon="el-icon-delete-solid" size="medium" round>
+                <span>(艹皿艹 )Delete!</span>
+                <div class="dot"></div>
+              </el-button>
+            </div>
           </el-col>
 
 
@@ -47,23 +50,25 @@
         </div>
 
         <div class = "comment_button"><!--comment button-->
-          <el-button type="success" @click="dialog = true">Comment!</el-button>
+          <el-button class="commentbtn" @click="dialog = true">
+            <span>Comment</span>
+          </el-button>
         </div>
 
         <el-col :span = "22" style="text-align: right">
           <div class = "star">
             <el-badge :value= "collectNum" class="item" type = "primary">
-              <el-button type="warning" :icon= "collectIcon" circle @click="changeCollect()"></el-button>
+              <el-button class="box1" :icon= "collectIcon" circle @click="changeCollect()"></el-button>
             </el-badge>
           </div>
         </el-col>
         <el-col :span = "1" style="text-align: center; font-size: large">
         /
       </el-col>
-        <el-col :span = "1">
-          <div class = "heart" style = "text-align: left">
+       <el-col :span = "1">
+          <div class="likeBtn" style = "text-align: left">
             <el-badge :value= "likeNum" class="item" type = "primary">
-              <el-button type="danger" :icon="likeIcon" circle @click="changeLike()"></el-button>
+              <el-button id="box" class = "box"  circle onclick="change()" @click="changeLike()"></el-button>
             </el-badge>
           </div>
         </el-col>
@@ -124,6 +129,133 @@
     padding: 5px;
     position: absolute;
   }
+  
+  /*delete button*/
+.btn5 {
+  width: 200px;
+  height: 40px;
+  color: #fff;
+  border-radius: 50px;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  box-shadow: inset 2px 2px 2px 0px rgba(255,255,255,.5),
+  inset -7px -7px 10px 0px rgba(0,0,0,.1),7px 7px 20px 0px rgba(0,0,0,.1),
+  4px 4px 5px 0px rgba(0,0,0,.1);
+  text-shadow:  2px 2px 3px rgba(255,255,255,.5),
+  -4px -4px 6px rgba(116, 125, 136, .2);
+  outline: none;
+}
+.btn5 {
+  border: none;
+  color: #fdfcfc;
+  background-color: #f0094a;
+}
+.btn5:hover {
+  color: #f0094a;
+  background: transparent;
+  box-shadow:none;
+}
+.btn5:before,
+.btn5:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #f0094a;
+  box-shadow:
+      -1px -1px 5px 0px #fff,
+      7px 7px 20px 0px #0003,
+      4px 4px 5px 0px #0002;
+  transition:400ms ease all;
+}
+.btn5:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
+}
+.btn5:hover:before,
+.btn5:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+
+
+/*like button*/
+.box{
+  width:50px;
+  height:50px;
+  background: url(https://cssanimation.rocks/images/posts/steps/heart.png) no-repeat left;
+  background-size: cover;
+  background-color: #d3dce6;
+  cursor: pointer;
+}
+
+.boxactive {
+  background-position: right;
+  transition: background .75s steps(28);
+}
+
+/*collect button*/
+.box1{
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+}
+.box1{
+  position: relative;
+  display: block;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 60px;
+  background: #d35400;
+  border-radius: 50%;
+  font-size: 30px;
+  color: rgb(253, 252, 252);
+  transition: .5s;
+}
+.box1:before {
+  content: '';
+  position: absolute;
+  top:0;
+  left:0;
+  width: 40px;
+  height: 40px;
+  border-radius:50%;
+  background: #d35400;
+  transition: .5s;
+  transform: scale(.9);
+  z-index: -1;
+}
+
+.box1:hover:before {
+  transform: scale(1.2);
+  box-shadow: 0 0 15px #d35400;
+  filter: blur(3px);
+}
+
+.box1:hover {
+  color: #ffa502;
+  box-shadow: 0 0 15px #d35400;
+  text-shadow: 0 0 15px #d35400;
+}
+
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!shang*/
+
   .el-header {
     background-color: #6253FF;
     color: white;
@@ -168,6 +300,42 @@
     position: relative;
 
   }
+  
+  
+  /*comment button*/
+  .commentbtn {
+  background: transparent;
+  border: 0;
+  border-radius: 50px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 20px;
+  margin-top: 30px;
+  padding: 15px 30px;
+  position: relative;
+}
+
+.commentbtn:before {
+  transition: all 0.8s cubic-bezier(0.7, -0.5, 0.2, 2);
+  content: '';
+  width: 1%;
+  height: 100%;
+  border-radius: 50px;
+  background: #43ce36;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.commentbtn span {
+  mix-blend-mode: darken;
+}
+
+.commentbtn:hover:before {
+  border-radius: 50px;
+  background: #43ce36;
+  width: 100%;
+}
   ::v-deep .comment .el-table .cell{
     line-height: 20px;
     padding: 20px;
@@ -320,6 +488,10 @@
         });
       },
       changeLike:function (){
+      var box = document.querySelectorAll('.box')
+      box[0].addEventListener('click', () => {
+        box[0].classList.add('boxactive')
+      })
         const token = localStorage.getItem('idToken')
         // this.isLiked= !this.isLiked
         // this.viewerPost.like=this.isLiked
